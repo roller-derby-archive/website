@@ -46,7 +46,7 @@ final class ClubController extends AbstractController
         ]);
     }
 
-    #[Route('/club/{id}/edit', name: 'club_edit')]
+//    #[Route('/club/{id}/edit', name: 'club_edit')]
     public function update(Request $request, Club $club): Response
     {
 

@@ -6,6 +6,12 @@
             <h1>Classement Flattrack France</h1>
         </div>
         <div class="rda-content">
+            <p>Cette page est une vue filtré du classement Flattrack du 19/04/2025 (non actualisé). Elle représente le classement européen avec uniquement les équipes françaises. La "note" correspond au "rating" de Flattrack. Merci de ne pas trop partager cette page svp, c'est un site en cours de development 🙏</p>
+            {% if gender == 'men' %}
+                <a class="rda-wiki-link" href="{{ path('flattrack_french_ranking_women_and_more')}}">Voir le classement F+</a>
+            {% else %}
+                <a class="rda-wiki-link" href="{{ path('flattrack_french_ranking_mix')}}">Voir le classement mixte</a>
+            {% endif %}
             <h2>{% if gender == 'men' %}Équipes mixtes {% else %} Équipes féminines et minoritées de genre{% endif %}</h2>
             {{ include('page/_rank_table.html.twig', {data: data}) }}
         </div>

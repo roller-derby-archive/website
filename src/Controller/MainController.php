@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 final class MainController extends AbstractController
 {
-    #[Route('/', name: 'main')]
+//    #[Route('/', name: 'main')]
     public function view(): Response
     {
         return $this->render('main.html.twig');

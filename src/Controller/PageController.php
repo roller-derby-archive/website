@@ -17,7 +17,7 @@ final class PageController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
     ){}
 
-    #[Route('/flattrackFrenchRankingWomenAndMore', name: 'flattrack_french_ranking_women_and_more')]
+    #[Route('/', name: 'flattrack_french_ranking_women_and_more')]
     public function flattrackFrenchRankingWomenAndMore(): Response
     {
         return $this->render('page/flattrack_french_ranking.html.twig', [
@@ -26,7 +26,7 @@ final class PageController extends AbstractController
         ]);
     }
 
-    #[Route('/flattrackFrenchRankingMix', name: 'flattrack_french_ranking_mix')]
+    #[Route('/mixte', name: 'flattrack_french_ranking_mix')]
     public function flattrackFrenchRankingMix(): Response
     {
         return $this->render('page/flattrack_french_ranking.html.twig', [

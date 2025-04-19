@@ -20,7 +20,7 @@ final class TeamController extends AbstractController
         private readonly EntityManagerInterface $entityManager,
     ){}
 
-    #[Route('/teams', name: 'team_list')]
+//    #[Route('/teams', name: 'team_list')]
     public function list(): Response
     {
         $teams = $this->entityManager->getRepository(Team::class)->findBy([], ['name' => 'ASC']);
