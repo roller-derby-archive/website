@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="rda-page">
+        <div class="rda-title-bar">
+            <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
+        </div>
+        <div class="rda-club-view-content">
+            {{ form(form) }}
+        </div>
+    </main>
+{% endblock %}

@@ -1,3 +1,350 @@
-body {
-    background-color: skyblue;
+html {
+    font-family: sans-serif;
 }
+
+body {
+    background-color: #f8f9fa;
+    margin: 0 auto;
+}
+
+ul {
+    margin: 0 auto;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Linux Libertine','Georgia','Times','Source Serif Pro',serif;
+    font-weight: normal;
+    font-variant-numeric: lining-nums;
+}
+
+h1 {
+    border-bottom-color: #888787;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+main {
+    display: grid;
+    grid-template: min-content min-content min-content 1fr / minmax(0,59.25rem) min-content;
+    grid-template-areas:
+        'titlebar columnEnd'
+        'toolbar columnEnd'
+        'content columnEnd';
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
+}
+
+footer {
+    height: 50px;
+    border-top: gray solid 1px;
+    padding: 20px;
+}
+
+footer li {
+    display: block;
+    float: left;
+    margin-right: 20px;
+    font-size: 14px;
+}
+
+footer li:last-child {
+    display: block;
+    float: left;
+    margin-right: 0;
+}
+
+footer li a {
+    padding-right: 20px;
+}
+
+footer li:last-child a  {
+    padding-right: 0;
+}
+
+footer li:last-child:after {
+    content: none;
+}
+
+footer li:after {
+    content: "|";
+}
+
+/************** Generic Class **************/
+
+.rda-page {
+    min-width: auto;
+    background-color: #ffffff;
+    padding-left: 3.25rem;
+    padding-right: 3.25rem;
+    padding-bottom: 20px;
+    max-width: 99.75rem;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.rda-wiki-link, .rda-wiki-link:active {
+    color: #3366CCFF;
+    text-decoration: none;
+}
+
+.rda-title-bar {
+    grid-area: titlebar;
+}
+
+.rda-content {
+    grid-area: content;
+}
+
+.rda-team-category {
+    margin-top: 1px;
+    display: block;
+    background-color: #eddab4;
+    color: #142949;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+}
+
+.rda-team-type {
+    margin-left: 2px;
+    margin-top: 1px;
+    display: block;
+    background-color: #adf8d8;
+    color: #4c2020;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+}
+
+.rda-team-level {
+    margin-left: 2px;
+    margin-top: 1px;
+    display: block;
+    background-color: #eebaf6;
+    color: #6c1e48;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+}
+
+/* infobox */
+
+.rda-infobox {
+    padding: 5px;
+    width: 25em;
+    background-color: #f9f9f9;
+    border: 1px solid #a2a9b1;
+    clear: right;
+    float: right;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0 0 0.5em 1em;
+    max-width: 325px;
+    word-wrap: break-word;
+}
+
+.rda-infobox h2 {
+    display: table;
+    padding-top: 10px;
+    height: 35px;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.4em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    background-color: #ebebeb;
+    font-family: sans-serif;
+    color: #000000;
+    margin-top: 0;
+}
+
+.rda-infobox img {
+    display: block;
+    margin: 5px auto;
+}
+
+.rda-infobox caption {
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.1;
+    margin: 0 0 5px 0;
+    padding: 4px;
+    background: #ebebeb;
+    color: #000000;
+}
+
+.rda-infobox table {
+    width: 100%;
+    margin: 5px 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+/************** Main **************/
+
+
+
+/************** Flattrack french ranking **************/
+
+.rda-ftfr-table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+.rda-ftfr-table tr:nth-child(even) {
+    background-color: #f6ecf6;
+}
+
+.rda-ftfr-table thead tr {
+    background-color: #dcd9dc;
+}
+
+.rda-ftfr-table thead th {
+    padding: 5px 0;
+}
+
+.rda-ftfr-table thead th:nth-child(1) {
+    width: 50px;
+}
+
+.rda-ftfr-table thead th:nth-child(2) {
+    width: 50px;
+}
+
+.rda-ftfr-table tbody td:nth-child(2) {
+     padding-right: 20px;
+}
+
+.rda-ftfr-table thead th:nth-child(3) {
+    text-align: left;
+}
+
+.rda-ftfr-table thead th:nth-child(4) {
+    width: 70px;
+}
+
+.rda-ftfr-table thead th:nth-child(5) {
+    width: 110px;
+}
+
+.rda-ftfr-rank-cell {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.rda-ftfr-logo-cell img {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 2px auto;
+    display: block;
+}
+
+.rda-ftfr-name-cell {
+    text-align: left;
+}
+
+.rda-ftfr-name-cell p {
+    margin: 0;
+}
+
+.rda-ftfr-other-cell {
+    text-align: center;
+}
+
+/************** Club List **************/
+
+.region-list {
+    column-count: 2;
+}
+
+.region-list h2 {
+    margin: 14px 0 15px 0;
+}
+
+.region-list li:first-child h2 {
+    margin-top: 0;
+    margin-bottom: 23px;
+}
+
+
+.club-list a {
+    border: #888787 solid 1px;
+    margin-bottom: 5px;
+    display: flex;
+}
+
+.club-list a:hover {
+    background-color: #e0e0e0;
+}
+
+
+.club-list a img {
+    display: block;
+    max-width: 34px;
+    max-height: 34px;
+    margin-top: 4px;
+    margin-left: 4px;
+    border-radius: 20px;
+}
+
+.club-list div  {
+    display: block;
+    padding: 5px;
+    flex: 1;
+}
+
+.club-list a p:first-child {
+    color: #3366CCFF;
+    margin: 0;
+    text-decoration: none;
+}
+
+.club-list a p:last-child {
+    margin: 0;
+    font-size: 13px;
+}
+
+/* Club view */
+
+
+
+/*.rda-club-view-content {*/
+/*    display: grid;*/
+/*    grid-template-areas:*/
+/*  "history history infobox"*/
+/*}*/
+
+/*.rda-club-view-infobox {*/
+/*    grid-area: infobox;*/
+/*    background-color: #888787;*/
+/*}*/
+
+/*.rda-club-view-history {*/
+/*    grid-area: history;*/
+
+/*    background-color: #a78bfa;*/
+/*}*/

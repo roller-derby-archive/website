@@ -11,7 +11,9 @@
         "doctrine/doctrine-bundle": "^2.14",
         "doctrine/doctrine-migrations-bundle": "^3.4",
         "doctrine/orm": "^3.3",
+        "paquettg/php-html-parser": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.6",
+        "phpoffice/phpspreadsheet": "^4.1",
         "phpstan/phpdoc-parser": "^2.1",
         "symfony/asset": "7.2.*",
         "symfony/asset-mapper": "7.2.*",
@@ -38,12 +40,15 @@
         "symfony/string": "7.2.*",
         "symfony/translation": "7.2.*",
         "symfony/twig-bundle": "7.2.*",
+        "symfony/uid": "7.2.*",
         "symfony/ux-turbo": "^2.24",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
         "twig/extra-bundle": "^2.12|^3.0",
-        "twig/twig": "^2.12|^3.0"
+        "twig/twig": "^2.12|^3.0",
+      "ext-gd": "*",
+      "ext-exif": "*"
     },
     "config": {
         "allow-plugins": {

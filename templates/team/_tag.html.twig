@@ -1,0 +1,3 @@
+<span class="rda-team-category">{{ teamCategory(team.genderScope) }}</span>
+{% if team.level != null %}<span class="rda-team-level">{{ team.level }}</span>{% endif %}
+{% if team.letter != 'A' %}<span class="rda-team-type">{{ teamType(team.letter) }}</span>{% endif %}

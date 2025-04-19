@@ -1,0 +1,34 @@
+<table class="rda-ftfr-table">
+    <thead>
+    <tr>
+        <th>Rang</th>
+        <th></th>
+        <th>Èquipe</th>
+        <th>Note</th>
+        <th>Rang europe</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for teamRank in data %}
+        <tr id="{{ teamRank.id }}">
+            <td class="rda-ftfr-rank-cell">{{ teamRank.french_rank }}</td>
+            <td class="rda-ftfr-logo-cell">
+                {% if teamRank.logo != null %}
+                    <img alt="{{ teamRank.logo }}" src="{{ asset('images/'~teamRank.logo) }}">
+                {% else %}
+                    <img alt="logo-club" src=" https://placehold.co/20x20">
+                {% endif %}
+            </td>
+            <td class="rda-ftfr-name-cell">
+                <a class="rda-wiki-link" href="{{ path('team_view', {id: teamRank.team_id}) }}">{{ teamName(teamRank.name, teamRank.pronoun) }}</a>
+                <p>
+                    {% if teamRank.level != null %}<span class="rda-team-level">{{ teamRank.level }}</span>{% endif %}
+                    {% if teamRank.letter != 'A' %}<span class="rda-team-type">{{ teamType(teamRank.letter) }}</span>{% endif %}
+                </p>
+            </td>
+            <td class="rda-ftfr-other-cell">⚝{{ teamRank.rating}}</td>
+            <td class="rda-ftfr-other-cell">{{ teamRank.european_rank}}{% if teamRank.european_rank == 1 %}er{% else %}ème{% endif %}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

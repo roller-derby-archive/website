@@ -1,0 +1,6 @@
+<tr>
+    <td><a class="rda-wiki-link" href="{{ path('team_view', {id: team.id}) }}">{{ team.name }}</a></td>
+    <td>
+        {{ include('team/_tag.html.twig', {team: team}) }}
+    </td>
+</tr>

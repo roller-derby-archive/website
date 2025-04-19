@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="rda-page">
+        <section class="rda-title-bar">
+            <h1>Les associations ({{ totalClub }})</h1>
+            <ul class="region-list">{% for name, clubs in regions %}
+                <li>
+                    <h2>{{ name }} ({{ clubs|length }})</h2>
+                    <ul class="club-list">{% for club in clubs %}
+                            <li>
+                                <a href="{{ path('club_view', {id: club.id}) }}">
+                                    {% if club.logo != null %}
+                                        <img alt="{{ club.logo }}" src="{{ asset('images/'~club.logo) }}">
+                                    {% else %}
+                                        <img alt="logo-club" src=" https://placehold.co/200x200">
+                                    {% endif %}
+                                    <div>
+                                        <p class="wiki-link">{{ club.Name }}{% if null != club.Alias %} ({{ club.alias }}){% endif %}{% if club.closedAt != null %}☠️{% endif %}</p>
+                                        <p>{{ club.cities|join(', ') }}</p>
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}</ul>
+                </li>
+                        {% endfor %}</ul>
+        </section>
+    </main>
+{% endblock %}

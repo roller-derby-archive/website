@@ -1,0 +1,18 @@
+{% if flattrackRank|length > 0 %}<table>
+    <caption>Classement Flattrack</caption>
+    <tbody>
+    <tr>
+        <th>Note</th>
+        <td>{{ flattrackRank.rating }}</td>
+    </tr>
+    <tr>
+        <th><a class="rda-wiki-link" href="https://www.flattrackstats.com/rankings/women/women_europe" target="_blank">Rang Europe</a></th>
+        <td>{{ flattrackRank.european_rank }}{% if flattrackRank.european_rank == 1 %}1er{% else %}ème{% endif%} sur {{ flattrackTotalClassedEuropeanTeam }} équipes</td>
+    </tr>
+    <tr>
+        {% if team.genderScope == 'F+' %}{% set ranking_route_name = "flattrack_french_ranking_women_and_more" %}{% else %}{% set ranking_route_name = "flattrack_french_ranking_mix" %}{% endif %}
+        <th><a class="rda-wiki-link" href={{ path(ranking_route_name) }}#{{ team.flattrackId }}>Rang France</a></th>
+        <td>{{ flattrackRank.french_rank }}{% if flattrackRank.european_rank == 1 %}1er{% else %}ème{% endif%} sur {{ flattrackTotalClassedFrenchTeam }} équipes</td>
+    </tr>
+    </tbody>
+    </table>{% endif %}

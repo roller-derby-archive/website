@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="rda-page">
+        <section class="rda-title-bar">
+            <h1>Les équipes ({{ totalTeam }})</h1>
+            <ul class="region-list">{% for name, teams in regions %}
+                <li>
+                    <h2>{{ name }}</h2>
+                    <ul class="club-list">{% for team in teams %}
+                            <li>
+                                <a href="{{ path('team_view', {id: team.id}) }}">
+                                    {% if team.logo != null %}
+                                        <img alt="{{ team.logo }}" src="{{ asset('images/'~team.logo) }}">
+                                    {% else %}
+                                        <img alt="logo-team" src=" https://placehold.co/200x200">
+                                    {% endif %}
+                                    <div>
+                                        <p class="wiki-link">
+                                            {{ teamName(team.name, team.pronoun) }}
+                                            {% if team.disbandAt != null %} ☠️{% endif %}
+                                        </p>
+                                        {{ include('team/_tag.html.twig', {team: team}) }}
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}</ul>
+                </li>
+                        {% endfor %}</ul>
+        </section>
+    </main>
+{% endblock %}
