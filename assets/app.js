@@ -1,10 +1,19 @@
-import './bootstrap.js';
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
-import './styles/app.css';
+import './bootstrap.js'
+import './styles/app.css'
+import ClubListWatcherPage from './js/club/list.js'
+import TeamListWatcherPage from './js/team/list.js'
 
-console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
+
+
+const pages = [
+    new ClubListWatcherPage(),
+    new TeamListWatcherPage(),
+]
+
+document.addEventListener("turbo:load", function (event) {
+    //for (const page of pages) {
+    //    if (page.isExecutable(event.detail.url)) {
+    //        page.execute(event)
+    //    }
+    //}
+})

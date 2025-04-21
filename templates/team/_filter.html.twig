@@ -1,0 +1,49 @@
+<div id="team_list_filter">
+    <form>
+        <fieldset>
+            <legend>Activité:</legend>
+            <div>
+                <input type="radio" id="list_filter_activity_off" name="activity" value="off" />
+                <label for="list_filter_activity_off">Disoutes</label>
+            </div>
+            <div>
+                <input type="radio" id="list_filter_activity_all" name="activity" value="all" />
+                <label for="list_filter_activity_all">Toutes</label>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>Niveau:</legend>
+            {% set levelFilterValues = {'casual': 'Loisir', 'n3': 'N3', 'n2': 'N2', 'n1': 'N1', 'elite': 'Elite'} %}
+            {% set levelFilterName = 'filters[level][]' %}
+            {% for id, value in levelFilterValues %}
+                <div>
+                    <input type="checkbox" id="list_filter_category_{{ id }}" name="{{ levelFilterName }}" value="{{ value }}" />
+                    <label for="list_filter_level_{{ id }}">{{ value }}</label>
+                </div>
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend>Catégories:</legend>
+            {% set categoryFilterValues = {'fplus': 'F+', 'mixed': 'M', 'junior': 'J'} %}
+            {% set categoryFilterName = 'filters[category][]' %}
+            {% for id, value in categoryFilterValues %}
+            <div>
+                <input type="checkbox" id="list_filter_category_{{ id }}" name="{{ categoryFilterName }}" value="{{ value }}" />
+                <label for="list_filter_level_{{ id }}">{{ teamCategory(value) }}</label>
+            </div>
+            {% endfor %}
+        </fieldset>
+        <fieldset>
+            <legend>Type:</legend>
+            {% set typeFilterValues = {'team_a': 'A', 'team_b': 'B', 'team_c': 'C', 'team_d': 'D', 'aliance': 'S', 'regional': 'R', 'national': 'N'} %}
+            {% set typeFilterName = 'filters[type][]' %}
+            {% for id, value in typeFilterValues %}
+                <div>
+                    <input type="checkbox" id="list_filter_type_{{ id }}" name="{{ typeFilterName }}" value="{{ value }}" />
+                    <label for="list_filter_level_{{ id }}">{{ teamType(value) }}</label>
+                </div>
+            {% endfor %}
+        </fieldset>
+        <input id="list_filter_button" type="submit" value="Appliquer">
+    </form>
+</div>

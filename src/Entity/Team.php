@@ -13,12 +13,18 @@ class Team
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    //#[ORM\GeneratedValue(strategy: 'CUSTOM')] TODO
+    //#[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?string $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $overview = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $history = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $disbandAt = null;
@@ -30,13 +36,22 @@ class Team
     private ?int $flattrackId = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $genderScope = null;
+    private ?string $category = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $level = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $letter = null;
+    private ?string $type = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $facebookId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $instagramId = null;
 
     /**
      * @var Collection<int, Club>
@@ -50,11 +65,16 @@ class Team
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pronoun = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $mediaLinks = null;
+
     /**
      * @var Collection<int, TeamGame>
      */
     #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'teamId', orphanRemoval: true)]
     private Collection $teamGames;
+
+    private ?FlattrackRanking $flattrackRanking = null;
 
     public function __construct()
     {
@@ -67,6 +87,13 @@ class Team
         return $this->id;
     }
 
+    public function setId(?string $id): Team
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -75,6 +102,42 @@ class Team
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getOverview(): ?string
+    {
+        return $this->overview;
+    }
+
+    public function setOverview(?string $overview): static
+    {
+        $this->overview = $overview;
+
+        return $this;
+    }
+
+    public function getHistory(): ?string
+    {
+        return $this->history;
+    }
+
+    public function setHistory(?string $history): static
+    {
+        $this->history = $history;
+
+        return $this;
+    }
+
+    public function getMediaLinks(): ?array
+    {
+        return $this->mediaLinks;
+    }
+
+    public function setMediaLinks(?array $mediaLinks): static
+    {
+        $this->mediaLinks = $mediaLinks;
 
         return $this;
     }
@@ -115,14 +178,14 @@ class Team
         return $this;
     }
 
-    public function getGenderScope(): ?string
+    public function getCategory(): ?string
     {
-        return $this->genderScope;
+        return $this->category;
     }
 
-    public function setGenderScope(string $genderScope): static
+    public function setCategory(string $category): static
     {
-        $this->genderScope = $genderScope;
+        $this->category = $category;
 
         return $this;
     }
@@ -139,14 +202,14 @@ class Team
         return $this;
     }
 
-    public function getLetter(): ?string
+    public function getType(): ?string
     {
-        return $this->letter;
+        return $this->type;
     }
 
-    public function setLetter(string $letter): static
+    public function setType(string $type): static
     {
-        $this->letter = $letter;
+        $this->type = $type;
 
         return $this;
     }
@@ -199,6 +262,42 @@ class Team
         return $this;
     }
 
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getFacebookId(): ?string
+    {
+        return $this->facebookId;
+    }
+
+    public function setFacebookId(?string $facebookId): static
+    {
+        $this->facebookId = $facebookId;
+
+        return $this;
+    }
+
+    public function getInstagramId(): ?string
+    {
+        return $this->instagramId;
+    }
+
+    public function setInstagramId(?string $instagramId): static
+    {
+        $this->instagramId = $instagramId;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, TeamGame>
      */
@@ -227,5 +326,15 @@ class Team
         }
 
         return $this;
+    }
+
+    public function getFlattrackRanking(): ?FlattrackRanking
+    {
+        return $this->flattrackRanking;
+    }
+
+    public function setFlattrackRanking(?FlattrackRanking $flattrackRanking): void
+    {
+        $this->flattrackRanking = $flattrackRanking;
     }
 }

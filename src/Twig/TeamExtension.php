@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace App\Twig;
 
-use App\Enum\Category;
+use App\Enum\TeamCategory;
+use App\Enum\TeamType;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -37,18 +38,10 @@ final class TeamExtension extends AbstractExtension
 
     public function getCategory(string $category): string
     {
-        return Category::getName($category);
+        return TeamCategory::getName($category);
     }
     public function GetType(string $type): string
     {
-        if ($type === 'S') {
-            return "Alliance";
-        }
-
-        if ($type === 'R') {
-            return "Régional";
-        }
-
-        return sprintf('Équipe %s', $type);
+        return TeamType::getName($type);
     }
 }

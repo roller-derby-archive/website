@@ -14,18 +14,27 @@ class Club
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
+    // #[ORM\GeneratedValue(strategy: 'CUSTOM')] TODO
+    // #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?string $id = null;
 
     #[ORM\Column]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $legalName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $legalId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $alias = null;
 
     #[ORM\Column(nullable: true)]
-    private ?string $description = null;
+    private ?string $overview = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $history = null;
 
     #[ORM\Column(length: 6)]
     private ?string $regionCode = null;
@@ -39,11 +48,11 @@ class Club
     #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'clubs')]
     private Collection $teams;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $alias = null;
+    #[ORM\Column(length: 3, nullable: true)]
+    private ?string $genderDiversityPolicy = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $diversity = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -57,14 +66,17 @@ class Club
     #[ORM\Column(nullable: true)]
     private ?array $websites = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?array $mediaLinks = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $facebookId = null;
+    private ?string $interleagueEmail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $interleagueEmail = null;
+    private ?string $facebookId = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $instagramId = null;
@@ -85,6 +97,13 @@ class Club
         return $this->id;
     }
 
+    public function setId(?string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     public function getName(): ?string
     {
         return $this->name;
@@ -93,6 +112,30 @@ class Club
     public function setName(string $name): static
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getLegalName(): ?string
+    {
+        return $this->legalName;
+    }
+
+    public function setLegalName(?string $legalName): static
+    {
+        $this->legalName = $legalName;
+
+        return $this;
+    }
+
+    public function getLegalId(): ?string
+    {
+        return $this->legalId;
+    }
+
+    public function setLegalId(?string $legalId): static
+    {
+        $this->legalId = $legalId;
 
         return $this;
     }
@@ -109,16 +152,26 @@ class Club
         return $this;
     }
 
-    public function getDescription(): ?string
+    public function getOverview(): ?string
     {
-        return $this->description;
+        return $this->overview;
     }
 
-    public function setDescription(?string $description): static
+    public function setOverview(?string $overview): static
     {
-        $this->description = $description;
+        $this->overview = $overview;
 
         return $this;
+    }
+
+    public function getHistory(): ?string
+    {
+        return $this->history;
+    }
+
+    public function setHistory(?string $history): void
+    {
+        $this->history = $history;
     }
 
     public function getRegionCode(): ?string
@@ -184,14 +237,14 @@ class Club
         return $this;
     }
 
-    public function getDiversity(): ?string
+    public function getGenderDiversityPolicy(): ?string
     {
-        return $this->diversity;
+        return $this->genderDiversityPolicy;
     }
 
-    public function setDiversity(?string $diversity): static
+    public function setGenderDiversityPolicy(?string $genderDiversityPolicy): static
     {
-        $this->diversity = $diversity;
+        $this->genderDiversityPolicy = $genderDiversityPolicy;
 
         return $this;
     }
@@ -244,6 +297,18 @@ class Club
         return $this;
     }
 
+    public function getMediaLinks(): ?array
+    {
+        return $this->mediaLinks;
+    }
+
+    public function setMediaLinks(?array $mediaLinks): static
+    {
+        $this->mediaLinks = $mediaLinks;
+
+        return $this;
+    }
+
     public function getEmail(): ?string
     {
         return $this->email;
@@ -285,7 +350,7 @@ class Club
         return $this->instagramId;
     }
 
-    public function setInstagramId(string $instagramId): static
+    public function setInstagramId(?string $instagramId): static
     {
         $this->instagramId = $instagramId;
 

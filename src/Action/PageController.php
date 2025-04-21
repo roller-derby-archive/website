@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Action;
 
 use App\Entity\FlattrackRanking;
+use App\Flattrack\Gender;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ final class PageController extends AbstractController
     {
         return $this->render('page/flattrack_french_ranking.html.twig', [
             "gender" => 'women',
-            "data" => $this->entityManager->getRepository(FlattrackRanking::class)->findWithRank('women'),
+            "data" => $this->entityManager->getRepository(FlattrackRanking::class)->findWithRank(Gender::Women),
         ]);
     }
 
@@ -31,7 +32,7 @@ final class PageController extends AbstractController
     {
         return $this->render('page/flattrack_french_ranking.html.twig', [
             "gender" => "men",
-            "data" => $this->entityManager->getRepository(FlattrackRanking::class)->findWithRank('men'),
+            "data" => $this->entityManager->getRepository(FlattrackRanking::class)->findWithRank(Gender::Men),
         ]);
     }
 }

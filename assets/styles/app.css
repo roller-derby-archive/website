@@ -95,6 +95,33 @@ footer li:after {
     position: relative;
     justify-content: center;
     box-sizing: border-box;
+    min-height: 800px;
+}
+
+.rda-header {
+    min-width: auto;
+    background-color: #ffffff;
+    padding-left: 3.25rem;
+    padding-right: 3.25rem;
+    padding-bottom: 20px;
+    max-width: 99.75rem;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.rda-footer {
+    min-width: auto;
+    background-color: #ffffff;
+    padding-left: 3.25rem;
+    padding-right: 3.25rem;
+    padding-bottom: 20px;
+    max-width: 99.75rem;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
 }
 
 .rda-wiki-link, .rda-wiki-link:active {
@@ -205,7 +232,31 @@ footer li:after {
 
 /************** Main **************/
 
+#main ul {
+    display: flex;
+}
 
+#main li {
+    margin: 0 3% 3% 0;
+    width: 30%;
+}
+
+#main li:last-child {
+    margin: 0;
+}
+
+#main li a {
+    padding: 29px;
+    border: gray solid 1px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+#main li a:hover {
+    background: #e4ecf3;
+}
 
 /************** Flattrack french ranking **************/
 

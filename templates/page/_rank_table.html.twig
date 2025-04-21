@@ -23,7 +23,7 @@
                 <a class="rda-wiki-link" href="{{ path('team_view', {id: teamRank.team_id}) }}">{{ teamName(teamRank.name, teamRank.pronoun) }}</a>
                 <p>
                     {% if teamRank.level != null %}<span class="rda-team-level">{{ teamRank.level }}</span>{% endif %}
-                    {% if teamRank.letter != 'A' %}<span class="rda-team-type">{{ teamType(teamRank.letter) }}</span>{% endif %}
+                    {% if teamRank.type != 'A' %}<span class="rda-team-type">{{ teamType(teamRank.type) }}</span>{% endif %}
                 </p>
             </td>
             <td class="rda-ftfr-other-cell">⚝{{ teamRank.rating}}</td>

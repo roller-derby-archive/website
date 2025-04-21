@@ -3,8 +3,9 @@
 {% block body %}
     <main class="rda-page">
         <section class="rda-title-bar">
-            <h1>Les associations ({{ totalClub }})</h1>
-            <ul class="region-list">{% for name, clubs in regions %}
+            <h1>Les associations ({{ total }})</h1>
+            {{ include('club/_filter.html.twig') }}
+            <ul class="region-list">{% for name, clubs in sortedClubs %}
                 <li>
                     <h2>{{ name }} ({{ clubs|length }})</h2>
                     <ul class="club-list">{% for club in clubs %}

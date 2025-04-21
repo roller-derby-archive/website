@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App\Enum;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
-final class Category
+enum TeamCategory: string
 {
-    const F = 'F+';
-    const M = 'M';
-    const J = 'J';
+    case WomenAndGenderMinorities = 'F+';
+    case Mixed = 'M';
+    case Junior = 'J';
 
     private const map = [
-        self::F => 'F+',
-        self::M => 'Mixte',
-        self::J => 'Junior',
+        self::WomenAndGenderMinorities->value => 'F+',
+        self::Mixed->value => 'Mixte',
+        self::Junior->value => 'Junior',
     ];
 
     static function getName(string $category): string

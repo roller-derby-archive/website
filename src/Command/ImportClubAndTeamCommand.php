@@ -6,24 +6,22 @@ namespace App\Command;
 
 use App\Entity\Club;
 use App\Entity\Team;
-use App\Repository\ClubRepository;
-use App\Repository\TeamRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Uid\Uuid;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 #[AsCommand(name: 'app:import')]
 final class ImportClubAndTeamCommand extends Command
 {
-    private EntityManagerInterface $entityManager;
-    public function __construct(EntityManagerInterface $entityManager, ?string $name = null)
-    {
-        $this->entityManager = $entityManager;
-
+    public function __construct(
+        private readonly SerializerInterface $serializer,
+        ?string $name = null
+    ) {
         parent::__construct($name);
     }
 
@@ -34,13 +32,9 @@ final class ImportClubAndTeamCommand extends Command
         $spreadsheet->setActiveSheetIndex(0);
         $worksheet = $spreadsheet->getActiveSheet();
         $dataArray = $worksheet->toArray();
-        $clubIdMap = [];
         $clubUuidMap = [];
 
-        /** @var ClubRepository $clubRepository */
-        $clubRepository = $this->entityManager->getRepository(Club::class);
-        $clubRepository->cleanAll();
-
+        $clubs = [];
         foreach ($dataArray as $key => $row) {
             if (0 === $key) {continue;}
             if (null === $row[1]) {break;}
@@ -48,12 +42,17 @@ final class ImportClubAndTeamCommand extends Command
             if (null === $row[8] || null === $row[7]) {continue;}
 
             $club = (new Club())
+                ->setId(Uuid::v4()->toString())
                 ->setName($this->formatName(trim($row[1])))
                 ->setRegionCode($row[8])
                 ->setCountyCode($row[7])
                 ->setUpdatedAt(new \DateTimeImmutable())
                 ->setCities(explode(';', $row[6]))
             ;
+
+            $clubUuidMap[$row[0]] = $club->getId();
+
+            $clubs[] = $club;
 
             if (null !== $row[2]) {
                 $club->setAlias($row[2]);
@@ -81,6 +80,10 @@ final class ImportClubAndTeamCommand extends Command
                 $club->setEmail($row[10]);
             }
 
+            if ($row[11] != null) {
+                $club->setInterleagueEmail($row[11]);
+            }
+
             if (null !== $row[12]) {
                 $club->setFacebookId($row[12]);
             }
@@ -89,39 +92,53 @@ final class ImportClubAndTeamCommand extends Command
                 $club->setInstagramId($row[13]);
             }
 
-            $clubIdMap[$this->formatName(trim($row[1]))] = $row[0];
+            if (null !== $row[14]) {
+                $club->setLegalId($row[14]);
+            }
 
-            $this->entityManager->persist($club);
+            if (null !== $row[3]) {
+                $club->setGenderDiversityPolicy($row[3]);
+            }
+
+            if (null !== $row[9]) {
+                $websites = [];
+                $sites = explode(';', $row[9]);
+
+                foreach ($sites as $site) {
+                    $nameAndUrl = explode(':::', $site);
+                    $websites[$nameAndUrl[0]] = $nameAndUrl[1];
+                }
+
+               $club->setWebsites($websites);
+            }
+
+            if (null !== $row[15]) {
+                $club->setMediaLinks(explode(';', $row[15]));
+            }
         }
 
-        $this->entityManager->flush();
-
-        foreach ($clubRepository->findAll() as $club) {
-            $id = $clubIdMap[$club->getName()] ?? null;
-            $clubUuidMap[$id] = $club;
-            $output->writeln(sprintf('id: %s name: %s', $club->getId(), $club->getName()));
-        }
+        $json = $this->serializer->serialize($clubs, 'json');
+        file_put_contents(__DIR__.'/../../fixtures/clubs.json', $json);
 
         $worksheet = $spreadsheet->setActiveSheetIndex(1);
-
-        /** @var TeamRepository $itemRepository */
-        $itemRepository = $this->entityManager->getRepository(Team::class);
-        $itemRepository->cleanAll();
         $teamArray = $worksheet->toArray();
 
+        $teams = [];
         foreach ($teamArray as $key => $row) {
             if (0 === $key) {continue;}
             if (null === $row[7]) {break;}
 
-            $output->writeln(sprintf('name: %s', $this->formatName(trim($row[0]))));
 
             $team = (new Team())
+                ->setId(Uuid::v4()->toString())
                 ->setName($this->formatName(trim($row[0])))
                 ->setCreatedAt(new \DateTimeImmutable())
-                ->setGenderScope($row[6])
-                ->setLetter($row[7])
+                ->setCategory($row[6])
+                ->setType($row[7])
                 ->setPronoun($row[1])
             ;
+
+            $teams[] = $team;
 
             $teamIds = explode(';', $row[2] ?? "");
             foreach ($teamIds as $teamId) {
@@ -130,7 +147,14 @@ final class ImportClubAndTeamCommand extends Command
                 }
 
                 if (($clubUuidMap[$teamId] ?? null) != null) {
-                    $team->addClub($clubUuidMap[$teamId]);
+                    $team->addClub((new $club)
+                        ->setId($clubUuidMap[$teamId])
+                        ->setName("")
+                        ->setRegionCode("")
+                        ->setCountyCode("")
+                        ->setCreatedAt(new \DateTimeImmutable())
+                        ->setUpdatedAt(new \DateTimeImmutable())
+                    );
                 }
             }
 
@@ -154,26 +178,32 @@ final class ImportClubAndTeamCommand extends Command
 
             if ($row[5] != null) {
                 $team->setFlattrackId((int)$row[5]);
-                $team->setLogo('upload/logo_'.$row[5].'.webp');
-                if ($team->getLetter() === 'A') {
-                    foreach ($team->getClubs() as $club) {
-                        if ($club->getLogo() !== null && $team->getGenderScope() === 'M') {
-                            continue;
-                        }
+            }
 
-                        $club->setLogo('upload/logo_'.$row[5].'.webp');
-                    }
-                }
+            if ($row[10] != null) {
+                $team->setFacebookId($row[10]);
+            }
+
+
+            if ($row[11] != null) {
+                $team->setInstagramId($row[11]);
+            }
+
+            if ($row[9] != null) {
+                $team->setEmail($row[9]);
+            }
+
+
+            if (null !== $row[12]) {
+                $team->setMediaLinks(explode(';', $row[12]));
             }
 
             if ($row[8] != null) {
                 $team->setLevel($row[8]);
             }
-
-            $this->entityManager->persist($team);
         }
-
-        $this->entityManager->flush();
+        $json = $this->serializer->serialize($teams, 'json');
+        file_put_contents(__DIR__.'/../../fixtures/teams.json', $json);
 
         return Command::SUCCESS;
     }

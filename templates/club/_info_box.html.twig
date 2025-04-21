@@ -1,0 +1,75 @@
+<section class="rda-infobox">
+    <h2>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h2>
+    {% if club.logo != null %}
+        <img alt="{{ club.logo }}" src="{{ asset('images/'~club.logo) }}">
+    {% endif %}
+    <table>
+        <caption>Informations générales</caption>
+        <tbody>
+        {% if club.alias != null %}<tr>
+            <th>Alias</th>
+            <td>{{ club.alias }}</td>
+            </tr>{% endif %}
+        <tr>
+            <th>Fondée le</th>
+            <td>{{ club.createdAt|date("d/m/Y") }}</td>
+        </tr>
+        {% if club.closedAt != null %}<tr>
+            <th>Dissoute le</th>
+            <td>{{ club.closedAt|date("d/m/Y") }}</td>
+            </tr>{% endif %}
+        <tr>
+            <th>Ville{% if club.cities|length > 1 %}s{% endif %}</th>
+            <td>{{ club.cities|join(', ') }}</td>
+        </tr>
+        <tr>
+            <th>Departement</th>
+            <td>{{ county(club.countyCode) }}</td>
+        </tr>
+        <tr>
+            <th>Region</th>
+            <td>{{ region(club.regionCode) }}</td>
+        </tr>
+        {% if club.genderDiversityPolicy != null %}<tr>
+            <th>Politique de mixité</th>
+            <td>{{ genderDiversityPolicyName(club.genderDiversityPolicy) }}</td>
+            </tr>{% endif %}
+        </tbody>
+    </table>
+    <table>
+        <caption>Équipes</caption>
+        <tbody>
+        {% for team in club.teams %}
+            {% if club.closedAt == null %}
+                {% if team.disbandAt == null %}
+                    {{ include('club/_team_row.html.twig', {team: team}) }}
+                {% endif %}
+            {% else %}
+                {{ include('club/_team_row.html.twig', {team: team}) }}
+            {% endif %}
+        {% endfor %}
+        </tbody>
+    </table>
+    <table>
+        <caption>Contact</caption>
+        <tbody>
+        <tr>
+            <th>Email</th>
+            <td>{{ club.email }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <caption>Communication</caption>
+        <tbody>
+        {% if club.facebookId != null %}<tr>
+            <th>Facebook</th>
+            <td><a class="rda-wiki-link" target="_blank" href="https://www.facebook.com/{{ club.facebookId }}">{{ facebookUglyId(club.facebookId) }}</a></td>
+            </tr>{% endif %}
+        {% if club.instagramId != null %}<tr>
+            <th>Instagram</th>
+            <td><a class="rda-wiki-link" target="_blank" href="https://www.instagram.com/{{ club.instagramId }}">{{ club.instagramId }}</a></td>
+            </tr>{% endif %}
+        </tbody>
+    </table>
+</section>

@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\FlattrackRanking;
 use App\Entity\Team;
+use App\Flattrack\Flattrack;
+use App\Flattrack\Gender;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -34,6 +36,7 @@ class FlattrackRankingRepository extends ServiceEntityRepository
             ->select("t.flattrack_id")
             ->from('team', 't')
             ->where('t.flattrack_id = :flattrackId')
+            ->andWhere('t.disband_at ISNULL')
             ->setParameter("flattrackId", $id)
         ;
 
@@ -44,40 +47,27 @@ class FlattrackRankingRepository extends ServiceEntityRepository
         return false;
     }
 
-    public function findWithRank(string $category): array
+    public function findWithRank(Gender $gender): array
     {
         return $this->getEntityManager()->getConnection()->executeQuery("
-            SELECT ft.id, ft.rating, ft.european_rank, RANK() OVER (ORDER BY european_rank) AS french_rank , t.id as team_id, t.name, t.pronoun, t.logo, t.letter, t.level
+            SELECT ft.id, ft.rating, ft.european_rank, ft.french_rank , t.id as team_id, t.name, t.pronoun, t.logo, t.type, t.level
             FROM flattrack_ranking ft
             INNER JOIN team t ON ft.id = t.flattrack_id
-            WHERE category = :category
+            WHERE ft.gender = :gender
             AND t.disband_at ISNULL
-        ", ['category' => $category]
+            ORDER BY ft.european_rank ASC 
+        ", ['gender' => $gender->value]
         )->fetchAllAssociative();
     }
-    public function findOneWithRank(int $id, string $category): false|array
-    {
-        return $this->getEntityManager()->getConnection()->executeQuery("
-            SELECT ft.id, ft.rating, ft.european_rank, ft.french_rank
-            FROM (
-                SELECT sft.id, sft.rating, sft.european_rank, RANK() OVER (ORDER BY sft.european_rank) AS french_rank
-                FROM flattrack_ranking sft
-                INNER JOIN team t ON sft.id = t.flattrack_id
-                WHERE category = :category AND t.disband_at ISNULL
-            ) ft
-            WHERE ft.id = :id
-            
-        ", ["id" => $id, 'category' => $category])->fetchAssociative();
-    }
 
-    public function totalRows(string $category): int
+    public function totalRows(Gender $gender): int
     {
         return $this->getEntityManager()->getConnection()->executeQuery("
             SELECT count(*) 
             FROM flattrack_ranking ft
             INNER JOIN team t ON ft.id = t.flattrack_id
-            WHERE category = :category AND t.disband_at ISNULL
-            ", ['category' => $category]
+            WHERE ft.gender = :gender AND t.disband_at ISNULL
+            ", ['gender' => $gender->value]
         )->fetchOne();
     }
 }

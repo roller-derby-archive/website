@@ -13,14 +13,17 @@ class FlattrackRanking
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::DECIMAL)]
-    private ?string $rating = null;
-
     #[ORM\Column]
     private ?int $europeanRank = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
+    #[ORM\Column]
+    private ?int $frenchRank = null;
+
+    #[ORM\Column(type: Types::DECIMAL, precision: 6, scale: 1)]
+    private ?string $rating = null;
+
+    #[ORM\Column(length: 5)]
+    private ?string $gender = null;
 
     public function getId(): ?int
     {
@@ -30,18 +33,6 @@ class FlattrackRanking
     public function setId(?int $id): self
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function getRating(): ?string
-    {
-        return $this->rating;
-    }
-
-    public function setRating(string $rating): static
-    {
-        $this->rating = $rating;
 
         return $this;
     }
@@ -58,14 +49,36 @@ class FlattrackRanking
         return $this;
     }
 
-    public function getCategory(): ?string
+    public function getFrenchRank(): ?int
     {
-        return $this->category;
+        return $this->frenchRank;
     }
 
-    public function setCategory(string $category): static
+    public function setFrenchRank(?int $frenchRank): void
     {
-        $this->category = $category;
+        $this->frenchRank = $frenchRank;
+    }
+
+    public function getRating(): ?string
+    {
+        return $this->rating;
+    }
+
+    public function setRating(string $rating): static
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): static
+    {
+        $this->gender = $gender;
 
         return $this;
     }

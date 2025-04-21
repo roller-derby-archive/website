@@ -6,93 +6,14 @@
             <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
         </div>
         <div class="rda-club-view-content rda-content">
-            <section class="rda-infobox">
-                <h2>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h2>
-                {% if club.logo != null %}
-                    <img alt="{{ club.logo }}" src="{{ asset('images/'~club.logo) }}">
-                {% endif %}
-                <table>
-                    <caption>Informations générales</caption>
-                    <tbody>
-                        {% if club.alias != null %}<tr>
-                            <th>Alias</th>
-                            <td>{{ club.alias }}</td>
-                        </tr>{% endif %}
-                        <tr>
-                            <th>Fondée le</th>
-                            <td>{{ club.createdAt|date("d/m/Y") }}</td>
-                        </tr>
-                        {% if club.closedAt != null %}<tr>
-                            <th>Dissoute le</th>
-                            <td>{{ club.closedAt|date("d/m/Y") }}</td>
-                            </tr>{% endif %}
-                        <tr>
-                            <th>Ville•s</th>
-                            <td>{{ club.cities|join(', ') }}</td>
-                        </tr>
-                        <tr>
-                            <th>Departement</th>
-                            <td>{{ county(club.countyCode) }}</td>
-                        </tr>
-                        <tr>
-                            <th>Region</th>
-                            <td>{{ region(club.regionCode) }}</td>
-                        </tr>
-                        {% if club.diversity != null %}<tr>
-                            <th>Mixité</th>
-                            <td>{{ club.diversity }}</td>
-                        </tr>{% endif %}
-                    </tbody>
-                </table>
-                <table>
-                    <caption>Équipes</caption>
-                    <tbody>
-                    {% for team in club.teams %}
-                        {% if club.closedAt == null %}
-                            {% if team.disbandAt == null %}
-                                {{ include('club/_team_row.html.twig', {team: team}) }}
-                            {% endif %}
-                        {% else %}
-                            {{ include('club/_team_row.html.twig', {team: team}) }}
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <table>
-                    <caption>Contact</caption>
-                    <tbody>
-                        <tr>
-                            <th>Email</th>
-                            <td>{{ club.email }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <caption>Communication</caption>
-                    <tbody>
-                        {% if club.facebookId != null %}<tr>
-                            <th>Facebook</th>
-                            <td><a class="rda-wiki-link" target="_blank" href="https://www.facebook.com/{{ club.facebookId }}">{{ facebookUglyId(club.facebookId) }}</a></td>
-                        </tr>{% endif %}
-                        {% if club.instagramId != null %}<tr>
-                            <th>Instagram</th>
-                            <td><a class="rda-wiki-link" target="_blank" href="https://www.instagram.com/{{ club.instagramId }}">{{ club.instagramId }}</a></td>
-                        </tr>{% endif %}
-                    </tbody>
-                </table>
-            </section>
+            {{ include('club/_info_box.html.twig', {club: club}) }}
             <section class="rda-club-view-history">
+                <h2>Présentation</h2>
+                {{ club.overview }}
+           </section>
+            <section>
                 <h2>Histoire</h2>
-                {{ club.description }}
-                <h2>Blabla</h2>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-                </p>
-                <h2>Blabla</h2>
-                <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-                    The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.</p>
+                {{ club.history }}
             </section>
         </div>
     </main>

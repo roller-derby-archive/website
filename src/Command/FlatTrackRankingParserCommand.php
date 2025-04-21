@@ -4,116 +4,86 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Entity\Club;
+use App\App;
 use App\Entity\FlattrackRanking;
-use App\Entity\Team;
-use App\Repository\ClubRepository;
-use App\Repository\FlattrackRankingRepository;
-use App\Repository\TeamRepository;
+use App\Flattrack\EuropeanRankScraper;
+use App\Flattrack\Gender;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPHtmlParser\Dom;
-use PHPHtmlParser\Exceptions\ChildNotFoundException;
-use PHPHtmlParser\Exceptions\CircularException;
-use PHPHtmlParser\Exceptions\CurlException;
-use PHPHtmlParser\Exceptions\NotLoadedException;
-use PHPHtmlParser\Exceptions\StrictException;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use stringEncode\Exception;
+use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
-use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use function PHPUnit\Framework\isInstanceOf;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
-#[AsCommand(name: 'app:parse-flat-track')]
+#[AsCommand(name: 'flattrack:refresh-ranking')]
 final class FlatTrackRankingParserCommand extends Command
 {
-    private readonly EntityManagerInterface $entityManager;
-    private readonly HttpClientInterface $client;
-    public function __construct(EntityManagerInterface $entityManager, HttpClientInterface $client, ?string $name = null)
+    public function __construct(
+        private readonly EntityManagerInterface $entityManager,
+        private readonly EuropeanRankScraper $europeanRankScraper,
+        private readonly CacheInterface $cache,
+        ?string $name = null)
     {
-        $this->entityManager = $entityManager;
-        $this->client = $client;
-
         parent::__construct($name);
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws InvalidArgumentException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // check data folder
-        if (!is_dir(__DIR__.'/../../var/data')) {
-            mkdir(__DIR__.'/../../var/data', 0777, true);
-        }
-
         $this->entityManager->getRepository(FlattrackRanking::class)->cleanAll();
-        $this->parseRanking('women');
-        $this->parseRanking('men');
+        $this->regenerateRanking(Gender::Women);
+        $this->regenerateRanking(Gender::Men);
 
         return Command::SUCCESS;
     }
 
-    private function parseRanking(string $gender): void
+    /**
+     * @throws TransportExceptionInterface
+     * @throws InvalidArgumentException
+     */
+    private function regenerateRanking(Gender $gender): void
     {
-        if (!in_array($gender, ['women', 'men'])) {
-            throw new \Exception("Invalid gender in flattrack parse rank function");
+        $cacheKey = "";
+        switch ($gender) {
+            case Gender::Women:
+                $cacheKey = App::CACHE_KEY_TOTAL_WOMEN_EUROPEAN_TEAM;break;
+            case Gender::Men:
+                $cacheKey = App::CACHE_KEY_TOTAL_MEN_EUROPEAN_TEAM;break;
         }
 
-        $response = $this->client->request('GET', sprintf("https://www.flattrackstats.com/rankings/%s/%s_europe", $gender, $gender ));
+        $scrapedData = $this->europeanRankScraper->scrapRanks($gender);
+        // Set cache value
+        $this->cache->get($cacheKey, function (ItemInterface $item) use ($scrapedData) : int {
+            return $scrapedData['totalEuropeanRankedTeam'];
+        });
 
-        if ($response->getStatusCode() !== 200) {
-            throw new \Exception("Invalid gender in flattrack parse rank function");
-        }
+        $i = 1;
+        foreach ($scrapedData['rankedTeams'] as $key => $content) {
+            extract($content); // $teamId, $europeanRank, $rating
 
-        $dom = new Dom();
-        $dom->load($response->getContent());
-        // <div class="... rightflush"> <-- find( '.rightflush')[0]
-        //    <table></table>
-        //    <table> <-- ->getChildren()[1]
-        //        " " --> ??
-        //        <thead>
-        //        " " --> ??
-        //        <tbody> <-- ->getChildren()[3]
-        //            <tr>
-        //                " " --> ??
-        //                <td nid="{teamId}">{europeanRank}</td>
-        //                " " --> ??
-        //                <td>...</td>
-        //                " " --> ??
-        //                <td>...</td>
-        //                " " --> ??
-        //                <td>{rating}</td>
-        //            </tr>
-        $contents = $dom->find( '.rightflush')[0]->getChildren()[1]->getChildren()[3];
-
-        $totalEuropeanTeamNumber = 0;
-
-        // parse <tr>
-        foreach ($contents as $content) {
-            // Filter " " nodes
-            if ($content->innerHtml === " ") {continue;}
-            $row = $content->getChildren();
-            $totalEuropeanTeamNumber++;
-
-            if (!$this->entityManager->getRepository(FlattrackRanking::class)->checkId((int)$row[0]->getAttribute('nid'))) {
+            // Check if flattrack team id exist because we persist only french team rank.
+            if (!$this->entityManager->getRepository(FlattrackRanking::class)->checkId((int)$teamId)) {
                 continue;
             }
 
             $rank = new FlattrackRanking();
-            $rank->setId((int)$row[0]->getAttribute('nid'));
-            $rank->setEuropeanRank((int)str_replace('.', '', $row[0]->innerHtml));
-            $rank->setRating($row[3]->innerHtml);
-            $rank->setCategory($gender);
+            $rank->setId((int)$teamId);
+            $rank->setEuropeanRank((int)$europeanRank);
+            $rank->setRating($rating);
+            $rank->setGender($gender->value);
+            $rank->setFrenchRank($i);
 
             $this->entityManager->persist($rank);
+            $i++;
         }
 
         $this->entityManager->flush();
-        file_put_contents(__DIR__.sprintf('/../../var/data/total_%s_european_team_number', $gender), $totalEuropeanTeamNumber);
     }
 }
