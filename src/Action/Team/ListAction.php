@@ -17,8 +17,10 @@ class ListAction extends AbstractController
     private const QUERY_PARAM_FILTERS_CATEGORY = 'category';
     private const QUERY_PARAM_FILTERS_TYPE = 'type';
     private const QUERY_PARAM_FILTERS_LEVEL = 'level';
-    private const QUERY_PARAM_FILTERS_SHOW_DISBAND = 'show_disband';
-    private const FILTERS_SHOW_CLOSED_DISBAND_ONLY = 'only';
+    private const QUERY_PARAM_FILTERS_ACTIVITY = 'activity';
+    private const FILTERS_SHOW_CLOSED_DISBAND_ACTIVE = 'active';
+    private const FILTERS_SHOW_CLOSED_DISBAND_INACTIVE = 'inactive';
+    private const FILTERS_SHOW_CLOSED_DISBAND_BOTH = 'both';
 
     public function __construct(
         private readonly TeamRepository $teamRepository,
@@ -43,6 +45,9 @@ class ListAction extends AbstractController
         return $this->render('team/list.html.twig', [
             'sortedTeams' => $sortedTeams,
             'total' => count($teams),
+            'filterForm' => [
+
+            ],
         ]);
     }
 
@@ -62,10 +67,13 @@ class ListAction extends AbstractController
            $criteria->andWhere(Criteria::expr()->in('level', $filters[self::QUERY_PARAM_FILTERS_LEVEL]));
        }
 
-        if (($filters[self::QUERY_PARAM_FILTERS_SHOW_DISBAND] ?? '') === self::FILTERS_SHOW_CLOSED_DISBAND_ONLY) {
-            $criteria->andWhere(Criteria::expr()->isNotNull('disbandAt'));
-        } elseif (($filters[self::QUERY_PARAM_FILTERS_SHOW_DISBAND] ?? null) === null) {
-            $criteria->andWhere(Criteria::expr()->eq('disbandAt', null));
-        }
+       switch ($filters[self::QUERY_PARAM_FILTERS_ACTIVITY] ?? null) {
+           // case self::FILTERS_SHOW_CLOSED_DISBAND_ACTIVE:
+           case self::FILTERS_SHOW_CLOSED_DISBAND_INACTIVE:
+               $criteria->andWhere(Criteria::expr()->isNotNull('disbandAt'));break;
+           case self::FILTERS_SHOW_CLOSED_DISBAND_BOTH:break;
+           default:
+               $criteria->andWhere(Criteria::expr()->eq('disbandAt', null));break;
+       }
     }
 }

@@ -3,7 +3,6 @@ export default class {
     //    // {any*}/club/{uuid*}{queryParam}
     //    let matches = text.match(/^.*\/clubs\/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(\?.*)$/)
     //}
-
     isExecutable(url) {
         // {any*}/clubs{queryParam}
         let regExp = new RegExp('^.*\/clubs(/?.*)$');
@@ -11,39 +10,23 @@ export default class {
         return regExp.test(url)
     }
     execute(event) {
-        const filter = document.getElementById("club_list_filter")
-
+        console.log('use club list executable')
         let url = new URL(window.location.href);
-        let show_closed = url.searchParams.get('filters[show_closed]')
+        let activity = url.searchParams.get('filters[activity]')
 
-        if (show_closed === 'all') {
-            document.getElementById("list_filter_activity_all").checked = true;
+        switch (activity) {
+            case 'active':
+                document.getElementById("list_filter_activity_active").checked = true;break;
+            case 'inactive':
+                document.getElementById("list_filter_activity_inactive").checked = true;break;
+            case 'both':
+                document.getElementById("list_filter_activity_both").checked = true;break;
+            default:
+                document.getElementById("list_filter_activity_active").checked = true;break;
         }
 
-        if (show_closed === 'only') {
-            document.getElementById("list_filter_activity_off").checked = true;
-        }
-
-        if (show_closed === null ) {
-            document.getElementById("list_filter_activity_on").checked = true;
-        }
-
-        filter.addEventListener('input', e => {
-            let url = new URL(window.location.href);
-
-            if (e.target.value === 'all') {
-                url.searchParams.set('filters[show_closed]', 'all');
-            }
-
-            if (e.target.value === 'off') {
-                url.searchParams.set('filters[show_closed]', 'only');
-            }
-
-            if (e.target.value === 'on') {
-                url.searchParams.delete('filters[show_closed]');
-            }
-
-            window.location.href = url.href;
+        document.getElementsByClassName('rda-reset-input')[0].addEventListener("click", (event) => {
+            window.location.href = "/clubs";
         })
     }
 }

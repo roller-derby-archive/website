@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main class="rda-page">
-        <div class="rda-title-bar">
+    <main id="team_view" class="rda-page rda-layout rda-grid">
+        <header class="rda-title-bar">
             <h1>{{ teamName(team.name, team.pronoun) }}{% if team.disbandAt != null %} ☠️{% endif %}</h1>
-        </div>
+        </header>
         <div class="rda-club-view-content rda-content">
             {{ include('team/_info_box.html.twig', {flattrackRank: flattrackRank, team: team}) }}
             <section class="rda-club-view-history">

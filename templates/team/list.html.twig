@@ -1,33 +1,44 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main class="rda-page">
-        <section class="rda-title-bar">
-            <h1>Les équipes ({{ total }})</h1>
-            {{ include('team/_filter.html.twig') }}
-            <ul class="region-list">{% for name, teams in sortedTeams %}
-                <li>
-                    <h2>{{ name }}</h2>
-                    <ul class="club-list">{% for team in teams %}
-                            <li>
-                                <a href="{{ path('team_view', {id: team.id}) }}">
-                                    {% if team.logo != null %}
-                                        <img alt="{{ team.logo }}" src="{{ asset('images/'~team.logo) }}">
-                                    {% else %}
-                                        <img alt="logo-team" src=" https://placehold.co/200x200">
-                                    {% endif %}
-                                    <div>
-                                        <p class="wiki-link">
-                                            {{ teamName(team.name, team.pronoun) }}
-                                            {% if team.disbandAt != null %} ☠️{% endif %}
-                                        </p>
-                                        {{ include('team/_tag.html.twig', {team: team}) }}
-                                    </div>
-                                </a>
+        <main id="team_list" class="rda-page rda-layout rda-grid">
+            <aside class="rda-left-side-bar">
+                {{ include('team/_filter.html.twig') }}
+            </aside>
+            <header class="rda-title-bar">
+                <h1>Les équipes ({{ total }})</h1>
+            </header>
+            <section class="rda-content">
+                {% if total == 0 %}
+                 <p>Aucune équipe trouvée avec ces filtres.</p>
+                {% else %}
+                    <ul class="region-list">{% for name, teams in sortedTeams %}
+                        <li>
+                            <h2>{{ name }}</h2>
+                            <ul class="club-list">{% for team in teams %}
+                                <li>
+                                    <a href="{{ path('team_view', {id: team.id}) }}">
+                                        {% if team.logo != null %}
+                                            <img alt="{{ team.logo }}" src="{{ asset('images/'~team.logo) }}">
+                                        {% else %}
+                                            <img alt="logo-team" src=" https://placehold.co/200x200">
+                                        {% endif %}
+                                        <div>
+                                            <p class="wiki-link">
+                                                {{ teamName(team.name, team.pronoun) }}
+                                                {% if team.disbandAt != null %} ☠️{% endif %}
+                                            </p>
+                                            {{ include('team/_tag.html.twig', {team: team}) }}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}</ul>
                             </li>
-                        {% endfor %}</ul>
-                </li>
-                        {% endfor %}</ul>
-        </section>
-    </main>
+                    {% endfor %}</ul>
+                {% endif %}
+            </section>
+            <aside class="rda-right-side-bar">
+                {{ include('_menu_side_bar.html.twig', {disable: 'teams'}) }}
+            </aside>
+        </main>
 {% endblock %}

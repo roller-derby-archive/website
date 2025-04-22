@@ -19,9 +19,10 @@ class ListAction extends AbstractController
     private const SORT_VIEW_REGION = 'region';
     private const SORT_VIEW_ALPHANUMERIC = 'alpha';
     private const SORT_VIEW_DEFAULT_VALUE = self::SORT_VIEW_REGION;
-    private const QUERY_PARAM_FILTERS_SHOW_CLOSED = 'show_closed';
-    private const FILTERS_SHOW_CLOSED_ONLY = 'only';
-
+    private const QUERY_PARAM_FILTERS_ACTIVITY = 'activity';
+    private const FILTERS_SHOW_CLOSED_DISBAND_ACTIVE = 'active';
+    private const FILTERS_SHOW_CLOSED_DISBAND_INACTIVE = 'inactive';
+    private const FILTERS_SHOW_CLOSED_DISBAND_BOTH = 'both';
     public function __construct(
         private readonly ClubRepository $clubRepository,
     ){}
@@ -58,10 +59,14 @@ class ListAction extends AbstractController
     {
         $filters = $request->get('filters') ?? [];
 
-        if (($filters[self::QUERY_PARAM_FILTERS_SHOW_CLOSED] ?? '') === self::FILTERS_SHOW_CLOSED_ONLY) {
-            $criteria->andWhere(Criteria::expr()->isNotNull('closedAt'));
-        } elseif (($filters[self::QUERY_PARAM_FILTERS_SHOW_CLOSED] ?? null) === null) {
-            $criteria->andWhere(Criteria::expr()->eq('closedAt', null));
+        switch ($filters[self::QUERY_PARAM_FILTERS_ACTIVITY] ?? null) {
+            // case self::FILTERS_SHOW_CLOSED_DISBAND_ACTIVE:
+            case self::FILTERS_SHOW_CLOSED_DISBAND_INACTIVE:
+                $criteria->andWhere(Criteria::expr()->isNotNull('closedAt'));break;
+            case self::FILTERS_SHOW_CLOSED_DISBAND_BOTH:break;
+            default:
+                $criteria->andWhere(Criteria::expr()->eq('closedAt', null));break;
+
         }
     }
 

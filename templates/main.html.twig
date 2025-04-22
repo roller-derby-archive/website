@@ -1,20 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main id="main" class="rda-page">
+    <main id="main" class="rda-page rda-layout rda-grid">
         <div class="rda-title-bar">
             <h1>Nos Archives</h1>
         </div>
         <div class="rda-content">
-            <h2>Base de donnée</h2>
+            <h2>Bases de donnée</h2>
             <ul>
                 <li><a class="rda-wiki-link" href="{{ path(constant('App\\Action\\Club\\ListAction::ROUTE_NAME')) }}">Les associations</a></li>
                 <li><a class="rda-wiki-link" href="{{ path(constant('App\\Action\\Team\\ListAction::ROUTE_NAME')) }}">Les équipes</a></li>
             </ul>
-            <h2>Divers</h2>
+            <h2>Le roller derby en quelques chiffres</h2>
             <ul>
-                <li><a class="rda-wiki-link" href="{{ path('flattrack_french_ranking_women_and_more') }}">Classement Flattrack France F+</a></li>
-                <li><a class="rda-wiki-link" href="{{ path('flattrack_french_ranking_mix') }}">Classement Flattrack France Mixte</a></li>
+                <li><p><span>{{ totalClubs }}</span> associations dont <span>{{ totalActiveClubs }}</span> actives</p></li>
+                <li><p><span>{{ totalTeams }}</span> équipes dont <span>{{ totalActiveTeams }}</span> actives</p></li>
+                <li><p>Au moins <span>xxx</span> match joués</p></li>
+                <li><p>Au moins <span>xxx</span> événements organisés</p></li>
+                <li><p><span>xxx</span> championats disputés</p></li>
+            </ul>
+            <h2>Aides & contributions</h2>
+            <ul>
+                <li>Le guide du nouveau club</li>
+            </ul>
+            <h2>Des stats et des graphs</h2>
+            <ul>
+                <li><a class="rda-wiki-link" href="{{ path(constant('App\\Action\\FlattrackFrenchRankingAction::ROUTE_NAME'), {gender: 'women'}) }}">Classement Flattrack France F+</a></li>
+                <li><a class="rda-wiki-link" href="{{ path(constant('App\\Action\\FlattrackFrenchRankingAction::ROUTE_NAME'), {gender: 'men'}) }}">Classement Flattrack France Mixte</a></li>
             </ul>
         </div>
     </main>

@@ -1,22 +1,21 @@
-<div id="club_list_filter">
+<div id="club_list_filter" class="rda-filters">
     <form>
         <fieldset>
-            <legend>Activité:</legend>
-
+            <legend>Activité</legend>
             <div>
-                <input type="radio" id="list_filter_activity_on" name="activity" value="on" />
-                <label for="list_filter_activity_on">Active seulement</label>
+                <input type="radio" id="list_filter_activity_active" name="filters[activity]" value="active" />
+                <label for="list_filter_activity_active">Actives</label>
             </div>
-
             <div>
-                <input type="radio" id="list_filter_activity_off" name="activity" value="off" />
-                <label for="list_filter_activity_off">Disoutes</label>
+                <input type="radio" id="list_filter_activity_inactive" name="filters[activity]" value="inactive" />
+                <label for="list_filter_activity_inactive">Fermées</label>
             </div>
-
             <div>
-                <input type="radio" id="list_filter_activity_all" name="activity" value="all" />
-                <label for="list_filter_activity_all">Toutes</label>
+                <input type="radio" id="list_filter_activity_both" name="filters[activity]" value="both" />
+                <label for="list_filter_activity_both">Toutes</label>
             </div>
         </fieldset>
+        <input class="rda-apply-input rda-submit" type="submit" value="Appliquer">
+        <input class="rda-reset-input rda-submit" type="submit" value="Réinitialiser">
     </form>
 </div>

@@ -12,16 +12,16 @@
         {% endblock %}
     </head>
     <body>
-        <header class="rda-header">
-            <a href="{{ path('main') }}"><img class="rda-site-logo" alt="🛼 Roller Derby Archive" src="{{ asset('images/logo.png') }}"></a>
-        </header>
-        {% block body %}{% endblock %}
-        <footer class="rda-footer">
-            <ul>
-                <li><a href="">Contact</a></li>
-                <li><a href="">Condition d'utilisation</a></li>
-                <li><a href="">A propos</a></li>
-            </ul>
-        </footer>
+            <header class="rda-header rda-layout ">
+                <a href="{{ path('main') }}"><img class="rda-site-logo" alt="🛼 Roller Derby Archive" src="{{ asset('images/logo.png') }}"></a>
+            </header>
+            {% block body %}{% endblock %}
+            <footer class="rda-footer rda-layout">
+                <ul>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Condition d'utilisation</a></li>
+                    <li><a href="">A propos</a></li>
+                </ul>
+            </footer>
     </body>
 </html>

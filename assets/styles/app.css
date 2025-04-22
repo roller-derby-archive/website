@@ -12,6 +12,11 @@ ul {
     padding: 0;
 }
 
+p {
+    margin: 0;
+    padding: 0;
+}
+
 li {
     list-style: none;
 }
@@ -31,15 +36,6 @@ h1 {
 
 h2 {
     font-size: 21px;
-}
-
-main {
-    display: grid;
-    grid-template: min-content min-content min-content 1fr / minmax(0,59.25rem) min-content;
-    grid-template-areas:
-        'titlebar columnEnd'
-        'toolbar columnEnd'
-        'content columnEnd';
 }
 
 a {
@@ -84,7 +80,16 @@ footer li:after {
 
 /************** Generic Class **************/
 
-.rda-page {
+.rda-grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas:
+        '.          titlebar .           '
+        '.          toolbar   .          '
+        'leftSidebar content rightSidebar';
+}
+
+.rda-layout {
     min-width: auto;
     background-color: #ffffff;
     padding-left: 3.25rem;
@@ -95,38 +100,18 @@ footer li:after {
     position: relative;
     justify-content: center;
     box-sizing: border-box;
-    min-height: 800px;
 }
 
 .rda-header {
-    min-width: auto;
-    background-color: #ffffff;
-    padding-left: 3.25rem;
-    padding-right: 3.25rem;
-    padding-bottom: 20px;
-    max-width: 99.75rem;
-    margin: 0 auto;
-    position: relative;
-    justify-content: center;
-    box-sizing: border-box;
 }
 
-.rda-footer {
-    min-width: auto;
-    background-color: #ffffff;
-    padding-left: 3.25rem;
-    padding-right: 3.25rem;
-    padding-bottom: 20px;
-    max-width: 99.75rem;
-    margin: 0 auto;
-    position: relative;
-    justify-content: center;
-    box-sizing: border-box;
+.rda-page {
+    min-height: 800px;
 }
 
-.rda-wiki-link, .rda-wiki-link:active {
-    color: #3366CCFF;
-    text-decoration: none;
+.rda-left-side-bar {
+    grid-area: leftSidebar;
+    margin-right: 10%;
 }
 
 .rda-title-bar {
@@ -135,6 +120,20 @@ footer li:after {
 
 .rda-content {
     grid-area: content;
+    min-height: 700px;
+}
+
+.rda-right-side-bar {
+    grid-area: rightSidebar;
+    margin-left: 10%;
+}
+
+.rda-footer {
+}
+
+.rda-wiki-link, .rda-wiki-link:active {
+    color: #3366CCFF;
+    text-decoration: none;
 }
 
 .rda-team-category {
@@ -232,20 +231,25 @@ footer li:after {
 
 /************** Main **************/
 
-#main ul {
+#main .rda-content h2 {
+    margin-bottom: 30px;
+}
+
+#main .rda-content ul {
     display: flex;
+    flex-wrap: wrap;
 }
 
-#main li {
+#main .rda-content li {
     margin: 0 3% 3% 0;
-    width: 30%;
+    width: 31%;
 }
 
-#main li:last-child {
-    margin: 0;
+#main .rda-content li:nth-child(3), #main .rda-content li:nth-child(6), #main .rda-content li:nth-child(9) {
+    margin-right: 0;
 }
 
-#main li a {
+#main .rda-content li a {
     padding: 29px;
     border: gray solid 1px;
     border-radius: 10px;
@@ -254,8 +258,64 @@ footer li:after {
     font-weight: bold;
 }
 
-#main li a:hover {
+#main .rda-content li p {
+    padding: 16px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+}
+
+#main .rda-content li span {
+    font-weight: bold;
+}
+
+#main .rda-content li a:hover {
     background: #e4ecf3;
+}
+
+/************** Filters **************/
+
+.rda-filters fieldset {
+    border-style: none;
+    padding: 0;
+}
+
+.rda-filters legend {
+    border-bottom: #e0e0e0 solid 1px;
+    display: block;
+    width: 100%;
+    height: 20px;
+    margin-bottom: 5px;
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.rda-filters fieldset:first-child legend {
+    margin-top: 0;
+}
+
+.rda-submit {
+    border-radius: 0;
+    background-color: #dbe9f4;
+    border: none;
+    height: 37px;
+    margin: 15px 0 5px 0;
+    padding: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.rda-submit:hover {
+    background-color: #c4d5e3;
+}
+
+.rda-filters .rda-apply-input {
+    margin-right: 4%;
+    width: 45%;
+}
+
+.rda-filters .rda-reset-input {
+    width: 45%;
 }
 
 /************** Flattrack french ranking **************/

@@ -5,43 +5,23 @@ export default class {
         return new RegExp('^.*\/teams(/?.*)$').test(url)
     }
     execute(event) {
-        const filter = document.getElementById("list_filter_button")
-
+        console.log('use team list executable')
         let url = new URL(window.location.href);
-        let showDisband = url.searchParams.get('filters[show_disband]')
+        let activity = url.searchParams.get('filters[activity]')
 
-        if (showDisband === 'all') {
-            document.getElementById('list_filter_activity_all').checked = true;
+        switch (activity) {
+            case 'active':
+                document.getElementById("list_filter_activity_active").checked = true;break;
+            case 'inactive':
+                document.getElementById("list_filter_activity_inactive").checked = true;break;
+            case 'both':
+                document.getElementById("list_filter_activity_both").checked = true;break;
+            default:
+                document.getElementById("list_filter_activity_active").checked = true;break;
         }
 
-        if (showDisband === 'only') {
-            document.getElementById('list_filter_activity_off').checked = true;
-        }
-
-        if (showDisband === null ) {
-            document.getElementById('list_filter_activity_on').checked = true;
-        }
-
-        filter.addEventListener('input', e => {
-            let url = new URL(window.location.href);
-
-            if (e.target.value === 'all') {
-                url.searchParams.set('filters[show_disband]', 'all');
-            }
-
-            if (e.target.value === 'off') {
-                url.searchParams.set('filters[show_disband]', 'only');
-            }
-
-            if (e.target.value === 'on') {
-                url.searchParams.delete('filters[show_disband]');
-            }
-
-            if (e.target.value === 'N1') {
-                url.searchParams.set('filters[level]', 'N1;N2');
-            }
-
-            window.location.href = url.href;
+        document.getElementsByClassName('rda-reset-input')[0].addEventListener("click", (event) => {
+            window.location.href = "/teams";
         })
     }
 }

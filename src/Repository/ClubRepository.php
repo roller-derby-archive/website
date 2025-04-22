@@ -24,4 +24,14 @@ class ClubRepository extends ServiceEntityRepository
             ->execute()
         ;
     }
+
+    public function countActive(): int|false
+    {
+        return $this->getEntityManager()->getConnection()->executeQuery('SELECT count(*) FROM club WHERE closed_at IS NULL')->fetchOne();
+    }
+
+    public function countAll(): int|false
+    {
+        return $this->getEntityManager()->getConnection()->executeQuery('SELECT count(*) FROM club')->fetchOne();
+    }
 }

@@ -1,14 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main class="rda-page">
-        <section class="rda-title-bar">
-            <h1>Les associations ({{ total }})</h1>
+    <main id="club_list" class="rda-page rda-layout rda-grid">
+        <aside class="rda-left-side-bar">
             {{ include('club/_filter.html.twig') }}
-            <ul class="region-list">{% for name, clubs in sortedClubs %}
-                <li>
-                    <h2>{{ name }} ({{ clubs|length }})</h2>
-                    <ul class="club-list">{% for club in clubs %}
+        </aside>
+        <header class="rda-title-bar">
+            <h1>Les associations ({{ total }})</h1>
+        </header>
+        <section class="rda-content">
+            {% if total == 0 %}
+                <p>Aucune association trouvée avec ces filtres.</p>
+            {% else %}
+                <ul class="region-list">{% for name, clubs in sortedClubs %}
+                    <li>
+                        <h2>{{ name }} ({{ clubs|length }})</h2>
+                        <ul class="club-list">{% for club in clubs %}
                             <li>
                                 <a href="{{ path('club_view', {id: club.id}) }}">
                                     {% if club.logo != null %}
@@ -23,8 +30,12 @@
                                 </a>
                             </li>
                         {% endfor %}</ul>
-                </li>
-                        {% endfor %}</ul>
+                    </li>
+                {% endfor %}</ul>
+            {% endif %}
         </section>
+        <aside class="rda-right-side-bar">
+            {{ include('_menu_side_bar.html.twig', {disable: 'clubs'}) }}
+        </aside>
     </main>
 {% endblock %}

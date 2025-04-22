@@ -10,8 +10,8 @@
         <td>{{ flattrackRank.europeanRank }}{% if flattrackRank.europeanRank == 1 %}1er{% else %}ème{% endif%} sur {{ flattrackTotalClassedEuropeanTeam }} équipes</td>
     </tr>
     <tr>
-        {% if team.Type == 'F+' %}{% set ranking_route_name = "flattrack_french_ranking_women_and_more" %}{% else %}{% set ranking_route_name = "flattrack_french_ranking_mix" %}{% endif %}
-        <th><a class="rda-wiki-link" href={{ path(ranking_route_name) }}#{{ team.flattrackId }}>Rang France</a></th>
+        {% if team.Type == 'F+' %}{% set gender = "women" %}{% else %}{% set gender = "men" %}{% endif %}
+        <th><a class="rda-wiki-link" href={{ path(constant('App\\Action\\FlattrackFrenchRankingAction::ROUTE_NAME'), {gender: gender}) }}#{{ team.flattrackId }}>Rang France</a></th>
         <td>{{ flattrackRank.frenchRank }}{% if flattrackRank.frenchRank == 1 %}1er{% else %}ème{% endif%} sur {{ flattrackTotalClassedFrenchTeam }} équipes</td>
     </tr>
     </tbody>

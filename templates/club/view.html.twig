@@ -1,10 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <main class="rda-page">
-        <div class="rda-title-bar">
+    <main id="club_view" class="rda-page rda-layout rda-grid">
+        <header class="rda-title-bar">
             <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
-        </div>
+        </header>
         <div class="rda-club-view-content rda-content">
             {{ include('club/_info_box.html.twig', {club: club}) }}
             <section class="rda-club-view-history">
