@@ -72,11 +72,10 @@ class Team
     #[ORM\Column(nullable: true)]
     private ?array $mediaLinks = null;
 
-
     /**
      * @var Collection<int, TeamGame>
      */
-    #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'teamId', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'team', orphanRemoval: true)]
     private Collection $teamGames;
 
     private ?FlattrackRanking $flattrackRanking = null;
@@ -327,7 +326,7 @@ class Team
     {
         if (!$this->teamGames->contains($teamGame)) {
             $this->teamGames->add($teamGame);
-            $teamGame->setTeamId($this);
+            $teamGame->setTeam($this);
         }
 
         return $this;
@@ -337,8 +336,8 @@ class Team
     {
         if ($this->teamGames->removeElement($teamGame)) {
             // set the owning side to null (unless already changed)
-            if ($teamGame->getTeamId() === $this) {
-                $teamGame->setTeamId(null);
+            if ($teamGame->getTeam() === $this) {
+                $teamGame->setTeam(null);
             }
         }
 

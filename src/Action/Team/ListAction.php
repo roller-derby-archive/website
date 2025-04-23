@@ -31,6 +31,7 @@ class ListAction extends AbstractController
     {
         $criteria = new Criteria();
         $criteria->orderBy(["name" => "ASC"]);
+        $criteria->where(Criteria::expr()->eq('countryCode', 'FRA'));
         $this->bindFilterByCriteria($request, $criteria);
         // $this->bindOrderByCriteria($request, $criteria);
 

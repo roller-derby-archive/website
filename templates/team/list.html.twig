@@ -17,7 +17,7 @@
                             <h2>{{ name }}</h2>
                             <ul class="club-list">{% for team in teams %}
                                 <li>
-                                    <a href="{{ path('team_view', {id: team.id}) }}">
+                                    <a href="{{ path(constant('App\\Action\\Team\\ViewAction::ROUTE_NAME'), {id: team.id}) }}">
                                         {% if team.logo != null %}
                                             <img alt="{{ team.logo }}" src="{{ asset('images/'~team.logo) }}">
                                         {% else %}

@@ -15,11 +15,11 @@ class TeamGame
 
     #[ORM\ManyToOne(inversedBy: 'teamGames')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Team $teamId = null;
+    private ?Team $team = null;
 
     #[ORM\ManyToOne(inversedBy: 'teamGames')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Game $gameId = null;
+    private ?Game $game = null;
 
     #[ORM\Column(length: 1)]
     private ?string $letter = null;
@@ -32,26 +32,26 @@ class TeamGame
         return $this->id;
     }
 
-    public function getTeamId(): ?Team
+    public function getTeam(): ?Team
     {
-        return $this->teamId;
+        return $this->team;
     }
 
-    public function setTeamId(?Team $teamId): static
+    public function setTeam(?Team $team): static
     {
-        $this->teamId = $teamId;
+        $this->team = $team;
 
         return $this;
     }
 
-    public function getGameId(): ?Game
+    public function getGame(): ?Game
     {
-        return $this->gameId;
+        return $this->game;
     }
 
-    public function setGameId(?Game $gameId): static
+    public function setGame(?Game $game): static
     {
-        $this->gameId = $gameId;
+        $this->game = $game;
 
         return $this;
     }

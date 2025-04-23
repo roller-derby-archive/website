@@ -25,9 +25,9 @@ class Flattrack
         throw new Exception("Invalid gender");
     }
 
-    public static function GetTeamPath(int $flattrackId): string
+    public static function GetTeamPath(int $teamId): string
     {
-         return sprintf('%s/%s/%s', self::WEBSITE_URL, self::PATH_TEAMS, $flattrackId);
+         return sprintf('%s/%s/%s', self::WEBSITE_URL, self::PATH_TEAMS, $teamId);
     }
 
     public static function GetBoutsPath(int $page): string

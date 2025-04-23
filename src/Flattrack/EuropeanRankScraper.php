@@ -83,7 +83,6 @@ readonly class EuropeanRankScraper
             // Filter " " nodes
             if ($content->innerHtml === " ") {continue;}
 
-
             $row = $content->getChildren(); // <td> x 4
             $output['totalEuropeanRankedTeam']++;
             $output['rankedTeams'][] = [

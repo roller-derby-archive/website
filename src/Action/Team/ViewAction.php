@@ -50,9 +50,33 @@ class ViewAction extends AbstractController
 
         return $this->render('team/view.html.twig', [
             'team' => $team,
+            'gameBySeason' => $this->sortGamesBySeason($team),
             'flattrackRank' => $flattrackRank,
             'flattrackTotalClassedEuropeanTeam' => $flattrackTotalClassedEuropeanTeam,
             'flattrackTotalClassedFrenchTeam' => $flattrackTotalClassedFrenchTeam,
         ]);
+    }
+
+    private function sortGamesBySeason(Team $team): array
+    {
+        $gameBySeason = [];
+
+        foreach ($team->getTeamGames() as $teamGame) {
+            $season = '';
+            $year = (int)$teamGame->getGame()->getPlayedAt()->format('Y');
+            if ((int)$teamGame->getGame()->getPlayedAt()->format('m') > 7) {
+                // start of season
+                $season = sprintf('%s-%s', $year, $year+1);
+            } else {
+                $season = sprintf('%s-%s', $year-1, $year);
+                // end of season
+            }
+
+            $gameBySeason[$season][] = $teamGame->getGame();
+        }
+
+        krsort($gameBySeason);
+
+        return $gameBySeason;
     }
 }
