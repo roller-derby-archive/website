@@ -1,0 +1,50 @@
+/***** game list *****/
+
+.rda-games-list {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.rda-games-list tr:nth-child(even) {
+    background-color: #c4d9f6;
+}
+
+.rda-games-list thead tr {
+    background-color: #b1afaf;
+}
+
+.rda-games-list td:nth-child(1) {
+    width: 175px;
+    font-size: 14px;
+    padding-left: 10px;
+}
+
+.rda-games-list td:nth-child(3) {
+    width: 20px;
+}
+
+.rda-games-list td:nth-child(4) {
+    width: 58px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.rda-games-list td:nth-child(5) {
+    width: 90px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.rda-games-list td:nth-child(6) {
+    font-size: 14px;
+    width: 58px;
+}
+
+.rda-win {
+    color: #e12289;
+}
+
+.rda-lose {
+    color: #106ea8;
+}

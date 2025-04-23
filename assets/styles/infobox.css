@@ -1,0 +1,54 @@
+/***** infobox *****/
+
+.rda-infobox {
+    padding: 5px;
+    width: 25em;
+    background-color: #f9f9f9;
+    border: 1px solid #a2a9b1;
+    clear: right;
+    float: right;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0 0 0.5em 1em;
+    max-width: 325px;
+    word-wrap: break-word;
+}
+
+.rda-infobox h2 {
+    display: table;
+    padding-top: 10px;
+    height: 35px;
+    width: 100%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.4em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+    background-color: #ebebeb;
+    font-family: sans-serif;
+    color: #000000;
+    margin-top: 0;
+}
+
+.rda-infobox img {
+    display: block;
+    margin: 5px auto;
+}
+
+.rda-infobox caption {
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.1;
+    margin: 0 0 5px 0;
+    padding: 4px;
+    background: #ebebeb;
+    color: #000000;
+}
+
+.rda-infobox table {
+    width: 100%;
+    margin: 5px 0;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: left;
+}

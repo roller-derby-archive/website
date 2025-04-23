@@ -1,0 +1,51 @@
+<table class="rda-games-list">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Saison {{ season }}</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for game in games %}
+        {% if game.teamGames[0].team == team %}{% set me = 0 %}{% set oponent = 1 %}{% else %}{% set me = 1 %}{% set oponent = 0 %}{% endif %}
+        <tr>
+            <td>{{ game.playedAt|format_datetime(pattern='d MMMM Y') }}</td>
+            <td>
+                {% if game.teamGames[oponent].team.countryCode == 'FRA' %}
+                    <a class="rda-wiki-link" href="{{ path(constant('App\\Action\\Team\\ViewAction::ROUTE_NAME'), {id: game.teamGames[oponent].team.id}) }}">{{ game.teamGames[oponent].team.name }}</a>
+                {% else %}
+                    {{ game.teamGames[oponent].team.name }}
+                {% endif %}
+            </td>
+            <td>
+                {% if game.teamGames[me].score == null or game.teamGames[oponent] == null %}
+                {% else %}
+                    {% if game.teamGames[me].score - game.teamGames[oponent].score > 100 %}☀️
+                    {% elseif game.teamGames[me].score - game.teamGames[oponent].score > 50 %}🌤️
+                    {% elseif game.teamGames[me].score - game.teamGames[oponent].score > 0 %}⛅️
+                    {% elseif game.teamGames[me].score - game.teamGames[oponent].score > -50 %}☁️
+                    {% elseif game.teamGames[me].score - game.teamGames[oponent].score > -100 %}🌧️
+                    {% else %}⛈️
+                    {% endif %}
+                {% endif %}
+            </td>
+            <td>
+                {% if game.teamGames[me].score == null or game.teamGames[oponent] == null %}
+                {% else %}
+                    {% if game.teamGames[me].score - game.teamGames[oponent].score > 0 %}<span class="rda-win">Gagné</span>{% else %}<span class="rda-lose">Perdu</span>{% endif %}</td>
+                {% endif %}
+            <td>
+                {% if game.teamGames[me].score == null or game.teamGames[oponent] == null %}
+                {% else %}
+                    {{ game.teamGames[me].score }} à {{ game.teamGames[oponent].score }}
+                {% endif %}
+            </td>
+            <td><a class="rda-wiki-link" href="">Détails</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

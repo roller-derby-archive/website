@@ -27,11 +27,11 @@ class TeamRepository extends ServiceEntityRepository
 
     public function countActive(): int|false
     {
-        return $this->getEntityManager()->getConnection()->executeQuery('SELECT count(*) FROM team WHERE disband_at IS NULL')->fetchOne();
+        return $this->getEntityManager()->getConnection()->executeQuery("SELECT count(*) FROM team WHERE disband_at IS NULL AND country_code='FRA'")->fetchOne();
     }
 
     public function countAll(): int|false
     {
-        return $this->getEntityManager()->getConnection()->executeQuery('SELECT count(*) FROM team')->fetchOne();
+        return $this->getEntityManager()->getConnection()->executeQuery("SELECT count(*) FROM team WHERE country_code='FRA'")->fetchOne();
     }
 }

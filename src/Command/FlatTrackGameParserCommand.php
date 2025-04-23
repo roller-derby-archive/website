@@ -33,7 +33,7 @@ final class FlatTrackGameParserCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        for ($i = 1350;$i > 1300;$i--) {
+        for ($i = 1500;$i > 1490;$i--) {
             $bouts = $this->gameScraper->scrapBouts($i);
 
             foreach ($bouts as $bout) {

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Action;
 
 use App\Repository\ClubRepository;
+use App\Repository\GameRepository;
 use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,7 @@ final class MainAction extends AbstractController
     public function __construct(
         private readonly ClubRepository $clubRepository,
         private readonly TeamRepository $teamRepository,
+        private readonly GameRepository $gameRepository,
     ) {}
 
     #[Route('/', name: self::ROUTE_NAME)]
@@ -28,6 +30,7 @@ final class MainAction extends AbstractController
             'totalActiveClubs' => $this->clubRepository->countActive(),
             'totalTeams' => $this->teamRepository->countAll(),
             'totalActiveTeams' => $this->teamRepository->countActive(),
+            'totalGames' => $this->gameRepository->countAll(),
         ]);
     }
 }

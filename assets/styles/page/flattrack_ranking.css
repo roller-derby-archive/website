@@ -1,0 +1,67 @@
+/************** Flattrack french ranking **************/
+
+.rda-ftfr-table {
+    width: 100%;
+    border-collapse: collapse
+}
+
+.rda-ftfr-table tr:nth-child(even) {
+    background-color: #f6ecf6;
+}
+
+.rda-ftfr-table thead tr {
+    background-color: #dcd9dc;
+}
+
+.rda-ftfr-table thead th {
+    padding: 5px 0;
+}
+
+.rda-ftfr-table thead th:nth-child(1) {
+    width: 50px;
+}
+
+.rda-ftfr-table thead th:nth-child(2) {
+    width: 50px;
+}
+
+.rda-ftfr-table tbody td:nth-child(2) {
+    padding-right: 20px;
+}
+
+.rda-ftfr-table thead th:nth-child(3) {
+    text-align: left;
+}
+
+.rda-ftfr-table thead th:nth-child(4) {
+    width: 70px;
+}
+
+.rda-ftfr-table thead th:nth-child(5) {
+    width: 110px;
+}
+
+.rda-ftfr-rank-cell {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.rda-ftfr-logo-cell img {
+    max-width: 50px;
+    max-height: 50px;
+    margin: 2px auto;
+    display: block;
+}
+
+.rda-ftfr-name-cell {
+    text-align: left;
+}
+
+.rda-ftfr-name-cell p {
+    margin: 0;
+}
+
+.rda-ftfr-other-cell {
+    text-align: center;
+}

@@ -1,5 +1,10 @@
 import './bootstrap.js'
 import './styles/app.css'
+import './styles/filters.css'
+import './styles/infobox.css'
+import './styles/game_list.css'
+import './styles/page/main.css'
+import './styles/page/flattrack_ranking.css'
 import ClubListWatcherPage from './js/club/list.js'
 import TeamListWatcherPage from './js/team/list.js'
 
@@ -27,4 +32,3 @@ document.addEventListener("turbo:render", function (event) {
     // history.pushState(history.state, null, event.currentTarget.URL)
     // console.log(event.currentTarget.URL)
 })
-

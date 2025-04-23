@@ -16,5 +16,8 @@
                 {{ club.history }}
             </section>
         </div>
+        <aside class="rda-right-side-bar">
+            {{ include('_menu_side_bar.html.twig', {disable: 'teams'}) }}
+        </aside>
     </main>
 {% endblock %}

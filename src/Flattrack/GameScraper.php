@@ -82,7 +82,6 @@ readonly class GameScraper
             ->getChildren()[3] // <tbody>
         ;
 
-
         // parse <tr>
         foreach ($contents as $content) {
             // Filter " " nodes

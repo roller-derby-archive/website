@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-exif": "*",
         "ext-gd": "*",
+        "ext-intl": "*",
         "ext-iconv": "*",
         "doctrine/dbal": "^3.9.4",
         "doctrine/doctrine-bundle": "^2.14",
@@ -48,7 +49,8 @@
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
         "symfony/yaml": "7.2.*",
-        "twig/extra-bundle": "^2.12|^3.20",
+        "twig/extra-bundle": "^3.20",
+        "twig/intl-extra": "^3.20",
         "twig/twig": "^2.12|^3.20"
     },
     "config": {
