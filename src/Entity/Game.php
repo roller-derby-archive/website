@@ -18,6 +18,12 @@ class Game
     #[ORM\Column]
     private ?\DateTimeImmutable $playedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?string $flattrackGameId = null;
+
+    #[ORM\Column]
+    private ?string $type = null;
+
     /**
      * @var Collection<int, TeamGame>
      */
@@ -42,6 +48,30 @@ class Game
     public function setPlayedAt(\DateTimeImmutable $playedAt): static
     {
         $this->playedAt = $playedAt;
+
+        return $this;
+    }
+
+    public function getFlattrackGameId(): ?string
+    {
+        return $this->flattrackGameId;
+    }
+
+    public function setFlattrackGameId(?string $flattrackGameId): Game
+    {
+        $this->flattrackGameId = $flattrackGameId;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): Game
+    {
+        $this->type = $type;
 
         return $this;
     }

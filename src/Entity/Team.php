@@ -44,6 +44,10 @@ class Team
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    // ISO 3166-1
+    #[ORM\Column(length: 255)]
+    private ?string $countryCode = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $email = null;
 
@@ -67,6 +71,7 @@ class Team
 
     #[ORM\Column(nullable: true)]
     private ?array $mediaLinks = null;
+
 
     /**
      * @var Collection<int, TeamGame>
@@ -210,6 +215,18 @@ class Team
     public function setType(string $type): static
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getCountryCode(): ?string
+    {
+        return $this->countryCode;
+    }
+
+    public function setCountryCode(?string $countryCode): Team
+    {
+        $this->countryCode = $countryCode;
 
         return $this;
     }

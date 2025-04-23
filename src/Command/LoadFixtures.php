@@ -43,6 +43,7 @@ final class LoadFixtures extends Command
         /** @var Team $team */
         foreach ($teams as $team) {
             foreach ($team->getClubs() as $fakeClub) {
+                $team->setCountryCode("FRA");
                 $team->AddClub($clubMap[$fakeClub->getId()]);
                 $team->removeClub($fakeClub);
             }

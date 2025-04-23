@@ -6,36 +6,35 @@ use Exception;
 use PHPHtmlParser\Dom;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
-
-readonly class EuropeanRankScraper
+readonly class GameScraper
 {
     public function __construct(
         private HttpClientInterface $client,
     ) {}
 
     /**
-     * Scrap all european team rank on flattrack ranking page
+     * Scrap all game on flattrack
      *
      * Output [
-     *    'totalEuropeanRankedTeam' => {int},
-     *    'rankedTeams' => [
-     *       [
-     *           'teamId' => {int},
-     *           'europeanRank' => {int},
-     *           'rating' => {int},
+     *   [
+     *       'playedAt' => {datetime},
+     *       'teamA' => [
+     *         'score' => {?int}
+     *         'teamId' => {int}
      *       ],
-     *    ],
+     *       'gameId' => {int},
+     *   ],
      * ]
      *
      * @throws TransportExceptionInterface
      * @throws Exception
      */
-    public function scrapRanks(Gender $gender): array
+    public function scrapBouts(int $page): array
     {
         // Retrieve html
-        $response = $this->client->request('GET', Flattrack::GetEuropeanRankingPath($gender));
+        $response = $this->client->request('GET', Flattrack::GetBoutsPath($page));
         if ($response->getStatusCode() !== 200) {
-            throw new Exception("Invalid gender");
+            throw new Exception("Http Error: " . $response->getStatusCode());
         }
 
         // Body string to Dom object
@@ -47,15 +46,12 @@ readonly class EuropeanRankScraper
 
     private function parseHtml(Dom $dom): array
     {
-        $output = [
-            'totalEuropeanRankedTeam' => 0,
-            'rankedTeams' => [],
-        ];
+        $output = [];
 
         // html target:
-        // Waring: rightflush class is a weak anchor.
+        // Waring: view-content class is a weak anchor.
         //
-        // <div class="... rightflush">
+        // <div class="view-content">
         //    <table>...</table>
         //    <table>
         //        " "
@@ -73,7 +69,7 @@ readonly class EuropeanRankScraper
         //                <td>{rating}</td>
         //            </tr>
         $contents = $dom
-            ->find( '.rightflush')[0] // <div class="... rightflush">
+            ->find( '.view-content')[0] // <div class="... rightflush">
             ->getChildren()[1] // <table>
             ->getChildren()[3] // <tbody>
         ;
@@ -85,7 +81,6 @@ readonly class EuropeanRankScraper
 
 
             $row = $content->getChildren(); // <td> x 4
-            $output['totalEuropeanRankedTeam']++;
             $output['rankedTeams'][] = [
                 'teamId' => (int)$row[0]->getAttribute('nid'), //   <td nid="{teamId}">{europeanRank}</td>
                 'europeanRank' => (int)str_replace('.', '', $row[0]->innerHtml), //  <td nid="{teamId}">{europeanRank}</td>

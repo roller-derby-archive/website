@@ -18,6 +18,6 @@ class FlattrackExtension extends AbstractExtension
 
     public function getFlattrackTeamPath(string $teamId): string
     {
-        return Flattrack::GetTeamsPath($teamId);
+        return Flattrack::GetTeamPath($teamId);
     }
 }
