@@ -1,7 +1,7 @@
 <section class="rda-infobox">
     <h2>{{ teamName(team.name, team.pronoun) }}{% if team.disbandAt != null %} ☠️{% endif %}</h2>
-    {% if team.logo != null %}
-        <img alt="logo-club" src="{{ asset('images/'~team.logo) }}">
+    {% if team.logo.name != null %}
+        <img src="{{ vich_uploader_asset(team)}}" alt="Logo du club">
     {% endif %}
     <table>
         <caption>Informations générales</caption>

@@ -20,6 +20,7 @@ class Search extends AbstractController
         $results = $needle === '' ? null : $this->searchViewRepository->search($needle);
 
         return $this->render('widget/_search_bar.html.twig', [
+            "needle" => $needle,
             "results" => $results,
         ]);
     }

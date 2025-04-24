@@ -8,12 +8,14 @@
         "ext-ctype": "*",
         "ext-exif": "*",
         "ext-gd": "*",
-        "ext-intl": "*",
         "ext-iconv": "*",
+        "ext-intl": "*",
         "doctrine/dbal": "^3.9.4",
         "doctrine/doctrine-bundle": "^2.14",
         "doctrine/doctrine-migrations-bundle": "^3.4.1",
         "doctrine/orm": "^3.3.2",
+        "league/flysystem-bundle": "^3.4",
+        "liip/imagine-bundle": "^2.13",
         "paquettg/php-html-parser": "^2.2.1",
         "phpdocumentor/reflection-docblock": "^5.6.2",
         "phpoffice/phpspreadsheet": "^4.2",
@@ -51,7 +53,8 @@
         "symfony/yaml": "7.2.*",
         "twig/extra-bundle": "^3.20",
         "twig/intl-extra": "^3.20",
-        "twig/twig": "^2.12|^3.20"
+        "twig/twig": "^2.12|^3.20",
+        "vich/uploader-bundle": "^2.6"
     },
     "config": {
         "allow-plugins": {

@@ -1,17 +1,20 @@
-<search>
+<turbo-frame id="search_results">
+    <search>
         <form action="/widget/search">
-                <label for="search_bar"></label>
-                <input type="search" id="search_bar" name="needle" />
-                <button type="submit">Search</button>
-                <turbo-frame id="search_results" src="/widget/search">
-                        {% if results is defined %}{% else %}{% set results = null %}{% endif %}
-                        {% if results != null %}
-                                <ul>
-                                        {% for result in results %}
-                                                <li>{{ result.value }}</li>
-                                        {% endfor %}
-                                </ul>
-                        {% endif %}
-                </turbo-frame>
+            <label for="search_bar"></label>
+            <input type="search" id="search_bar" placeholder="Asso, équipe, ville,..." autocomplete="off" name="needle" value="{{ needle|default('') }}"/>
+            <button type="submit" id="search_bar_submit">Rechercher</button>
+                {% if results|default(null) != null %}
+                    <ul>{% for result in results %}
+                        <li>
+                            {% if result.entity == 'club' %}
+                                <a class="rda-wiki-link rda-search-result-club" data-turbo-frame="_top" href="{{ path(constant('App\\Action\\Club\\ViewAction::ROUTE_NAME'), {id: result.id}) }}">{{ result.name }}</a>
+                            {% elseif result.entity == 'team' %}
+                                <a class="rda-wiki-link rda-search-result-team" data-turbo-frame="_top" href="{{ path(constant('App\\Action\\Team\\ViewAction::ROUTE_NAME'), {id: result.id}) }}">{{ result.name }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}</ul>
+                {% endif %}
         </form>
-</search>
+    </search>
+</turbo-frame>

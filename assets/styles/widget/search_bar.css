@@ -1,0 +1,55 @@
+#search_results search {
+    position: relative;
+    border: #918989 solid 1px;
+}
+
+#search_results input {
+    width: 400px;
+    border: #918989 solid 1px;
+    z-index: 200;
+    height: 30px;
+    position: relative;
+    padding: 0 5px;
+}
+
+#search_results ul {
+    position: absolute;
+    top: 30px;
+    left: 0;
+    z-index: 100;
+    box-shadow: 0 0 6px #c5bcbc;
+}
+
+#search_results li {
+    width: 400px;
+}
+
+#search_results a {
+    display: block;
+    padding: 8px 5px;
+}
+
+#search_results li a:hover {
+    background-color: #e0e0e0;
+}
+
+#search_results li:nth-child(even) {
+    background-color: #f9f9f9;
+}
+#search_results li:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+#search_bar_submit {
+    z-index: 200;
+    height: 30px;
+    position: relative;
+    background-color: #ffffff;
+    margin: 0;
+    font-size: 16px;
+}
+
+#search_bar_submit:hover {
+    cursor: pointer;
+    background-color: #f9f9f9;
+}

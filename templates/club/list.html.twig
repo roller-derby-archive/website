@@ -17,7 +17,7 @@
                         <h2>{{ name }} ({{ clubs|length }})</h2>
                         <ul class="club-list">{% for club in clubs %}
                             <li>
-                                <a href="{{ path('club_view', {id: club.id}) }}">
+                                <a href="{{ path(constant('App\\Action\\Club\\ViewAction::ROUTE_NAME'), {id: club.id}) }}">
                                     {% if club.logo != null %}
                                         <img alt="{{ club.logo }}" src="{{ asset('images/'~club.logo) }}">
                                     {% else %}

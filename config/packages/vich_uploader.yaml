@@ -1,0 +1,11 @@
+vich_uploader:
+    db_driver: orm
+    storage: flysystem
+    use_flysystem_to_resolve_uri: true
+    metadata:
+        type: attribute
+    mappings:
+        logo:
+            uri_prefix: /media/logo
+            upload_destination: logo.storage
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer

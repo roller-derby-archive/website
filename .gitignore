@@ -21,9 +21,12 @@
 ###> symfony/asset-mapper ###
 /public/assets/
 /assets/vendor/
-/assets/images/upload
+/uploads
 ###< symfony/asset-mapper ###
 
 ###> ide ###
 .idea
 ###< phpunit/phpunit ###
+###> liip/imagine-bundle ###
+/public/media/
+###< liip/imagine-bundle ###

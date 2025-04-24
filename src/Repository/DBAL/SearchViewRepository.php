@@ -11,6 +11,6 @@ class SearchViewRepository
 
     public function search(string $needle): array
     {
-        return $this->connection->executeQuery('SELECT * FROM view__search WHERE value like :needle LIMIT 6', ['needle' => "%$needle%"])->fetchAllAssociative();
+        return $this->connection->executeQuery('SELECT DISTINCT(id, name, entity), id, name, entity FROM view__search WHERE value like :needle ORDER BY entity LIMIT 6', ['needle' => "%$needle%"])->fetchAllAssociative();
     }
 }

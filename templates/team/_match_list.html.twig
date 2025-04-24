@@ -1,12 +1,12 @@
 <table class="rda-games-list">
+    <caption>Saison {{ season }}</caption>
     <thead>
         <tr>
-            <th></th>
-            <th>Saison {{ season }}</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
+            <th>Date</th>
+            <th>Vs</th>
+            <th>Résultas</th>
+            <th>Score</th>
+            <th>Détails</th>
         </tr>
     </thead>
     <tbody>
@@ -32,8 +32,6 @@
                     {% else %}⛈️
                     {% endif %}
                 {% endif %}
-            </td>
-            <td>
                 {% if game.teamGames[me].score == null or game.teamGames[oponent] == null %}
                 {% else %}
                     {% if game.teamGames[me].score - game.teamGames[oponent].score > 0 %}<span class="rda-win">Gagné</span>{% else %}<span class="rda-lose">Perdu</span>{% endif %}</td>
@@ -44,7 +42,7 @@
                     {{ game.teamGames[me].score }} à {{ game.teamGames[oponent].score }}
                 {% endif %}
             </td>
-            <td><a class="rda-wiki-link" href="">Détails</a></td>
+            <td><a class="rda-wiki-link" href="">+</a></td>
         </tr>
     {% endfor %}
     </tbody>

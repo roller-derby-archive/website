@@ -6,12 +6,19 @@
     margin-top: 20px;
 }
 
-.rda-games-list tr:nth-child(even) {
-    background-color: #c4d9f6;
+.rda-games-list caption {
+    background-color: #ebebeb;
+    font-weight: bold;
 }
 
 .rda-games-list thead tr {
-    background-color: #b1afaf;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.rda-games-list tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 .rda-games-list td:nth-child(1) {
@@ -21,24 +28,20 @@
 }
 
 .rda-games-list td:nth-child(3) {
-    width: 20px;
-}
-
-.rda-games-list td:nth-child(4) {
-    width: 58px;
+    width: 85px;
     font-size: 14px;
     text-align: center;
 }
 
-.rda-games-list td:nth-child(5) {
+.rda-games-list td:nth-child(4) {
     width: 90px;
     font-size: 14px;
     text-align: center;
 }
 
-.rda-games-list td:nth-child(6) {
-    font-size: 14px;
-    width: 58px;
+.rda-games-list td:nth-child(5) {
+    width: 20px;
+    text-align: center;
 }
 
 .rda-win {
