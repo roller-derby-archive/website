@@ -5,3 +5,7 @@ flysystem:
             adapter: 'local'
             options:
                 directory: '%kernel.project_dir%/public/media/logo'
+        logo.cache.storage:
+            adapter: 'local'
+            options:
+                directory: '%kernel.project_dir%/public'

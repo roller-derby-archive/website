@@ -23,7 +23,7 @@ const initSearchBar = function () {
             window.clearTimeout(timer);
         }
         if (2 < event.target.value.length) {
-            timer = setTimeout(function () {document.getElementById("search_bar_submit").click()}, 500)
+            timer = setTimeout(function () {document.getElementById("search_bar_submit").click()}, 300)
         }
 
         inputMemory = event.target.value
@@ -58,6 +58,7 @@ document.addEventListener("turbo:submit-end", function (event) {
 
 document.addEventListener("turbo:frame-render", function (event) {
     console.log("turbo:frame-render")
+    console.log(event.target)
     initSearchBar()
     document.getElementById("search_bar").value = inputMemory
     document.getElementById("search_bar").focus()

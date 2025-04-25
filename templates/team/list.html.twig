@@ -16,13 +16,15 @@
                         <li>
                             <h2>{{ name }}</h2>
                             <ul class="club-list">{% for team in teams %}
-                                <li>
+                                    <li>
                                     <a href="{{ path(constant('App\\Action\\Team\\ViewAction::ROUTE_NAME'), {id: team.id}) }}">
+                                        <div class="rda-logo-box">
                                         {% if team.logo.name != null %}
                                             {{ include('widget/_logo.twig', {hasLogoEntity: team}) }}
                                         {% else %}
                                             <img alt="logo-team" src=" https://placehold.co/200x200">
                                         {% endif %}
+                                        </div>
                                         <div>
                                             <p class="wiki-link">
                                                 {{ teamName(team.name, team.pronoun) }}

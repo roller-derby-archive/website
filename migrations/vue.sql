@@ -36,5 +36,3 @@ as value, CONCAT(t.pronoun, ' ', t.name) as name, 'team' as entity FROM team t
     LEFT JOIN team_club tc on t.id = tc.team_id
     LEFT JOIN club ci on tc.club_id = ci.id
     WHERE tc.team_id NOTNULL AND t.country_code = 'FRA';
-
-SELECT * FROM view__search WHERE value like '%aube%';

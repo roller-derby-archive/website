@@ -80,6 +80,19 @@ footer li:after {
 
 /************** Generic Class **************/
 
+.rda-logo-box {
+    display: block;
+    width: 36px;
+    height: 36px;
+}
+
+.rda-logo-box img {
+    display: block;
+    margin: 0 auto;
+    max-width: 36px;
+    max-height: 36px;
+}
+
 .rda-grid {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr;
@@ -200,20 +213,14 @@ footer li:after {
     background-color: #e0e0e0;
 }
 
-
-.club-list a img {
-    display: block;
-    max-width: 34px;
-    max-height: 34px;
-    margin-top: 4px;
-    margin-left: 4px;
-    border-radius: 20px;
+.club-list div:first-child  {
+    flex: 1;
 }
 
 .club-list div  {
     display: block;
     padding: 5px;
-    flex: 1;
+    flex: 10;
 }
 
 .club-list a p:first-child {

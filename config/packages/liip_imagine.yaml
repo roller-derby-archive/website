@@ -3,20 +3,10 @@ liip_imagine:
     driver: "gd"
     default_filter_set_settings:
         format: webp
-    webp:
-        generate: true
-    resolvers :
-        default :
-            web_path : ~
-    filter_sets :
-        cache : ~
-        logo_thumbnail_jpeg:
-            format: jpeg
-            quality: 80
-            filters:
-                thumbnail: { size: [ 50, 50 ], mode: inset }
-        logo_thumbnail_webp:
-            format: webp
+    twig:
+        mode: lazy
+    filter_sets:
+        logo_thumbnail:
             quality: 100
             filters:
-                thumbnail: { size: [ 50, 50 ], mode: inset }
+                thumbnail: { size: [ 34, 34 ], mode: inset }
