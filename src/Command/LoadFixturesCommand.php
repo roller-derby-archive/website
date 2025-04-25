@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Command;
 
+use App\Dto\ClubIoDto;
+use App\Dto\TeamIoDto;
 use App\Entity\Club;
+use App\Entity\Game;
 use App\Entity\Team;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -15,7 +18,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 #[AsCommand(name: 'fixtures:load')]
-final class LoadFixtures extends Command
+final class LoadFixturesCommand extends Command
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
@@ -28,26 +31,28 @@ final class LoadFixtures extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $clubMap = [];
-        $this->entityManager->getRepository(Club::class)->cleanAll();
+        $this->entityManager->getRepository(Game::class)->cleanAll();
         $this->entityManager->getRepository(Team::class)->cleanAll();
+        $this->entityManager->getRepository(Club::class)->cleanAll();
 
-        $clubs = $this->serializer->deserialize(file_get_contents(__DIR__.'/../../fixtures/clubs.json'), Club::class.'[]', 'json');
+        $clubIoDtos = $this->serializer->deserialize(file_get_contents(Fixtures::CLUB_FILE), ClubIoDto::class.'[]', 'json');
 
-        foreach ($clubs as $club) {
-            $clubMap[$club->getId()] = $club;
+        foreach ($clubIoDtos as $clubIoDto) {
+            $club = $clubIoDto->toEntity();
+            foreach ($clubIoDto->getTeamIds() as $teamId) {
+                $clubMap[$teamId][] = $club;
+            }
             $this->entityManager->persist($club);
         }
 
-        $teams = $this->serializer->deserialize(file_get_contents(__DIR__.'/../../fixtures/teams.json'), Team::class.'[]', 'json');
+        $teamIoDtos = $this->serializer->deserialize(file_get_contents(Fixtures::TEAM_FILE), TeamIoDto::class.'[]', 'json');
 
-        /** @var Team $team */
-        foreach ($teams as $team) {
-            $team->setCountryCode("FRA");
-            $team->setUpdatedAt(new \DateTimeImmutable());
+        foreach ($teamIoDtos as $teamIoDto) {
+            $team = $teamIoDto->toEntity();
 
-            foreach ($team->getClubs() as $fakeClub) {
-                $team->AddClub($clubMap[$fakeClub->getId()]);
-                $team->removeClub($fakeClub);
+            foreach ($clubMap[$team->getId()] ?? [] as $club) {
+                $output->writeln("+");
+                $team->AddClub($club);
             }
 
             $this->entityManager->persist($team);

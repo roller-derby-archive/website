@@ -9,4 +9,4 @@ liip_imagine:
         logo_thumbnail:
             quality: 100
             filters:
-                thumbnail: { size: [ 34, 34 ], mode: inset }
+                thumbnail: { size: [ 36, 36 ], mode: inset }

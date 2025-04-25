@@ -187,6 +187,11 @@ footer li:after {
     float: left;
 }
 
+.rda-flag {
+    max-height: 11px;
+    max-width: 18px;
+}
+
 /************** Club List **************/
 
 .region-list {

@@ -18,7 +18,7 @@
             <section>
                 <h2>Matchs</h2>
                 {% for season, games in gameBySeason %}
-                    {{ include('team/_match_list.html.twig', {team: team, season: season, games: games}) }}
+                    {{ include('team/_game_list.html.twig', {team: team, season: season, games: games}) }}
                 {% endfor %}
             </section>
         </div>

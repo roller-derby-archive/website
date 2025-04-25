@@ -13,8 +13,6 @@ class Game
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    #[ORM\GeneratedValue(strategy: 'CUSTOM')]
-    #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?string $id = null;
 
     #[ORM\Column]
@@ -43,9 +41,16 @@ class Game
         $this->teamGames = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(?string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getPlayedAt(): ?\DateTimeImmutable

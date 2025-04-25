@@ -74,10 +74,13 @@ readonly class TeamScraper
             ->getChildren()[1] // <div>
         ;
 
+        $names = explode(', ', $city->innerHtml);
+        $country = Country::tryFrom($names[count($names) - 1]) ? Country::GetCountryCode(Country::from($names[count($names) - 1])) : 'UNKNOWN';
+
         return [
             'name' => $dom->find('.leaguename')[0]->innerHtml,
             'logoUrl' => $dom->find('.imagecache-profile')[0]->getAttribute('src'),
-            'city' => $city->innerHtml,
+            'country' => $country,
         ];
     }
 }

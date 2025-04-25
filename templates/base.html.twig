@@ -12,9 +12,10 @@
         {% endblock %}
     </head>
     <body>
-            <header class="rda-header rda-layout ">
+            <header id="main_header" class="rda-header rda-layout ">
                 <a href="{{ path('main') }}"><img class="rda-site-logo" alt="🛼 Roller Derby Archive" src="{{ asset('images/logo.png') }}"></a>
                 {{ include('widget/_search_bar.html.twig') }}
+                <div></div>
             </header>
             {% block body %}{% endblock %}
             <footer class="rda-footer rda-layout">

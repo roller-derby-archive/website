@@ -16,6 +16,16 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function cleanAll(): void
+    {
+        $this->getEntityManager()->getConnection()->executeQuery('DELETE FROM team_game');
+        $this->createQueryBuilder('c')
+            ->delete()
+            ->getQuery()
+            ->execute()
+        ;
+    }
+
     public function countAll(): int|false
     {
         return $this->getEntityManager()->getConnection()->executeQuery('SELECT count(*) FROM game')->fetchOne();

@@ -18,11 +18,13 @@
                         <ul class="club-list">{% for club in clubs %}
                             <li>
                                 <a href="{{ path(constant('App\\Action\\Club\\ViewAction::ROUTE_NAME'), {id: club.id}) }}">
-                                    {% if club.logo != null %}
-                                        <img alt="{{ club.logo }}" src="{{ asset('images/'~club.logo) }}">
-                                    {% else %}
-                                        <img alt="logo-club" src=" https://placehold.co/200x200">
-                                    {% endif %}
+                                    <div class="rda-logo-box">
+                                        {% if club.logo != null %}
+                                            {{ include('widget/_logo.twig', {hasLogoEntity: club}) }}
+                                        {% else %}
+                                            <img alt="logo-club" src=" https://placehold.co/36x36">
+                                        {% endif %}
+                                    </div>
                                     <div>
                                         <p class="wiki-link">{{ club.Name }}{% if null != club.Alias %} ({{ club.alias }}){% endif %}{% if club.closedAt != null %}☠️{% endif %}</p>
                                         <p>{{ club.cities|join(', ') }}</p>

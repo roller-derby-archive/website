@@ -14,8 +14,6 @@ class Club
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    // #[ORM\GeneratedValue(strategy: 'CUSTOM')] TODO
-    // #[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?string $id = null;
 
     #[ORM\Column]
@@ -169,9 +167,11 @@ class Club
         return $this->history;
     }
 
-    public function setHistory(?string $history): void
+    public function setHistory(?string $history): static
     {
         $this->history = $history;
+
+        return $this;
     }
 
     public function getRegionCode(): ?string

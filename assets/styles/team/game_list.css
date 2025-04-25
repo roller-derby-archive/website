@@ -21,27 +21,47 @@
     background-color: #f9f9f9;
 }
 
-.rda-games-list td:nth-child(1) {
-    width: 175px;
+.rda-games-list th:nth-child(2) {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.rda-games-list td {
     font-size: 14px;
+    text-align: center;
+}
+
+.rda-games-list tr:hover {
+    background-color: #c2d9ed;
+}
+
+.rda-games-list td:nth-child(1) {
+    width: 130px;
+    padding-left: 10px;
+}
+
+
+.rda-games-list td:nth-child(2) {
+    text-align: left;
+    font-size: 16px;
     padding-left: 10px;
 }
 
 .rda-games-list td:nth-child(3) {
-    width: 85px;
-    font-size: 14px;
-    text-align: center;
+    width: 60px;
 }
 
+
 .rda-games-list td:nth-child(4) {
-    width: 90px;
-    font-size: 14px;
-    text-align: center;
+    width: 85px;
 }
 
 .rda-games-list td:nth-child(5) {
+    width: 90px;
+}
+
+.rda-games-list td:nth-child(6) {
     width: 20px;
-    text-align: center;
 }
 
 .rda-win {

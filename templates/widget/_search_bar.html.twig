@@ -1,8 +1,8 @@
-<turbo-frame id="search_results">
+<turbo-frame id="search_bar">
     <search>
         <form action="/widget/search">
-            <label for="search_bar"></label>
-            <input type="search" id="search_bar" placeholder="Asso, équipe, ville,..." autocomplete="off" name="needle" value="{{ needle|default('') }}"/>
+            <label for="search_text_input"></label>
+            <input type="search" id="search_bar_text_input" placeholder="Asso, équipe, ville,..." autocomplete="off" name="needle" value="{{ needle|default('') }}"/>
             <button type="submit" id="search_bar_submit">Rechercher</button>
                 {% if results|default(null) != null %}
                     <ul>{% for result in results %}

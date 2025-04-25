@@ -2,8 +2,9 @@ import './bootstrap.js'
 import './styles/app.css'
 import './styles/filters.css'
 import './styles/infobox.css'
-import './styles/game_list.css'
+import './styles/team/game_list.css'
 import './styles/page/main.css'
+import './styles/header.css'
 import './styles/widget/search_bar.css'
 import './styles/page/flattrack_ranking.css'
 import ClubListWatcherPage from './js/club/list.js'
@@ -18,7 +19,7 @@ let inputMemory = '';
 
 const initSearchBar = function () {
     let timer = null
-    document.getElementById("search_bar").addEventListener("input", function (event){
+    document.getElementById("search_bar_text_input").addEventListener("input", function (event){
         if (timer != null) {
             window.clearTimeout(timer);
         }
@@ -46,8 +47,8 @@ document.addEventListener("turbo:load", function (event) {
             return
         }
 
-        if (document.getElementById("search_results").getElementsByTagName('ul').length > 0) {
-            document.getElementById("search_results").getElementsByTagName('ul')[0].setAttribute('style', 'display:none;')
+        if (document.getElementById("search_bar").getElementsByTagName('ul').length > 0) {
+            document.getElementById("search_bar").getElementsByTagName('ul')[0].setAttribute('style', 'display:none;')
         }
     })
 })
@@ -60,7 +61,7 @@ document.addEventListener("turbo:frame-render", function (event) {
     console.log("turbo:frame-render")
     console.log(event.target)
     initSearchBar()
-    document.getElementById("search_bar").value = inputMemory
-    document.getElementById("search_bar").focus()
-    document.getElementById("search_bar").selectionStart = document.getElementById("search_bar").selectionEnd = document.getElementById("search_bar").value.length;
+    document.getElementById("search_bar_text_input").value = inputMemory
+    document.getElementById("search_bar_text_input").focus()
+    document.getElementById("search_bar_text_input").selectionStart = document.getElementById("search_bar_text_input").selectionEnd = document.getElementById("search_bar_text_input").value.length;
 })

@@ -17,8 +17,6 @@ class Team
 {
     #[ORM\Id]
     #[ORM\Column(type: UuidType::NAME, unique: true)]
-    //#[ORM\GeneratedValue(strategy: 'CUSTOM')] TODO
-    //#[ORM\CustomIdGenerator(class: 'doctrine.uuid_generator')]
     private ?string $id = null;
 
     #[ORM\Column(length: 255)]
@@ -390,9 +388,11 @@ class Team
         return $this->logoFile;
     }
 
-    public function setLogo(EmbeddedFile $logo): void
+    public function setLogo(EmbeddedFile $logo): static
     {
         $this->logo = $logo;
+
+        return $this;
     }
 
     public function getLogo(): ?EmbeddedFile
