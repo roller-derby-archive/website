@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\FlattrackRanking;
+use App\Enum\Country;
 use App\Flattrack\Gender;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -46,17 +47,19 @@ class FlattrackRankingRepository extends ServiceEntityRepository
         return false;
     }
 
-    public function findWithRank(Gender $gender): array
+    public function findByGender(Gender $gender): array
     {
-        return $this->getEntityManager()->getConnection()->executeQuery("
-            SELECT ft.id, ft.rating, ft.european_rank, ft.french_rank , t.id as team_id, t.name, t.pronoun, t.logo_name, t.type, t.level
-            FROM flattrack_ranking ft
-            INNER JOIN team t ON ft.id = t.flattrack_id
-            WHERE ft.gender = :gender
-            AND t.disband_at ISNULL
-            ORDER BY ft.european_rank 
-        ", ['gender' => $gender->value]
-        )->fetchAllAssociative();
+        $queryBuilder = $this->createQueryBuilder('fr');
+        $queryBuilder
+            ->join('fr.team', 't')
+            ->where('t.disbandAt IS NULL')
+            ->where('t.countryCode = :countryCode')
+            ->andWhere('fr.gender = :gender')
+            ->setParameter('countryCode', Country::FRANCE->value)
+            ->setParameter('gender', $gender->value)
+            ->orderBy('fr.europeanRank', 'ASC');
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     public function totalRows(Gender $gender): int
@@ -65,8 +68,8 @@ class FlattrackRankingRepository extends ServiceEntityRepository
             SELECT count(*) 
             FROM flattrack_ranking ft
             INNER JOIN team t ON ft.id = t.flattrack_id
-            WHERE ft.gender = :gender AND t.disband_at ISNULL
-            ", ['gender' => $gender->value]
+            WHERE ft.gender = :gender AND t.disband_at ISNULL AND t.country_code = :country_code
+            ", ['gender' => $gender->value, 'country_code' => Country::FRANCE->value]
         )->fetchOne();
     }
 }

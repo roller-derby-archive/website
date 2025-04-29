@@ -14,7 +14,7 @@
     {% for game in games %}
         {% if game.teamGames[0].team == team %}{% set me = 0 %}{% set oponent = 1 %}{% else %}{% set me = 1 %}{% set oponent = 0 %}{% endif %}
         <tr>
-            <td>{{ game.playedAt|format_datetime(pattern='d MMMM Y') }}</td>
+            <td>{{ game.playedAt|format_datetime(pattern='d MMMM Y') }}{% if game.playedAt <= date('2021/05/02') and game.playedAt >= date('2020/03/17') %}🦠{% endif %}</td>
             <td>
                 {% if game.teamGames[oponent].team.countryCode == 'FRA' %}
                     <a class="rda-wiki-link" href="{{ path(constant('App\\Action\\Team\\ViewAction::ROUTE_NAME'), {id: game.teamGames[oponent].team.id}) }}">

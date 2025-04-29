@@ -37,10 +37,10 @@ readonly class TeamScraper
         $dom = new Dom();
         $dom->load($response->getContent());
 
-        return $this->parseHtml($dom);
+        return $this->parseHtml($dom, $teamId);
     }
 
-    private function parseHtml(Dom $dom): array
+    private function parseHtml(Dom $dom, int $teamId): array
     {
         $output = [];
 
@@ -75,7 +75,7 @@ readonly class TeamScraper
         ;
 
         $names = explode(', ', $city->innerHtml);
-        $country = Country::tryFrom($names[count($names) - 1]) ? Country::GetCountryCode(Country::from($names[count($names) - 1])) : 'UNKNOWN';
+        $country = Country::tryFrom($names[count($names) - 1]) ? Country::GetCountry(Country::from($names[count($names) - 1])) : \App\Enum\Country::UNKNOWN;
 
         return [
             'name' => $dom->find('.leaguename')[0]->innerHtml,

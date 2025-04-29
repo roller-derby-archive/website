@@ -2,6 +2,8 @@
 
 namespace App\Flattrack;
 
+use App\Enum\Country as AppCountry;
+
 enum Country: string
 {
     case BELGIUM = 'Belgium';
@@ -26,26 +28,26 @@ enum Country: string
     case USA_LA = 'LA';
     case UK_GA = 'Wales';
 
-    public static function GetCountryCode(Country $country): string
+    public static function GetCountry(Country $country): AppCountry
     {
         return match ($country) {
-            self::ARGENTINA => 'ARG',
-            self::BELGIUM => 'BEL',
-            self::SPAIN => 'ESP',
-            self::ITALY => 'ITA',
-            self::GERMANY => 'DEU',
-            self::UNITED_KINGDOM, self::UK_GA => 'GBR',
-            self::NETHERLANDS => 'NLD',
-            self::DENMARK => 'DNK',
-            self::IRELAND => 'IRL',
-            self::SWITZERLAND => 'CHE',
-            self::SWEDEN => 'SWE',
-            self::FINLAND => 'FIN',
-            self::AUSTRIA => 'AUT',
-            self::SOUTH_AFRICA => 'ZAF',
-            self::MEXICO => 'MEX',
-            self::CZECH_REPUBLIC => 'CZE',
-            self::USA_TX, self::USA_CO, self::USA_CA, self::USA_LA => 'USA',
+            self::ARGENTINA => AppCountry::ARGENTINA,
+            self::USA_TX, self::USA_CO, self::USA_CA, self::USA_LA => AppCountry::USA,
+            self::BELGIUM => AppCountry::BELGIUM,
+            self::SPAIN => AppCountry::SPAIN,
+            self::ITALY => AppCountry::ITALY,
+            self::GERMANY => AppCountry::GERMANY,
+            self::UNITED_KINGDOM, self::UK_GA => AppCountry::UNITED_KINGDOM,
+            self::NETHERLANDS => AppCountry::NETHERLANDS,
+            self::DENMARK => AppCountry::DENMARK,
+            self::IRELAND => AppCountry::IRELAND,
+            self::SWITZERLAND => AppCountry::SWITZERLAND,
+            self::SWEDEN => AppCountry::SWEDEN,
+            self::FINLAND => AppCountry::FINLAND,
+            self::AUSTRIA => AppCountry::AUSTRIA,
+            self::SOUTH_AFRICA => AppCountry::SOUTH_AFRICA,
+            self::MEXICO => AppCountry::MEXICO,
+            self::CZECH_REPUBLIC => AppCountry::CZECH_REPUBLIC,
         };
     }
 }

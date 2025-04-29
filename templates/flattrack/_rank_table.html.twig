@@ -9,7 +9,7 @@
     </tr>
     </thead>
     <tbody>
-    {% for teamRank in data %}
+    {% for teamRank in frenchRanking %}
         <tr id="{{ teamRank.id }}">
             <td class="rda-ftfr-rank-cell">{{ teamRank.frenchRank }}</td>
             <td class="rda-ftfr-logo-cell">
@@ -20,10 +20,10 @@
                 {% endif %}
             </td>
             <td class="rda-ftfr-name-cell">
-                <a class="rda-wiki-link" href="{{ path('team_view', {id: teamRank.teamId}) }}">{{ teamName(teamRank.name, teamRank.pronoun) }}</a>
+                <a class="rda-wiki-link" href="{{ path('team_view', {id: teamRank.team.id}) }}">{{ teamName(teamRank.team.name, teamRank.team.pronoun) }}</a>
                 <p>
-                    {% if teamRank.level != null %}<span class="rda-team-level">{{ teamRank.level }}</span>{% endif %}
-                    {% if teamRank.type != 'A' %}<span class="rda-team-type">{{ teamType(teamRank.type) }}</span>{% endif %}
+                    {% if teamRank.team.level != null %}<span class="rda-team-level">{{ teamRank.team.level }}</span>{% endif %}
+                    {% if teamRank.team.type != 'A' %}<span class="rda-team-type">{{ teamType(teamRank.team.type) }}</span>{% endif %}
                 </p>
             </td>
             <td class="rda-ftfr-other-cell">⚝{{ teamRank.rating}}</td>

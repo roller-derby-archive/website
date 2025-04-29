@@ -2,7 +2,7 @@ export default class {
     levelMap = ['all', 'casual', 'n3', 'n2', 'n3', 'elite']
     isExecutable(url) {
         // {any*}/teams{queryParam}
-        return new RegExp('^.*\/teams(/?.*)$').test(url)
+        return new RegExp('^.*\/teams(\\?.*)$').test(url)
     }
     execute(event) {
         console.log('use team list executable')

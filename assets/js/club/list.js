@@ -5,7 +5,7 @@ export default class {
     //}
     isExecutable(url) {
         // {any*}/clubs{queryParam}
-        let regExp = new RegExp('^.*\/clubs(/?.*)$');
+        let regExp = new RegExp('^.*\/clubs(\\?.*)$');
 
         return regExp.test(url)
     }

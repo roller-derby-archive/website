@@ -31,7 +31,7 @@ final class OneShotUtilityCommand extends Command
         foreach ($teams as $team) {
             if ($team->getCountryCode() != 'FRA') {
                 $names = explode(', ', $team->getCountryCode());
-                $country = Country::tryFrom($names[count($names) - 1]) ? Country::GetCountryCode(Country::from($names[count($names) - 1])) : 'UNKNOWN';
+                $country = Country::tryFrom($names[count($names) - 1]) ? Country::GetCountry(Country::from($names[count($names) - 1])) : 'UNKNOWN';
                 $team->setCountryCode($country);
             }
         }

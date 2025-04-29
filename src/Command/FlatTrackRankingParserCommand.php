@@ -74,7 +74,7 @@ final class FlatTrackRankingParserCommand extends Command
             // Check if flattrack team id exist because we persist only french team rank.
             $criteria = new Criteria();
             $criteria->where(Criteria::expr()->eq('countryCode', 'FRA'));
-            $criteria->where(Criteria::expr()->eq('flattrackId', (int)$teamId));
+            $criteria->andWhere(Criteria::expr()->eq('flattrackId', (int)$teamId));
             $criteria->andWhere(Criteria::expr()->isNull('disbandAt'));
             $teams = $this->entityManager->getRepository(Team::class)->matching($criteria);
 

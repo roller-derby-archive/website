@@ -7,6 +7,7 @@ import './styles/page/main.css'
 import './styles/header.css'
 import './styles/widget/search_bar.css'
 import './styles/page/flattrack_ranking.css'
+import datepicker from 'js-datepicker'
 import ClubListWatcherPage from './js/club/list.js'
 import TeamListWatcherPage from './js/team/list.js'
 
@@ -33,6 +34,15 @@ const initSearchBar = function () {
 
 document.addEventListener("turbo:load", function (event) {
     console.log("turbo-load")
+
+    if (0 !== document.getElementsByClassName('js-datepicker').length) {
+        datepicker('.js-datepicker', {
+            formatter: (input, date, instance) => {
+                input.value = date.toLocaleDateString()
+            }
+        })
+    }
+
 
     for (const page of pages) {
        if (page.isExecutable(event.detail.url)) {

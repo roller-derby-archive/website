@@ -95,6 +95,7 @@ readonly class GameScraper
             $sanctioning = $this->extractSanctioning($row[3]);
             $ruleset = $sanctioning === null ? 'WFTDA' : $sanctioning;
 
+            if(3 > count($row[9]->getChildren()) || 3 > count($row[5]->getChildren())) {continue;}
             $href = $row[5]->getChildren()[1]->getAttribute('href') === null ? $row[5]->getChildren()[1]->getChildren()[0]->getAttribute('href') : $row[5]->getChildren()[1]->getAttribute('href');
             preg_match('/\d{1,10}/', $href, $matches);
             $teamAId = $matches[0];

@@ -7,9 +7,12 @@ namespace App\Command;
 use App\Entity\Game;
 use App\Entity\Team;
 use App\Entity\TeamGame;
+use App\Enum\Country;
 use App\Flattrack\GameScraper;
 use App\Flattrack\TeamScraper;
+use App\Repository\GameRepository;
 use App\Repository\TeamRepository;
+use Doctrine\DBAL\Connection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -22,6 +25,7 @@ use Symfony\Component\Uid\Uuid;
 final class FlatTrackGameParserCommand extends Command
 {
     public function __construct(
+        private readonly Connection $connection,
         private readonly EntityManagerInterface $entityManager,
         private readonly TeamRepository $teamRepository,
         private readonly GameScraper $gameScraper,
@@ -35,10 +39,14 @@ final class FlatTrackGameParserCommand extends Command
     {
         $newTeamPersisted = [];
 
-        for ($i = 1500;$i > 1490;$i--) {
+        for ($i = 1200;$i > 1150;$i--) {
             $bouts = $this->gameScraper->scrapBouts($i);
 
             foreach ($bouts as $bout) {
+                if ($this->gameExist($bout['gameId'])) {
+                    $output->writeln(sprintf('<comment>%s: already scraped</comment>', $bout['gameId']));
+                    continue;
+                }
                 $teamA = $newTeamPersisted[$bout['teamA']['teamId']] ?? $this->teamRepository->findOneBy(['flattrackId' => $bout['teamA']['teamId']]);
                 $teamB = $newTeamPersisted[$bout['teamB']['teamId']] ?? $this->teamRepository->findOneBy(['flattrackId' => $bout['teamB']['teamId']]);
 
@@ -48,12 +56,12 @@ final class FlatTrackGameParserCommand extends Command
 
                 $notAFrenchTeam = 0;
                 if ($teamA !== null) {
-                    $notAFrenchTeam += $teamA->getCountryCode() === 'FRA' ? 0 : 1;
+                    $notAFrenchTeam += $teamA->getCountryCode() === Country::FRANCE->value ? 0 : 1;
                 } else {
                     $notAFrenchTeam++;
                 }
                 if ($teamB !== null) {
-                    $notAFrenchTeam += $teamB->getCountryCode() === 'FRA' ? 0 : 1;
+                    $notAFrenchTeam += $teamB->getCountryCode() === Country::FRANCE->value ? 0 : 1;
                 } else {
                     $notAFrenchTeam++;
                 }
@@ -70,14 +78,14 @@ final class FlatTrackGameParserCommand extends Command
                         ->setId(Uuid::v4()->toString())
                         ->setName($team['name'])
                         ->setType('A')
-                        ->setCountryCode($team['country'])
+                        ->setCountryCode($team['country']->value)
                         ->setFlattrackId($bout[$teamKey]['teamId'])
                         ->setCreatedAt(\DateTimeImmutable::createFromFormat('d/m/Y h:i:s', '01/01/1900 00:00:00'))
                         ->setUpdatedAt(\DateTimeImmutable::createFromFormat('d/m/Y h:i:s', '01/01/1900 00:00:00'))
                         ->setCategory($teamFrench->getCategory())
                     ;
                     $this->entityManager->persist($teamMissing);
-                    $newTeamPersisted[$bout['teamA']['teamId']] = $teamMissing;
+                    $newTeamPersisted[$bout[$teamKey]['teamId']] = $teamMissing;
 
                     if ($teamA === null) {
                         $teamA = $teamMissing;
@@ -116,5 +124,10 @@ final class FlatTrackGameParserCommand extends Command
         }
 
         return Command::SUCCESS;
+    }
+
+    private function gameExist(int $gameId): bool
+    {
+        return (bool)$this->connection->executeQuery('SELECT * FROM game WHERE flattrack_game_id=:flattrack_game_id', ['flattrack_game_id' => $gameId])->fetchOne();
     }
 }

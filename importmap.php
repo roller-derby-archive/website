@@ -25,4 +25,7 @@ return [
     '@hotwired/turbo' => [
         'version' => '7.3.0',
     ],
+    'js-datepicker' => [
+        'version' => '5.18.4',
+    ],
 ];

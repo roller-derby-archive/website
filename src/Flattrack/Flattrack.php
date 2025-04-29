@@ -17,9 +17,9 @@ class Flattrack
     {
         switch ($gender) {
             case Gender::Women:
-                return sprintf('%s/%s', self::WEBSITE_URL, self::PATH_WOMEN_EUROPEAN_RANKING);
+                return sprintf('%s%s', self::WEBSITE_URL, self::PATH_WOMEN_EUROPEAN_RANKING);
             case Gender::Men:
-                return sprintf('%s/%s', self::WEBSITE_URL, self::PATH_MEN_EUROPEAN_RANKING);
+                return sprintf('%s%s', self::WEBSITE_URL, self::PATH_MEN_EUROPEAN_RANKING);
         }
 
         throw new Exception("Invalid gender");
@@ -27,11 +27,11 @@ class Flattrack
 
     public static function GetTeamPath(int $teamId): string
     {
-         return sprintf('%s/%s/%s', self::WEBSITE_URL, self::PATH_TEAMS, $teamId);
+         return sprintf('%s%s/%s', self::WEBSITE_URL, self::PATH_TEAMS, $teamId);
     }
 
     public static function GetBoutsPath(int $page): string
     {
-        return sprintf('%s/%s?page=%s', self::WEBSITE_URL, self::PATH_BOUTS, $page);
+        return sprintf('%s%s?page=%s', self::WEBSITE_URL, self::PATH_BOUTS, $page);
     }
 }

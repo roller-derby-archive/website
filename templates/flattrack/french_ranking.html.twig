@@ -7,7 +7,7 @@
         </header>
         <section class="rda-content">
             <h2>{% if gender.value == 'men' %}Équipes mixtes {% else %} Équipes féminines et minoritées de genre{% endif %}</h2>
-            {{ include('flattrack/_rank_table.html.twig', {data: data}) }}
+            {{ include('flattrack/_rank_table.html.twig', {frenchRanking: frenchRanking}) }}
         </section>
         <aside class="rda-right-side-bar">
             {{ include('_menu_side_bar.html.twig', {disable: 'flatrack_rank_'~gender.value}) }}
