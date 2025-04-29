@@ -1,0 +1,27 @@
+<section class="rda-infobox">
+    <table>
+        <caption>Informations générales</caption>
+        <tbody>
+        <tr>
+            <th>Jouée le</th>
+            <td>{{ game.playedAt|date("d/m/Y") }}</td>
+        </tr>
+        <tr>
+            <th>Type</th>
+            <td><a class="rda-wiki-link" href="">{{ game.type }}</a></td>
+        </tr>
+{#  {% if game.level %}<tr>
+            <th>Niveau</th>
+            <td>{{ game.level }}</td>
+            </tr>{% endif %}#}
+        <tr>
+            <th>Régles</th>
+            <td><a class="rda-wiki-link" href="">{{ game.ruleset }}</a></td>
+        </tr>
+        {% if game.sanctioning %}<tr>
+            <th>Sanctionné</th>
+            <td>{{ game.sanctioning }}</td>
+        </tr>{% endif %}
+        </tbody>
+    </table>
+</section>

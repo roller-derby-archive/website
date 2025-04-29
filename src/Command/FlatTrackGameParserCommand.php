@@ -33,12 +33,14 @@ final class FlatTrackGameParserCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $newTeamPersisted = [];
+
         for ($i = 1500;$i > 1490;$i--) {
             $bouts = $this->gameScraper->scrapBouts($i);
 
             foreach ($bouts as $bout) {
-                $teamA = $this->teamRepository->findOneBy(['flattrackId' => $bout['teamA']['teamId']]);
-                $teamB = $this->teamRepository->findOneBy(['flattrackId' => $bout['teamB']['teamId']]);
+                $teamA = $newTeamPersisted[$bout['teamA']['teamId']] ?? $this->teamRepository->findOneBy(['flattrackId' => $bout['teamA']['teamId']]);
+                $teamB = $newTeamPersisted[$bout['teamB']['teamId']] ?? $this->teamRepository->findOneBy(['flattrackId' => $bout['teamB']['teamId']]);
 
                 if (($teamA === null && $teamB === null)) {
                     continue;
@@ -70,10 +72,12 @@ final class FlatTrackGameParserCommand extends Command
                         ->setType('A')
                         ->setCountryCode($team['country'])
                         ->setFlattrackId($bout[$teamKey]['teamId'])
-                        ->setCreatedAt(\DateTimeImmutable::createFromFormat('d/m/Y', '01/01/1900'))
+                        ->setCreatedAt(\DateTimeImmutable::createFromFormat('d/m/Y h:i:s', '01/01/1900 00:00:00'))
+                        ->setUpdatedAt(\DateTimeImmutable::createFromFormat('d/m/Y h:i:s', '01/01/1900 00:00:00'))
                         ->setCategory($teamFrench->getCategory())
                     ;
                     $this->entityManager->persist($teamMissing);
+                    $newTeamPersisted[$bout['teamA']['teamId']] = $teamMissing;
 
                     if ($teamA === null) {
                         $teamA = $teamMissing;
@@ -85,6 +89,7 @@ final class FlatTrackGameParserCommand extends Command
                 }
 
                 $game = (new Game())
+                    ->setId(Uuid::v4()->toString())
                     ->setFlattrackGameId($bout['gameId'])
                     ->setPlayedAt($bout['playedAt'])
                     ->setRuleset($bout['ruleset'])

@@ -2,8 +2,8 @@
     <search>
         <form action="/widget/search">
             <label for="search_text_input"></label>
-            <input type="search" id="search_bar_text_input" placeholder="Asso, équipe, ville,..." autocomplete="off" name="needle" value="{{ needle|default('') }}"/>
-            <button type="submit" id="search_bar_submit">Rechercher</button>
+            {# Don't split input and button because it's create sapce between us. I don't know why. #}
+            <label for="search_bar_text_input"></label><input type="search" id="search_bar_text_input" placeholder="Asso, équipe, ville,..." autocomplete="off" name="needle" value="{{ needle|default('') }}"/><button type="submit" id="search_bar_submit">Rechercher</button>
                 {% if results|default(null) != null %}
                     <ul>{% for result in results %}
                         <li>

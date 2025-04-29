@@ -48,7 +48,7 @@
                     {{ game.teamGames[me].score }} à {{ game.teamGames[oponent].score }}
                 {% endif %}
             </td>
-            <td><a class="rda-wiki-link" href="">+</a></td>
+            <td><a class="rda-wiki-link" href="{{ path(constant('App\\Action\\Game\\ViewAction::ROUTE_NAME'), {id: game.id}) }}">+</a></td>
         </tr>
     {% endfor %}
     </tbody>

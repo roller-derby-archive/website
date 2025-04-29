@@ -16,6 +16,14 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function getPreviousMeet(string $teamIdA, string $teamIdB): void
+    {
+        $this->getEntityManager()
+            ->getConnection()
+            ->executeQuery('SELECT * FROM game INNER JOIN team_game ON game.id = team_game.game_id');
+
+    }
+
     public function cleanAll(): void
     {
         $this->getEntityManager()->getConnection()->executeQuery('DELETE FROM team_game');

@@ -6,8 +6,11 @@ namespace App\Command;
 
 use App\App;
 use App\Entity\FlattrackRanking;
+use App\Entity\Team;
+use App\Flattrack\Country;
 use App\Flattrack\EuropeanRankScraper;
 use App\Flattrack\Gender;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -69,9 +72,13 @@ final class FlatTrackRankingParserCommand extends Command
             extract($content); // $teamId, $europeanRank, $rating
 
             // Check if flattrack team id exist because we persist only french team rank.
-            if (!$this->entityManager->getRepository(FlattrackRanking::class)->checkId((int)$teamId)) {
-                continue;
-            }
+            $criteria = new Criteria();
+            $criteria->where(Criteria::expr()->eq('countryCode', 'FRA'));
+            $criteria->where(Criteria::expr()->eq('flattrackId', (int)$teamId));
+            $criteria->andWhere(Criteria::expr()->isNull('disbandAt'));
+            $teams = $this->entityManager->getRepository(Team::class)->matching($criteria);
+
+            if (0 === count($teams)) {continue;}
 
             $rank = new FlattrackRanking();
             $rank->setId((int)$teamId);
@@ -79,6 +86,7 @@ final class FlatTrackRankingParserCommand extends Command
             $rank->setRating($rating);
             $rank->setGender($gender->value);
             $rank->setFrenchRank($i);
+            $rank->setTeam($teams[0]);
 
             $this->entityManager->persist($rank);
             $i++;

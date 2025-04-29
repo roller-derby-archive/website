@@ -25,6 +25,10 @@ class FlattrackRanking
     #[ORM\Column(length: 5)]
     private ?string $gender = null;
 
+    #[ORM\OneToOne(inversedBy: 'flattrackRanking', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Team $team = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,6 +83,18 @@ class FlattrackRanking
     public function setGender(string $gender): static
     {
         $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getTeam(): ?Team
+    {
+        return $this->team;
+    }
+
+    public function setTeam(Team $team): static
+    {
+        $this->team = $team;
 
         return $this;
     }

@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace App\Action;
 
-use App\Entity\FlattrackRanking;
 use App\Flattrack\Gender;
 use App\Repository\FlattrackRankingRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Common\Collections\Criteria;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
@@ -25,9 +23,18 @@ final class FlattrackFrenchRankingAction extends AbstractController
     #[Route('/flattrackFrenchRanking/{gender}', name: 'flattrack_french_ranking')]
     public function flattrackFrenchRanking(Gender $gender): Response
     {
+        $criteria = new Criteria();
+        $criteria->orderBy(['europeanRank' => 'ASC']);
+        $criteria->where(Criteria::expr()->eq('gender', $gender->value));
+        $criteria->where(Criteria::expr()->isNull('team.disbandAt'));
+
+        foreach ($this->flattrackRankingRepository->matching($criteria) as $flattrackRanking) {
+            dd($flattrackRanking);
+        }
+
         return $this->render('flattrack/french_ranking.html.twig', [
             "gender" => $gender,
-            "data" => $this->flattrackRankingRepository->findWithRank($gender),
+            "data" => $this->flattrackRankingRepository->matching($criteria),
         ]);
     }
 }

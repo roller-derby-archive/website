@@ -80,6 +80,8 @@ class Team
     #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'team', orphanRemoval: true)]
     private Collection $teamGames;
 
+    #[ORM\OneToOne(mappedBy: 'team', cascade: ['persist', 'remove'])]
+
     private ?FlattrackRanking $flattrackRanking = null;
 
     #[ORM\Embedded(class: EmbeddedFile::class)]

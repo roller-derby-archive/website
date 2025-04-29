@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="game_view" class="rda-page rda-layout rda-grid">
+        <header class="rda-title-bar">
+            <h1>{{ game.teamGames[0].team.name }} contre {{ game.teamGames[1].team.name }}</h1>
+        </header>
+        <div class="rda-content">
+            {{ include('game/_info_box.html.twig', {game: game}) }}
+            <section>
+                <table id="game_result">
+                    <tbody>
+                        <tr>
+                            <td><img src="{{ vich_uploader_asset(game.teamGames[0].team) }}" alt="Logo de l'équipe"></td>
+                            <td><img src="{{ vich_uploader_asset(game.teamGames[1].team) }}" alt="Logo de l'équipe"></td>
+                        </tr>
+                        <tr>
+                            <td><p>{{ game.teamGames[0].score }}</p></td>
+                            <td><p>{{ game.teamGames[1].score }}</p></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section>
+                <h2>Rencontre précédentes</h2>
+            </section>
+        </div>
+        <aside class="rda-right-side-bar">
+            {{ include('_menu_side_bar.html.twig', {disable: null}) }}
+        </aside>
+    </main>
+{% endblock %}

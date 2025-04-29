@@ -11,23 +11,23 @@
     <tbody>
     {% for teamRank in data %}
         <tr id="{{ teamRank.id }}">
-            <td class="rda-ftfr-rank-cell">{{ teamRank.french_rank }}</td>
+            <td class="rda-ftfr-rank-cell">{{ teamRank.frenchRank }}</td>
             <td class="rda-ftfr-logo-cell">
-                {% if teamRank.logo != null %}
-                    <img alt="{{ teamRank.logo }}" src="{{ asset('images/'~teamRank.logo) }}">
+                {% if teamRank.team.logo.name != null %}
+                    {{ include('widget/_logo.twig', {hasLogoEntity: teamRank.team}) }}
                 {% else %}
-                    <img alt="logo-club" src=" https://placehold.co/20x20">
+                    <img alt="logo-team" src=" https://placehold.co/36x36">
                 {% endif %}
             </td>
             <td class="rda-ftfr-name-cell">
-                <a class="rda-wiki-link" href="{{ path('team_view', {id: teamRank.team_id}) }}">{{ teamName(teamRank.name, teamRank.pronoun) }}</a>
+                <a class="rda-wiki-link" href="{{ path('team_view', {id: teamRank.teamId}) }}">{{ teamName(teamRank.name, teamRank.pronoun) }}</a>
                 <p>
                     {% if teamRank.level != null %}<span class="rda-team-level">{{ teamRank.level }}</span>{% endif %}
                     {% if teamRank.type != 'A' %}<span class="rda-team-type">{{ teamType(teamRank.type) }}</span>{% endif %}
                 </p>
             </td>
             <td class="rda-ftfr-other-cell">⚝{{ teamRank.rating}}</td>
-            <td class="rda-ftfr-other-cell">{{ teamRank.european_rank}}{% if teamRank.european_rank == 1 %}er{% else %}ème{% endif %}</td>
+            <td class="rda-ftfr-other-cell">{{ teamRank.europeanRank}}{% if teamRank.europeanRank == 1 %}er{% else %}ème{% endif %}</td>
         </tr>
     {% endfor %}
     </tbody>

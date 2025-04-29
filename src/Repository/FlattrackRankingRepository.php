@@ -3,8 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\FlattrackRanking;
-use App\Entity\Team;
-use App\Flattrack\Flattrack;
 use App\Flattrack\Gender;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -29,7 +27,7 @@ class FlattrackRankingRepository extends ServiceEntityRepository
         ;
     }
 
-    public function checkId(int $id): bool
+    public function isRankable(int $id): bool
     {
         $queryBuilder = new QueryBuilder($this->getEntityManager()->getConnection());
         $queryBuilder
@@ -37,6 +35,7 @@ class FlattrackRankingRepository extends ServiceEntityRepository
             ->from('team', 't')
             ->where('t.flattrack_id = :flattrackId')
             ->andWhere('t.disband_at ISNULL')
+            ->andWhere("t.country_code = 'FRA'")
             ->setParameter("flattrackId", $id)
         ;
 
@@ -50,12 +49,12 @@ class FlattrackRankingRepository extends ServiceEntityRepository
     public function findWithRank(Gender $gender): array
     {
         return $this->getEntityManager()->getConnection()->executeQuery("
-            SELECT ft.id, ft.rating, ft.european_rank, ft.french_rank , t.id as team_id, t.name, t.pronoun, t.logo, t.type, t.level
+            SELECT ft.id, ft.rating, ft.european_rank, ft.french_rank , t.id as team_id, t.name, t.pronoun, t.logo_name, t.type, t.level
             FROM flattrack_ranking ft
             INNER JOIN team t ON ft.id = t.flattrack_id
             WHERE ft.gender = :gender
             AND t.disband_at ISNULL
-            ORDER BY ft.european_rank ASC 
+            ORDER BY ft.european_rank 
         ", ['gender' => $gender->value]
         )->fetchAllAssociative();
     }

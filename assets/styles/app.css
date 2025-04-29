@@ -238,3 +238,19 @@ footer li:after {
     margin: 0;
     font-size: 13px;
 }
+
+#game_result {
+    width: 60%;
+}
+
+#game_result img{
+    margin: 0 auto;
+    display: block;
+}
+
+#game_result p {
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+}
+
