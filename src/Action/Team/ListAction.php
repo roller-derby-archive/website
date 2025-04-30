@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ListAction extends AbstractController
+final class ListAction extends AbstractController
 {
     const ROUTE_NAME = 'team_list';
     private const QUERY_PARAM_FILTERS_CATEGORY = 'category';

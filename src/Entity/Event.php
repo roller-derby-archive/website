@@ -6,17 +6,17 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    private ?string $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $startAt = null;
@@ -33,30 +33,43 @@ class Event
     #[ORM\OneToMany(targetEntity: Game::class, mappedBy: 'event')]
     private Collection $games;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
     private ?Championship $championship = null;
+
+    #[ORM\OneToOne(targetEntity: self::class, inversedBy: 'previous', cascade: ['persist', 'remove'])]
+    private ?self $next = null;
+
+    #[ORM\OneToOne(targetEntity: self::class, mappedBy: 'next', cascade: ['persist', 'remove'])]
+    private ?self $previous = null;
 
     public function __construct()
     {
         $this->games = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function setId(?string $id): static
     {
-        return $this->Name;
+        $this->id = $id;
+
+        return $this;
     }
 
-    public function setName(string $Name): static
+    public function getName(): ?string
     {
-        $this->Name = $Name;
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -147,6 +160,40 @@ class Event
     public function setChampionship(?Championship $championship): static
     {
         $this->championship = $championship;
+
+        return $this;
+    }
+
+    public function getNext(): ?self
+    {
+        return $this->next;
+    }
+
+    public function setNext(?self $next): static
+    {
+        $this->next = $next;
+
+        return $this;
+    }
+
+    public function getPrevious(): ?self
+    {
+        return $this->previous;
+    }
+
+    public function setPrevious(?self $previous): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($previous === null && $this->previous !== null) {
+            $this->previous->setNext(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($previous !== null && $previous->getNext() !== $this) {
+            $previous->setNext($this);
+        }
+
+        $this->previous = $previous;
 
         return $this;
     }

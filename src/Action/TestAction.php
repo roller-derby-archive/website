@@ -18,7 +18,9 @@ use Vich\UploaderBundle\Form\Type\VichImageType;
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 final class TestAction extends AbstractController
 {
-    #[Route('/test', name: 'test')]
+    const ROUTE_NAME = 'test_view';
+
+    #[Route('/test', name: self::ROUTE_NAME)]
     public function search(Request $request, EntityManagerInterface $entityManager): Response
     {
         $team = new Team();
@@ -54,7 +56,7 @@ final class TestAction extends AbstractController
 
             // ... perform some action, such as saving the task to the database
 
-            return $this->redirectToRoute('test_view');
+            return $this->redirectToRoute('test_2');
         }
 
         return $this->render('test.html.twig', [
@@ -62,7 +64,7 @@ final class TestAction extends AbstractController
         ]);
     }
 
-    #[Route('/testview/{team}', name: 'test_view')]
+    #[Route('/testview/{team}', name: 'test_2')]
     public function view(Team $team): Response
     {
         return $this->render('test_view.html.twig', ['team' => $team]);

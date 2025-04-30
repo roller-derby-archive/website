@@ -39,7 +39,7 @@ final class FlatTrackGameParserCommand extends Command
     {
         $newTeamPersisted = [];
 
-        for ($i = 1200;$i > 1150;$i--) {
+        for ($i = 50;$i > 0;$i--) {
             $bouts = $this->gameScraper->scrapBouts($i);
 
             foreach ($bouts as $bout) {

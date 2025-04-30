@@ -1,12 +1,26 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}RDA - test {% endblock %}
+
 {% block body %}
     <main id="test" class="rda-page rda-layout rda-grid">
         <div class="rda-title-bar">
             <h1>Test</h1>
         </div>
         <div class="rda-content">
-            {{ form(form) }}
+{#            {{ form(form) }}#}
+            <div
+                    id="drop_zone"
+                    ondrop="function dropHandler(event) {
+
+                    }"
+
+                    ondragover="function dragOverHandler(event) {
+                    
+                    }">
+                <p>Drag one or more files to this <i>drop zone</i>.</p>
+            </div>
+
         </div>
     </main>
 {% endblock %}

@@ -84,7 +84,7 @@ class Team
     private Collection $teamGames;
 
     #[ORM\Embedded(class: EmbeddedFile::class)]
-    private ?EmbeddedFile $logo = null;
+    private ?EmbeddedFile $logo;
 
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'logo', fileNameProperty: 'logo.name', size: 'logo.size')]

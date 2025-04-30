@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class EditAction extends AbstractController
+final class EditAction extends AbstractController
 {
     const ROUTE_NAME = 'team_edit';
     public function __construct(

@@ -2,18 +2,20 @@
 
 namespace App\Entity;
 
+use App\Enum\ChampionshipDivision;
+use App\Enum\TeamCategory;
 use App\Repository\ChampionshipRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Types\UuidType;
 
 #[ORM\Entity(repositoryClass: ChampionshipRepository::class)]
 class Championship
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: UuidType::NAME, unique: true)]
+    private ?string $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $division = null;
@@ -33,7 +35,7 @@ class Championship
     /**
      * @var Collection<int, ChampionshipRanking>
      */
-    #[ORM\OneToMany(targetEntity: ChampionshipRanking::class, mappedBy: 'championship', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: ChampionshipRanking::class, mappedBy: 'championship', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $championshipRankings;
 
     public function __construct()
@@ -42,10 +44,16 @@ class Championship
         $this->championshipRankings = new ArrayCollection();
     }
 
-
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
+    }
+
+    public function setId(?string $id): static
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getDivision(): ?string
@@ -53,8 +61,12 @@ class Championship
         return $this->division;
     }
 
-    public function setDivision(string $division): static
+    public function setDivision(string|ChampionshipDivision $division): static
     {
+        if ($division InstanceOf ChampionshipDivision) {
+            $division = $division->value;
+        }
+
         $this->division = $division;
 
         return $this;
@@ -65,8 +77,12 @@ class Championship
         return $this->category;
     }
 
-    public function setCategory(string $category): static
+    public function setCategory(string|TeamCategory $category): static
     {
+        if ($category InstanceOf TeamCategory) {
+            $category = $category->value;
+        }
+
         $this->category = $category;
 
         return $this;

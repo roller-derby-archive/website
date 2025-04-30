@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
-class ViewAction extends AbstractController
+final class ViewAction extends AbstractController
 {
     const ROUTE_NAME = 'team_view';
 

@@ -3,11 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Club;
+use App\Enum\ChampionshipDivision;
 use App\Enum\TeamCategory;
 use App\Enum\TeamLevel;
 use App\Form\Helper\DatePicker;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -15,42 +19,30 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
-final class TeamType extends AbstractType
+final class ChampionshipType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('flattrackId', IntegerType::class)
+            ->add('season', TextType::class)
             ->add('category', EnumType::class, [
                 'class' => TeamCategory::class,
                 'choice_value' => function (?TeamCategory $enum): string {
                     return $enum ? $enum->value : '';
                 }
             ])
-            ->add('type', EnumType::class, [
-                'class' => \App\Enum\TeamType::class,
-                'choice_value' => function (?\App\Enum\TeamType $enum): string {
+            ->add('division', EnumType::class, [
+                'class' => ChampionshipDivision::class,
+                'choice_value' => function (?ChampionshipDivision $enum): string {
                     return $enum ? $enum->value : '';
                 }
             ])
-            ->add('level', EnumType::class, [
-                'required' => false,
-                'class' => TeamLevel::class,
-                'choice_value' => function (?TeamLevel $enum): string {
-                    return $enum ? $enum->value : '';
-                }
+            ->add('championshipRankings', CollectionType::class, [
+                'entry_type' => ChampionshipRankingType::class,
+                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'by_reference' => false,
             ])
-            ->add('clubs', EntityType::class, [
-                'class' => Club::class,
-                'multiple' => true,
-                'choice_label' => 'name',
-            ])
-            ->add('pronoun', TextType::class, ['required' => false])
-        ;
-        DatePicker::addDatePicker($builder, 'createdAt', 'Créé le');
-        DatePicker::addDatePicker($builder, 'disbandAt', 'Date de dissolution');
-        $builder
             ->add('save', SubmitType::class, ['label' => 'Enregistrer'])
         ;
     }

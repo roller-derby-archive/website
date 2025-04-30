@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="team_view" class="rda-page rda-layout rda-grid">
+        <header class="rda-title-bar">
+            <h1>{{ championship.season }}</h1>
+        </header>
+        <div class="rda-content">
+        </div>
+        <aside class="rda-right-side-bar">
+            {{ include('_menu_side_bar.html.twig', {disable: null}) }}
+        </aside>
+    </main>
+{% endblock %}

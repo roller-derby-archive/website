@@ -30,18 +30,24 @@ class Game
     #[ORM\Column]
     private ?string $ruleset = null;
 
-    /**
-     * @var Collection<int, TeamGame>
-     */
-    #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'game', cascade: ['persist', 'remove'], orphanRemoval: true)]
-    private Collection $teamGames;
+    #[ORM\Column]
+    private array $videoLinks = [];
 
     #[ORM\ManyToOne(inversedBy: 'games')]
     private ?Event $event = null;
 
+    /** @var Collection<int, TeamGame> */
+    #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'game', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $teamGames;
+
+    /** @var Collection<int, Image> */
+    #[ORM\ManyToMany(targetEntity: Image::class)]
+    private Collection $photos;
+
     public function __construct()
     {
         $this->teamGames = new ArrayCollection();
+        $this->photos = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -154,6 +160,42 @@ class Game
     public function setEvent(?Event $event): static
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Image>
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Image $photo): static
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos->add($photo);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Image $photo): static
+    {
+        $this->photos->removeElement($photo);
+
+        return $this;
+    }
+
+    public function getVideoLinks(): array
+    {
+        return $this->videoLinks;
+    }
+
+    public function setVideoLinks(array $videoLinks): self
+    {
+        $this->videoLinks = $videoLinks;
 
         return $this;
     }

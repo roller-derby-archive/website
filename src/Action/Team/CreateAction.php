@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Uid\Uuid;
 
-class CreateAction extends AbstractController
+final class CreateAction extends AbstractController
 {
     const ROUTE_NAME = 'team_create';
     public function __construct(

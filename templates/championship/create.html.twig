@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="rda-page">
+        <div class="rda-title-bar">
+            <h1>Ajouter un nouveau Championat</h1>
+        </div>
+        <div class="rda-content">
+            {{ form_start(form) }}
+                {{ form_errors(form) }}
+            <ul class="championshipRankings"
+                data-index="{{ form.championshipRankings|length > 0 ? form.championshipRankings|last.vars.name + 1 : 0 }}"
+                data-prototype="{{ form_widget(form.championshipRankings.vars.prototype)|e('html_attr') }}"
+            ></ul>
+            <button type="button" class="add_item_link" data-collection-holder-class="championshipRankings">Add a tag</button>
+            {{ form_rest(form) }}
+            {{ form_end(form) }}
+        </div>
+    </main>
+{% endblock %}
