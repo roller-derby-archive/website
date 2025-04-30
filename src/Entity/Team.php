@@ -93,11 +93,18 @@ class Team
     #[ORM\OneToOne(mappedBy: 'team', cascade: ['persist', 'remove'])]
     private ?FlattrackRanking $flattrackRanking = null;
 
+    /**
+     * @var Collection<int, ChampionshipRanking>
+     */
+    #[ORM\OneToMany(targetEntity: ChampionshipRanking::class, mappedBy: 'team', orphanRemoval: true)]
+    private Collection $championshipRankings;
+
     public function __construct()
     {
         $this->clubs = new ArrayCollection();
         $this->teamGames = new ArrayCollection();
         $this->logo = new EmbeddedFile();
+        $this->championshipRankings = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -424,6 +431,36 @@ class Team
         }
 
         $this->flattrackRanking = $flattrackRanking;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ChampionshipRanking>
+     */
+    public function getChampionshipRankings(): Collection
+    {
+        return $this->championshipRankings;
+    }
+
+    public function addChampionshipRanking(ChampionshipRanking $championshipRanking): static
+    {
+        if (!$this->championshipRankings->contains($championshipRanking)) {
+            $this->championshipRankings->add($championshipRanking);
+            $championshipRanking->setTeam($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChampionshipRanking(ChampionshipRanking $championshipRanking): static
+    {
+        if ($this->championshipRankings->removeElement($championshipRanking)) {
+            // set the owning side to null (unless already changed)
+            if ($championshipRanking->getTeam() === $this) {
+                $championshipRanking->setTeam(null);
+            }
+        }
 
         return $this;
     }

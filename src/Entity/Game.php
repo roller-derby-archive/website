@@ -36,6 +36,9 @@ class Game
     #[ORM\OneToMany(targetEntity: TeamGame::class, mappedBy: 'game', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $teamGames;
 
+    #[ORM\ManyToOne(inversedBy: 'games')]
+    private ?Event $event = null;
+
     public function __construct()
     {
         $this->teamGames = new ArrayCollection();
@@ -139,6 +142,18 @@ class Game
                 $teamGame->setGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): static
+    {
+        $this->event = $event;
 
         return $this;
     }
