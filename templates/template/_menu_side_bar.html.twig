@@ -1,0 +1,18 @@
+{% set disable = disable ?? null %}
+
+<h2>Base de donnée</h2>
+<menu>
+    {% if disable != 'clubs' %}<li><a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">Associations</a></li>{% endif %}
+    {% if disable != 'teams' %}<li><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">Équipes</a></li>{% endif %}
+    {% if disable != 'events' %}<li><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">Événements</a></li>{% endif %}
+    {% if disable != 'championships' %}<li><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">Championats</a></li>{% endif %}
+</menu>
+<h2>Aides & contribution</h2>
+<menu>
+    <li>Le guide du nouveau club</li>
+</menu>
+<h2>Des stats et des graphs</h2>
+<menu>
+    {% if disable != 'flatrack_rank_women' %}<li><a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'women'}) }}">Classement Flattrack France F+</a></li>{% endif %}
+    {% if disable != 'flatrack_rank_men' %}<li><a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'men'}) }}">Classement Flattrack France Mixte</a></li>{% endif %}
+</menu>

@@ -1,50 +1,55 @@
 <section class="rda-infobox">
+
     <h2>{{ teamName(team.name, team.pronoun) }}{% if team.disbandAt != null %} ☠️{% endif %}</h2>
     {% if team.logo.name != null %}
         <img src="{{ vich_uploader_asset(team)}}" alt="Logo du club">
     {% endif %}
+
     <table>
         <caption>Informations générales</caption>
         <tbody>
-        <tr>
-            <th>Créé le</th>
-            <td>{{ team.createdAt|date("d/m/Y") }}</td>
-        </tr>
-        {% if team.disbandAt != null %}<tr>
-            <th>Fermé le</th>
-            <td>{{ team.disbandAt|date("d/m/Y") }}</td>
+            <tr>
+                <th>Créé le</th>
+                <td>{{ team.createdAt|date("d/m/Y") }}</td>
+            </tr>
+            {% if team.disbandAt != null %}<tr>
+                <th>Fermé le</th>
+                <td>{{ team.disbandAt|date("d/m/Y") }}</td>
             </tr>{% endif %}
-        <tr>
-        <tr>
-            <th>Category</th>
-            <td>{{ teamCategory(team.category) }}</td>
-        </tr>
-        <tr>
-            <th>Type</th>
-            <td>{{ teamType(team.type) }}</td>
-        </tr>
-        {% if team.level %}<tr>
-            <th>Niveau</th>
-            <td>{{ team.level }}</td>
+            <tr>
+            <tr>
+                <th>Category</th>
+                <td>{{ teamCategory(team.category) }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ teamType(team.type) }}</td>
+            </tr>
+            {% if team.level %}<tr>
+                <th>Niveau</th>
+                <td>{{ team.level }}</td>
             </tr>{% endif %}
-        <tr>
+            <tr>
         </tbody>
     </table>
+
     {% if team.clubs|length > 0 %}<table>
         <caption>Association{% if team.clubs|length > 1 %}s{% endif %}</caption>
         <tbody>
         {% for club in team.clubs %}
             <tr>
-                <td><a class="rda-wiki-link" href="{{ path('club_view', {id: club.id}) }}">{{ club.name }}</a></td>
+                <th><a class="rda-wiki-link" href="{{ path('club_view', {id: club.id}) }}">{{ club.name }}</a></th>
             </tr>
         {% endfor %}
         </tbody>
-        </table>{% endif %}
+     </table>{% endif %}
+
     {{ include('team/_flattrack_rank.html.twig', {flattrackRank: flattrackRank, team: team}) }}
+
     <table>
         <caption>Communication</caption>
         <tbody>
-        {% if team.flattrackId != null %}<tr><td><a class="rda-wiki-link" target="_blank" href="{{ flattrackTeamPath(team.flattrackId) }}">Flattrack</a></td></tr>{% endif %}
+        {% if team.flattrackId != null %}<tr><th><a class="rda-wiki-link" target="_blank" href="{{ flattrackTeamPath(team.flattrackId) }}">Flattrack</a></th></tr>{% endif %}
         </tbody>
     </table>
 </section>

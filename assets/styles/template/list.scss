@@ -1,0 +1,62 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+@use '../theme';
+
+/***** list *****/
+
+@media (min-width: 1050px) {
+  .rda-list-wrapper {
+    column-count: 2;
+  }
+}
+
+.rda-list {
+  a {
+    border: theme.$border-medium;
+    margin-bottom: 5px;
+    display: flex;
+    border-radius: 3px 10px 3px 10px;
+
+    p:first-child {
+      font-weight: bold;
+      margin: 0;
+
+      span {
+        line-height: 10px;
+      }
+    }
+
+    p:last-child {
+      margin: 3px 0 0 0;
+      font-size: 13px;
+      color: theme.$secondary-color-heavy;
+    }
+  }
+
+  a:hover {
+    @include theme.pointer-hover();
+  }
+
+  div:first-child  {
+    flex: 1;
+  }
+
+  div  {
+    display: block;
+    padding: 5px;
+    flex: 10;
+  }
+
+  li:first-child {
+    height: 38px;
+    margin-bottom: 5px;
+    padding-top: 11px;
+  }
+
+  h2 {
+    margin: 0;
+    text-align: center;
+    background: theme.$primary-color-medium;
+    background: linear-gradient(90deg,theme.$background-primary 0%, theme.$primary-color-medium 50%, theme.$background-primary 100%);
+  }
+}

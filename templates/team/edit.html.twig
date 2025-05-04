@@ -1,12 +1,47 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'team_edit' %}
 
-{% block body %}
-    <main class="rda-page">
-        <div class="rda-title-bar">
-            <h1>{{ team.name }}{% if team.disbandAt != null %} ☠️{% endif %}</h1>
-        </div>
-        <div class="rda-content">
-            {{ form(form) }}
-        </div>
-    </main>
+{% block titleBar %}
+    <h1>{{ team.name }}{% if team.disbandAt != null %} ☠️{% endif %}</h1>
+{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    <h3>Information générales</h3>
+    <section id="section_info" class="rda-edit-section rda-edit-section-visible">
+        <ul>
+            <li>{{ form_row(form.name) }}</li>
+            <li>{{ form_row(form.createdAt) }}</li>
+            <li>{{ form_row(form.category) }}</li>
+            <li>{{ form_row(form.type) }}</li>
+            <li>{{ form_row(form.level) }}</li>
+            <li>{{ form_row(form.overview) }}</li>
+        </ul>
+    </section>
+    <h3>Histoire</h3>
+    <section id="section_history" class="rda-edit-section">
+        {{ form_row(form.history) }}
+    </section>
+    <h3>Équipes</h3>
+    <section id="section_club" class="rda-edit-section">
+        {{ form_row(form.clubs) }}
+        <label for="test_auto_input">test</label><input type="text" id="test_auto_input">
+    </section>
+    <h3>Réseaux et communications</h3>
+    <section id="section_socials" class="rda-edit-section">
+        <ul>
+            <li>{{ form_row(form.email) }}</li>
+            <li>{{ form_row(form.flattrackId) }}</li>
+            <li>{{ form_row(form.facebookId) }}</li>
+            <li>{{ form_row(form.instagramId) }}</li>
+        </ul>
+    </section>
+
+    {{ form_end(form) }}
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig') }}
 {% endblock %}

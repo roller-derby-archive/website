@@ -1,0 +1,279 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+@use 'theme';
+@use 'reset';
+@use 'header';
+@use 'template/infobox';
+@use 'template/filters';
+@use 'template/edit';
+@use 'template/list';
+@use 'widget/search_bar';
+@use 'page/home';
+
+/************** Generic Class **************/
+
+input[type="checkbox"], input[type="radio"] {
+    appearance: none;
+    background-color: theme.$background-primary;
+    margin: 0;
+    width: 1em;
+    height: 1em;
+    border: theme.$border-medium;
+
+}
+
+input[type="text"], select, input[type="email"], {
+    width: 92%;
+    max-width: 350px;
+}
+
+input[type="number"] {
+    width: 92%;
+    max-width: 50px;
+}
+
+input[type="checkbox"] {
+    border-radius: 0.15em;
+}
+input[type="radio"] {
+    border-radius: 1em;
+}
+
+.required {
+    position: relative;
+}
+
+.required:after {
+    content: "*";
+    color: theme.$link-color;
+    position: absolute;
+    top: -4px;
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: theme.$primary-color-medium;
+    border: theme.$secondary-color-heavy solid 2px;
+}
+
+
+.rda-logo-box {
+    display: block;
+    width: 36px;
+    height: 36px;
+}
+/* size smartphone */
+@media (width <= 600px ) {
+    .rda-logo-box {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+.rda-logo-box img {
+    display: block;
+    margin: 0 auto;
+    max-width: 36px;
+    max-height: 36px;
+}
+/* size smartphone */
+@media (width <= 600px ) {
+    .rda-logo-box img {
+        max-width: 30px;
+        max-height: 30px;
+    }
+}
+
+
+/* >>> .rda-main >>> */
+.rda-main{
+    display: grid;
+
+}
+
+/* size full screen */
+@media (1600px <= width) {
+    .rda-main {
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-areas:
+            '.          titlebar .           '
+            '.          toolbar   .          '
+            'leftSidebar content rightSidebar';
+        min-height: 800px;
+    }
+}
+/* size small screen */
+@media (1050px <= width <= 1600px ) {
+    .rda-main {
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas:
+        '.          titlebar'
+        '.          toolbar'
+        'leftSidebar content';
+    }
+}
+/* size tablet */
+@media (600px <= width <= 1050px ) {
+    .rda-main {
+        grid-template-columns: 2fr 3fr;
+        grid-template-areas:
+        '.          titlebar'
+        '.          toolbar'
+        'leftSidebar content';
+    }
+}
+/* size smartphone */
+@media (width <= 600px ) {
+    .rda-main {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        ' titlebar'
+        'toolbar'
+        'leftSidebar'
+        'content';
+    }
+}
+/* <<< .rda-main <<< */
+
+/* >>> .rda-layout >>> */
+.rda-layout {
+    min-width: auto;
+    background-color: theme.$background-primary;
+    padding-bottom: 20px;
+    max-width: 99.75rem;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* size full screen */
+@media (1600px <= width) {
+    .rda-layout {
+        padding-left: 3.25rem;
+        padding-right: 3.25rem;
+    }
+}
+/* size small screen */
+@media (1050px <= width <= 1600px ) {
+    .rda-layout {
+        padding-left: 2.25rem;
+        padding-right: 2.25rem;
+    }
+}
+/* size tablet */
+@media (600px <= width <= 1050px ) {
+    .rda-layout {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+/* size smartphone */
+@media (width <= 600px ) {
+    .rda-layout {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+/* <<< .rda-layout <<< */
+
+.rda-header {
+}
+
+.rda-left-side-bar {
+    grid-area: leftSidebar;
+    margin-right: 10%;
+}
+
+.rda-title-bar {
+    grid-area: titlebar;
+}
+
+.rda-content {
+    grid-area: content;
+    min-height: 700px;
+}
+
+.rda-right-side-bar {
+    grid-area: rightSidebar;
+    margin-left: 10%;
+}
+
+@media (max-width: 1600px) {
+    .rda-right-side-bar {
+        display: none;
+    }
+}
+
+.rda-footer {
+}
+
+.rda-team-category {
+    margin-top: 1px;
+    display: block;
+    background-color: #cfbda0;
+    color: theme.$secondary-color-heavy;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+    font-family: Comic Sans MS;
+}
+
+.rda-team-type {
+    margin-left: 2px;
+    margin-top: 1px;
+    display: block;
+    background-color: #B8D6AE;
+    color: theme.$secondary-color-heavy;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+    font-family: Comic Sans MS;
+}
+
+.rda-team-level {
+    margin-left: 2px;
+    margin-top: 1px;
+    display: block;
+    background-color: #D996C8;
+    color: theme.$secondary-color-heavy;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+    font-family: Comic Sans MS;
+}
+
+.rda-flag {
+    max-height: 11px;
+    max-width: 18px;
+}
+
+/************** TODO **************/
+
+#game_result {
+    width: 60%;
+}
+
+#game_result img{
+    margin: 0 auto;
+    display: block;
+}
+
+#game_result p {
+    font-size: 60px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/**** TEST ****/
+
+#drop_zone {
+    border: 5px solid blue;
+    width: 200px;
+    height: 100px;
+}

@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Command;
 
 use App\Entity\Team;
-use App\Flattrack\TeamScraper;
+use App\Scraper\Flattrack\TeamScraper;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Vich\UploaderBundle\FileAbstraction\ReplacingFile;
+
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 #[AsCommand(name: 'app:image-scavenge')]
 final class ImageScavengerCommand extends Command

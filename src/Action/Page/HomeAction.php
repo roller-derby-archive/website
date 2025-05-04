@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Action;
+namespace App\Action\Page;
 
 use App\Repository\ClubRepository;
 use App\Repository\GameRepository;
-use App\Repository\GameTeamRepository;
 use App\Repository\TeamGameRepository;
 use App\Repository\TeamRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
-final class MainAction extends AbstractController
+final class HomeAction extends AbstractController
 {
     const ROUTE_NAME = 'main';
 
@@ -26,9 +26,9 @@ final class MainAction extends AbstractController
     ) {}
 
     #[Route('/', name: self::ROUTE_NAME)]
-    public function view(): Response
+    public function view(Request $request): Response
     {
-        return $this->render('main.html.twig', [
+        return $this->render('page/home.html.twig', [
             'totalClubs' => $this->clubRepository->countAll(),
             'totalActiveClubs' => $this->clubRepository->countActive(),
             'totalTeams' => $this->teamRepository->countAll(),

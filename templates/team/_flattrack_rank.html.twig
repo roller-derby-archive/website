@@ -11,7 +11,7 @@
     </tr>
     <tr>
         {% if team.Category == 'F+' %}{% set gender = "women" %}{% else %}{% set gender = "men" %}{% endif %}
-        <th><a class="rda-wiki-link" href={{ path(constant('App\\Action\\FlattrackFrenchRankingAction::ROUTE_NAME'), {gender: gender}) }}#{{ team.flattrackId }}>Rang France</a></th>
+        <th><a class="rda-wiki-link" href={{ path(routes.page.flattrackRanking, {gender: gender}) }}#{{ team.flattrackId }}>Rang France</a></th>
         <td>{{ flattrackRank.frenchRank }}{% if flattrackRank.frenchRank == 1 %}1er{% else %}ème{% endif%} sur {{ flattrackTotalClassedFrenchTeam }} équipes</td>
     </tr>
     </tbody>

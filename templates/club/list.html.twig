@@ -1,24 +1,30 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'club_list' %}
 
-{% block body %}
-    <main id="club_list" class="rda-page rda-layout rda-grid">
-        <aside class="rda-left-side-bar">
-            {{ include('club/_filter.html.twig') }}
-        </aside>
-        <header class="rda-title-bar">
-            <h1>Les associations ({{ total }})</h1>
-        </header>
-        <section class="rda-content">
-            {% if total == 0 %}
-                <p>Aucune association trouvée avec ces filtres.</p>
-            {% else %}
-                <ul class="region-list">{% for name, clubs in sortedClubs %}
-                    <li>
-                        <h2>{{ name }} ({{ clubs|length }})</h2>
-                        <ul class="club-list">{% for club in clubs %}
+{% block leftSideBar %}
+    {{ include('club/_filter.html.twig') }}
+{% endblock %}
+
+{% block titleBar %}
+    <h1>Les associations ({{ total }})</h1>
+{% endblock %}
+
+{% block toolBar %}
+    <a href="{{ path(routes.club.create) }}">Créer</a>
+{% endblock %}
+
+{% block content %}
+    {% if total == 0 %}
+        <p>Aucune association trouvées avec ces filtres.</p>
+    {% else %}
+        <ul class="{{ styles.template.listWrapper }}">{% for name, clubs in sortedClubs %}
+                <li>
+                    <ul class="{{ styles.template.list }}">
+                        <li><h2>{{ name }} ({{ clubs|length }})</h2></li>
+                        {% for club in clubs %}
                             <li>
                                 <a href="{{ path(constant('App\\Action\\Club\\ViewAction::ROUTE_NAME'), {id: club.id}) }}">
-                                    <div class="rda-logo-box">
+                                    <div class="{{ styles.common.logoBox }}">
                                         {% if club.logo != null %}
                                             {{ include('widget/_logo.twig', {hasLogoEntity: club}) }}
                                         {% else %}
@@ -26,18 +32,18 @@
                                         {% endif %}
                                     </div>
                                     <div>
-                                        <p class="wiki-link">{{ club.Name }}{% if null != club.Alias %} ({{ club.alias }}){% endif %}{% if club.closedAt != null %}☠️{% endif %}</p>
+                                        <p>{{ club.Name }}{% if null != club.Alias %} ({{ club.alias }}){% endif %}{% if club.closedAt != null %}☠️{% endif %}</p>
                                         <p>{{ club.cities|join(', ') }}</p>
                                     </div>
                                 </a>
                             </li>
-                        {% endfor %}</ul>
-                    </li>
-                {% endfor %}</ul>
-            {% endif %}
-        </section>
-        <aside class="rda-right-side-bar">
-            {{ include('_menu_side_bar.html.twig', {disable: 'clubs'}) }}
-        </aside>
-    </main>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}</ul>
+    {% endif %}
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig', {disable: 'clubs'}) }}
 {% endblock %}

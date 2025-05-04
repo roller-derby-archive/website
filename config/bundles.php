@@ -16,4 +16,5 @@ return [
     League\FlysystemBundle\FlysystemBundle::class => ['all' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
     Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
+    Symfonycasts\SassBundle\SymfonycastsSassBundle::class => ['all' => true],
 ];

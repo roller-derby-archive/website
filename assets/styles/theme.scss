@@ -1,0 +1,38 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+// lighter
+$text-input-background: #FFF0F5 !default;
+$background-primary: #FFF0F5 !default;
+$background-table-row: #FFD6E2 !default;
+
+
+// medium
+
+
+// darker
+$text-color-primary: #594157 !default;
+$link-color: #F15156 !default;
+
+
+$primary-color-light-table-row: #FFEBF1 !default;
+$primary-color-light-hover: #FFD6E2 !default;
+$primary-color-medium: #FFADB6 !default;
+
+$secondary-color-light: #c1bfd9 !default;
+$secondary-color-medium: #726DA8 !default;
+$secondary-color-heavy: #594157 !default;
+
+$border-medium: $secondary-color-medium solid 1px;
+$border-heavy: $secondary-color-heavy solid 1px;
+
+@mixin pointer-hover() {
+  background-color: $primary-color-light-hover;
+  color: $secondary-color-heavy;
+  cursor: pointer;
+}
+
+@mixin text-input() {
+  background-color: $text-input-background;
+  color: $text-color-primary;
+  border: $border-medium;
+}

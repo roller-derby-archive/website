@@ -1,0 +1,11 @@
+@use 'theme' with (
+    $background-primary: #FFE4E1,
+    $primary-color-light-table-row: #ffb1ad,
+    $primary-color-light-hover: #ff2a1f,
+    $primary-color-medium: #ff6347,
+    $link-color: #690500,
+    $secondary-color-light: #77a0a9,
+    $secondary-color-medium: #210f04,
+    $secondary-color-heavy: #000000,
+);
+@use 'main';

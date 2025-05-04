@@ -1,16 +1,15 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'page_flattrack_ranking' %}
 
-{% block body %}
-    <main id="team_view" class="rda-page rda-layout rda-grid">
-        <header class="rda-title-bar">
-            <h1>Classement Flattrack France</h1>
-        </header>
-        <section class="rda-content">
-            <h2>{% if gender.value == 'men' %}Équipes mixtes {% else %} Équipes féminines et minoritées de genre{% endif %}</h2>
-            {{ include('flattrack/_rank_table.html.twig', {frenchRanking: frenchRanking}) }}
-        </section>
-        <aside class="rda-right-side-bar">
-            {{ include('_menu_side_bar.html.twig', {disable: 'flatrack_rank_'~gender.value}) }}
-        </aside>
-    </main>
+{% block titleBar %}
+    <h1>Classement Flattrack France</h1>
+{% endblock %}
+
+{% block content %}
+    <h2>{% if gender.value == 'men' %}Équipes mixtes {% else %} Équipes féminines et minoritées de genre{% endif %}</h2>
+    {{ include('flattrack/_rank_table.html.twig', {frenchRanking: frenchRanking}) }}
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig', {disable: 'flatrack_rank_'~gender.value}) }}
 {% endblock %}

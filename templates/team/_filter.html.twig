@@ -21,7 +21,7 @@
             {% set levelFilterName = 'filters[level][]' %}
             {% for id, value in levelFilterValues %}
                 <div>
-                    <input type="checkbox" id="list_filter_category_{{ id }}" name="{{ levelFilterName }}" value="{{ value }}" />
+                    <input type="checkbox" id="list_filter_level_{{ id }}" name="{{ levelFilterName }}" value="{{ value }}" />
                     <label for="list_filter_level_{{ id }}">{{ value }}</label>
                 </div>
             {% endfor %}
@@ -33,18 +33,18 @@
             {% for id, value in categoryFilterValues %}
             <div>
                 <input type="checkbox" id="list_filter_category_{{ id }}" name="{{ categoryFilterName }}" value="{{ value }}" />
-                <label for="list_filter_level_{{ id }}">{{ teamCategory(value) }}</label>
+                <label for="list_filter_category_{{ id }}">{{ teamCategory(value) }}</label>
             </div>
             {% endfor %}
         </fieldset>
         <fieldset>
             <legend>Type</legend>
-            {% set typeFilterValues = {'team_a': 'A', 'team_b': 'B', 'team_c': 'C', 'team_d': 'D', 'aliance': 'S', 'regional': 'R', 'national': 'N'} %}
+            {% set typeFilterValues = {'team_a': 'A', 'team_b': 'B', 'team_c': 'C', 'team_d': 'D', 'alliance': 'S', 'regional': 'R', 'national': 'N'} %}
             {% set typeFilterName = 'filters[type][]' %}
             {% for id, value in typeFilterValues %}
                 <div>
                     <input type="checkbox" id="list_filter_type_{{ id }}" name="{{ typeFilterName }}" value="{{ value }}" />
-                    <label for="list_filter_level_{{ id }}">{{ teamType(value) }}</label>
+                    <label for="list_filter_type_{{ id }}">{{ teamType(value) }}</label>
                 </div>
             {% endfor %}
         </fieldset>

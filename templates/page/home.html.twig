@@ -1,0 +1,49 @@
+{% extends 'content.html.twig' %}
+{% set mainId = 'page_home' %}
+
+{% block titleBar %}
+    <h1>Les archives</h1>
+{% endblock %}
+
+{% block content %}
+    <section id="page_home_section_db">
+        <h2>Bases de donnée</h2>
+        <menu>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">Associations</a></li>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">Équipes</a></li>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">Événements</a></li>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">Championats</a></li>
+        </menu>
+    </section>
+    <section id="page_home_section_since">
+        <h2>Le roller derby FR depuis 2009</h2>
+        <ul>
+            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalClubs }}</span> associations dont <span>{{ totalActiveClubs }}</span> actives</p></li>
+            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalTeams }}</span> équipes dont <span>{{ totalActiveTeams }}</span> actives</p></li>
+            <li class="{{ styles.page.home.cell }}"><p>Plus de <span>{{ totalGames }}</span> match joués</p></li>
+            <li class="{{ styles.page.home.cell }}"><p>Au moins <span>xxx</span> événements organisés</p></li>
+            <li class="{{ styles.page.home.cell }}"><p><span>xxx</span> championats disputés</p></li>
+            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalHipsPassed }}</span> paires de hanche dépassées</p></li>
+        </ul>
+    </section>
+    <section id="page_home_history">
+        <h2>Histoire.s et articles</h2>
+        <menu>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">L'évolution des règles</a></li>
+        </menu>
+    </section>
+    <section id="page_home_section_contrib">
+        <h2>Aides & contributions</h2>
+        <menu>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(constant('App\\Action\\Team\\ListAction::ROUTE_NAME')) }}"> Nouvelle asso? Par ici 👈</a></li>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(constant('App\\Action\\TestAction::ROUTE_NAME')) }}"> Test</a></li>
+        </menu>
+    </section>
+    <section id="page_home_stats_and_graph">
+        <h2>Des stats et des graphs</h2>
+        <menu>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'women'}) }}">Classement Flattrack France F+</a></li>
+            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'men'}) }}">Classement Flattrack France Mixte</a></li>
+        </menu>
+    </section>
+{% endblock %}

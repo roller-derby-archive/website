@@ -16,10 +16,6 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
-    'test' => [
-        'path' => './assets/test.js',
-        'entrypoint' => true,
-    ],
     '@hotwired/stimulus' => [
         'version' => '3.2.2',
     ],
@@ -31,5 +27,9 @@ return [
     ],
     'js-datepicker' => [
         'version' => '5.18.4',
+    ],
+    'js-datepicker/dist/datepicker.min.css' => [
+        'version' => '5.18.4',
+        'type' => 'css',
     ],
 ];

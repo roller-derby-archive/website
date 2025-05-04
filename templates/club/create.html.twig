@@ -1,0 +1,14 @@
+{% extends 'content.html.twig' %}
+{% set mainId = 'club_create' %}
+
+{% block titleBar %}
+    <h1>Créer une nouvelle association</h1>
+{% endblock %}
+
+{% block content %}
+    {{ include('club/_form.html.twig', {form: form}) }}
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig') }}
+{% endblock %}

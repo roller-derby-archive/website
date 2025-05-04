@@ -2,10 +2,11 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Roller Derby Archive{% endblock %}</title>
         <link rel="icon" href="{{ asset('images/favicon.png') }}">
         {% block stylesheets %}
-            <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
+            <link rel="stylesheet" href="{{ asset('styles/'~themeName ?? 'pink_city'~'.scss') }}">
         {% endblock %}
 
         {% block javascripts %}
@@ -14,10 +15,22 @@
     </head>
     <body>
             <header id="main_header" class="rda-header rda-layout ">
+                <input type="image" alt="menu" id="main_menu_button" src="{{ asset('images/menu.png') }}"/>
+                <aside>
+                    {{ include('template/_menu_side_bar.html.twig') }}
+                </aside>
 {#                <a href="{{ path('main') }}"><img class="rda-site-logo" alt="🛼 Roller Derby Archive" src="{{ asset('images/logo.png') }}"></a>#}
                 <a href="{{ path('main') }}"><img class="rda-site-logo" alt="🛼 Roller Derby Archive" src="https://placehold.co/413x52"></a>
                 {{ include('widget/_search_bar.html.twig') }}
-                <div></div>
+                <div>
+                    <form>
+                        <input type="submit" class="rda-theme" value="pink_city">pink</input>
+                        <input type="submit" class="rda-theme" value="blue_paname">blue</input>
+                        <input type="submit" class="rda-theme" value="green_duchess">green</input>
+                        <input type="submit" class="rda-theme" value="red_delivrance">red</input>
+                    </form>
+
+                </div>
             </header>
             {% block body %}{% endblock %}
             <footer class="rda-footer rda-layout">

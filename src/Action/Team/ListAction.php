@@ -46,9 +46,6 @@ final class ListAction extends AbstractController
         return $this->render('team/list.html.twig', [
             'sortedTeams' => $sortedTeams,
             'total' => count($teams),
-            'filterForm' => [
-
-            ],
         ]);
     }
 

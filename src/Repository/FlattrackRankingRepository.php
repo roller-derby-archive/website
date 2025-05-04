@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Entity\FlattrackRanking;
 use App\Enum\Country;
-use App\Flattrack\Gender;
+use App\Scraper\Flattrack\Gender;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;

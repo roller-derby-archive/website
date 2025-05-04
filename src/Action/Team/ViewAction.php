@@ -4,9 +4,9 @@ namespace App\Action\Team;
 
 use App\App;
 use App\Entity\Team;
-use App\Flattrack\EuropeanRankScraper;
-use App\Flattrack\Gender;
 use App\Repository\FlattrackRankingRepository;
+use App\Scraper\Flattrack\EuropeanRankScraper;
+use App\Scraper\Flattrack\Gender;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

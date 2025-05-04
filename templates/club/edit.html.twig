@@ -1,12 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'club_edit' %}
 
-{% block body %}
-    <main class="rda-page">
-        <div class="rda-title-bar">
-            <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
-        </div>
-        <div class="rda-club-view-content">
-            {{ form(form) }}
-        </div>
-    </main>
+{% block titleBar %}
+    <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
+{% endblock %}
+
+{% block content %}
+    {{ include('club/_form.html.twig', {form: form}) }}
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig') }}
 {% endblock %}

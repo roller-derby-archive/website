@@ -1,0 +1,82 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+@use '../theme';
+
+.rda-edit-menu {
+  li {
+    margin-left: 2px;
+
+    button {
+      padding: 10px 5px 3px 5px;
+      margin: 0;
+      font-size: 16px;
+      border-radius: 0 0 10px 10px;
+      background: theme.$secondary-color-light;
+      background: linear-gradient(0deg, theme.$secondary-color-light 0%, theme.$background-primary 100%);
+    }
+
+    &:first-child button {
+      background: theme.$primary-color-medium;
+      background: linear-gradient(0deg, theme.$primary-color-medium 0%, theme.$background-primary 100%);
+    }
+
+    &:hover button {
+      cursor: pointer;
+      background: theme.$primary-color-medium;
+      background: linear-gradient(0deg, theme.$primary-color-medium 0%, theme.$background-primary 100%);
+    }
+  }
+}
+
+.rda-edit-section {
+    li {
+        padding-top: 5px;
+        padding-bottom: 5px;
+
+        &:first-child {
+          margin-top: 10px;
+          padding-top: 0;
+        }
+
+        &:nth-child(odd) {
+          background-color: theme.$background-table-row;
+        }
+
+        label {
+            display: inline-block;
+            min-width: 160px;
+        }
+    }
+}
+
+#club_teams {
+  input {
+    display: none;
+  }
+  label {
+    display: block;
+    border: theme.$border-medium;
+    padding: 1em;
+    margin: 10px 0;
+    width: 80%;
+    cursor: pointer;
+
+    &:hover {
+      @include theme.pointer-hover;
+
+      &:after {
+        content: "X";
+        float: right;
+        background-color: red;
+        border-radius: 15px;
+        padding: 3px 7px;
+        color: white;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.rda-display-none {
+  display: none !important;
+}

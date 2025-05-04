@@ -2,6 +2,9 @@
 
 namespace App\Entity;
 
+use App\Enum\ClubGenderDiversityPolicy;
+use App\Enum\County;
+use App\Enum\Region;
 use App\Repository\ClubRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -43,7 +46,7 @@ class Club
     /**
      * @var Collection<int, Team>
      */
-    #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'clubs')]
+    #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'clubs', cascade: ['persist', 'remove'])]
     private Collection $teams;
 
     #[ORM\Column(length: 3, nullable: true)]
@@ -179,9 +182,9 @@ class Club
         return $this->regionCode;
     }
 
-    public function setRegionCode(string $regionCode): static
+    public function setRegionCode(string|Region $regionCode): static
     {
-        $this->regionCode = $regionCode;
+        $this->regionCode = $regionCode InstanceOf Region ? $regionCode->value : $regionCode;
 
         return $this;
     }
@@ -191,9 +194,9 @@ class Club
         return $this->countyCode;
     }
 
-    public function setCountyCode(string $countyCode): static
+    public function setCountyCode(string|County $countyCode): static
     {
-        $this->countyCode = $countyCode;
+        $this->countyCode = $countyCode InstanceOf County ? $countyCode->value : $countyCode;
 
         return $this;
     }
@@ -242,9 +245,9 @@ class Club
         return $this->genderDiversityPolicy;
     }
 
-    public function setGenderDiversityPolicy(?string $genderDiversityPolicy): static
+    public function setGenderDiversityPolicy(null|string|ClubGenderDiversityPolicy $genderDiversityPolicy): static
     {
-        $this->genderDiversityPolicy = $genderDiversityPolicy;
+        $this->genderDiversityPolicy = $genderDiversityPolicy InstanceOf ClubGenderDiversityPolicy ? $genderDiversityPolicy->value : $genderDiversityPolicy;
 
         return $this;
     }

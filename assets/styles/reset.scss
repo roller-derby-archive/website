@@ -1,0 +1,125 @@
+@use 'theme';
+
+html {
+  font-family: sans-serif;
+}
+
+body {
+  background-color: theme.$primary-color-medium;
+  margin: 0 auto;
+  color:  theme.$secondary-color-heavy;
+}
+/* size smartphone */
+@media (width <= 600px ) {
+  body {
+    font-size: 14px;
+  }
+}
+
+ul, menu{
+  margin: 0 auto;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: 'Franklin Gothic Medium', 'Impact', sans-serif;
+  font-weight: normal;
+  font-variant-numeric: lining-nums;
+  margin: 0;
+}
+
+h1 {
+  border-bottom-color: #888787;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 21px;
+}
+
+a {
+  color: theme.$link-color;
+  text-decoration: none;
+}
+
+input, button, select {
+  @include theme.text-input()
+}
+
+input[type="text"], select, input[type="email"], {
+  padding: 0.3em 0.7em;
+}
+
+textarea {
+  height: 100px;
+  width: 100%;
+  resize: none;
+  display: block;
+  @include theme.text-input()
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  padding: 0.3em 0.7em;
+}
+
+input:focus  {
+  outline: theme.$border-heavy;
+}
+
+
+
+
+
+footer {
+  height: 50px;
+  border-top: gray solid 1px;
+  padding: 20px;
+}
+
+footer li {
+  display: block;
+  float: left;
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+footer li:last-child {
+  display: block;
+  float: left;
+  margin-right: 0;
+}
+
+footer li a {
+  padding-right: 20px;
+}
+
+footer li:last-child a  {
+  padding-right: 0;
+}
+
+footer li:last-child:after {
+  content: none;
+}
+
+footer li:after {
+  content: "|";
+}
+

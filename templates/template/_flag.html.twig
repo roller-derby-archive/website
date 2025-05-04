@@ -1,4 +1,4 @@
-{% if noFrench and countryCode != 'FRA' %}
+{% if noFrench ?? false and countryCode != 'FRA' %}
     <img class="rda-flag" alt="flag-{{ countryCode }}" src="{{ asset('images/flags/'~countryCode~'.webp') }}">
 {% else %}
     <img class="rda-flag" alt="flag-{{ countryCode }}" src="{{ asset('images/flags/'~countryCode~'.webp') }}">

@@ -1,32 +1,35 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'team_view' %}
 
-{% block body %}
-    <main id="team_view" class="rda-page rda-layout rda-grid">
-        <header class="rda-title-bar">
-            <h1>{{ teamName(team.name, team.pronoun) }}{% if team.disbandAt != null %} ☠️{% endif %}</h1>
-        </header>
-        <div class="rda-club-view-content rda-content">
-            {{ include('team/_info_box.html.twig', {flattrackRank: flattrackRank, team: team}) }}
-            <section class="rda-club-view-history">
-                <h2>Présentation</h2>
-                {{ team.overview }}
-            </section>
-            <section>
-                <h2>Histoire</h2>
-                {{ team.history }}
-            </section>
-            <section>
-                <h2>Matchs</h2>
-                {% for season, games in gameBySeason %}
-                    {{ include('team/_game_list.html.twig', {team: team, season: season, games: games}) }}
-                    {% if season == '2019-2020' %}
-                     <h3>🦠 Covid 🦠</h3>
-                    {% endif %}
-                {% endfor %}
-            </section>
-        </div>
-        <aside class="rda-right-side-bar">
-            {{ include('_menu_side_bar.html.twig', {disable: null}) }}
-        </aside>
-    </main>
+{% block titleBar %}
+    <h1>{{ teamName(team.name, team.pronoun) }}{% if team.disbandAt != null %} ☠️{% endif %}</h1>
+{% endblock %}
+
+{% block toolBar %}
+    <a href="{{ path(routes.team.edit, {id: team.id}) }}">Éditer</a>
+{% endblock %}
+
+{% block content %}
+    {{ include('team/_info_box.html.twig', {flattrackRank: flattrackRank, team: team}) }}
+    <section class="rda-club-view-history">
+        <h2>Présentation</h2>
+        {{ team.overview }}
+    </section>
+    <section>
+        <h2>Histoire</h2>
+        {{ team.history }}
+    </section>
+    <section>
+        <h2>Matchs</h2>
+        {% for season, games in gameBySeason %}
+            {{ include('team/_game_list.html.twig', {team: team, season: season, games: games}) }}
+            {% if season == '2019-2020' %}
+                <h3>🦠 Covid 🦠</h3>
+            {% endif %}
+        {% endfor %}
+    </section>
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig', {disable: 'null'}) }}
 {% endblock %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Flattrack;
+namespace App\Scraper\Flattrack;
 
 use App\Enum\Country as AppCountry;
 

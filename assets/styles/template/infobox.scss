@@ -1,0 +1,57 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+@use '../theme';
+
+/***** infobox *****/
+
+.rda-infobox {
+    padding: 5px;
+    width: 25em;
+    background-color: theme.$secondary-color-light;
+    border: theme.$border-heavy;
+    clear: right;
+    float: right;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0 0 0.5em 1em;
+    max-width: 325px;
+    word-wrap: break-word;
+
+    h2 {
+        display: table;
+        padding-top: 10px;
+        height: 35px;
+        width: 100%;
+        font-weight: bold;
+        text-align: center;
+        font-size: 1.4em;
+        line-height: 1.1;
+        margin-bottom: 10px;
+        background-color: theme.$secondary-color-medium;
+        color: theme.$background-primary;
+        margin-top: 0;
+    }
+
+    img {
+        display: block;
+        margin: 5px auto;
+    }
+
+    caption {
+        font-weight: bold;
+        text-align: center;
+        line-height: 1.1;
+        margin: 0 0 5px 0;
+        padding: 4px;
+        background-color: theme.$secondary-color-medium;
+        color: theme.$background-primary;
+    }
+
+    table {
+        width: 100%;
+        margin: 5px 0;
+        table-layout: fixed;
+        border-collapse: collapse;
+        text-align: left;
+    }
+}

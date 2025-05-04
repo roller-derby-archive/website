@@ -2,8 +2,7 @@
 
 namespace App\Twig;
 
-use App\Enum\Region;
-use App\Flattrack\Flattrack;
+use App\Scraper\Flattrack\Flattrack;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

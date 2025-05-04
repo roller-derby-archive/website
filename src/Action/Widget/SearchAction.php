@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Action;
+namespace App\Action\Widget;
 
 use App\Repository\DBAL\SearchViewRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -8,8 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
-class Search extends AbstractController
+class SearchAction extends AbstractController
 {
+    const ROUTE_NAME = 'widget_search';
     public function __construct(
         public readonly SearchViewRepository $searchViewRepository,
     ) {}

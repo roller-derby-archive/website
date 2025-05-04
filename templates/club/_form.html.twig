@@ -1,0 +1,42 @@
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+<h3>Information générales</h3>
+<section id="section_info" class="rda-edit-section rda-edit-section-visible">
+    <ul>
+        <li>{{ form_row(form.name) }}</li>
+        <li>{{ form_row(form.alias) }}</li>
+        <li>{{ form_row(form.createdAt) }}</li>
+        <li>{{ form_row(form.genderDiversityPolicy) }}</li>
+        <li>{{ form_row(form.regionCode) }}</li>
+        <li>{{ form_row(form.countyCode) }}</li>
+        <li>
+            {{ form_row(form.cities) }}
+            <button type="button" class="add_item_link" data-collection-holder-class="cities">Ajouter une ville</button>
+        </li>
+        <li>{{ form_row(form.overview) }}</li>
+    </ul>
+</section>
+<h3>Histoire</h3>
+<section id="section_history" class="rda-edit-section">
+    {{ form_row(form.history) }}
+</section>
+<h3>Équipes</h3>
+<section id="section_team" class="rda-edit-section">
+    <div>
+        <label for="test_auto_input">Ajouter une équipe :</label>
+        <input type="text" id="test_auto_input">
+    </div>
+    {{ form_row(form.teams) }}
+</section>
+<h3>Réseaux et communications</h3>
+<section id="section_socials" class="rda-edit-section">
+    <ul>
+        <li>{{ form_row(form.email) }}</li>
+        <li>{{ form_row(form.interleagueEmail) }}</li>
+        <li>{{ form_row(form.facebookId) }}</li>
+        <li>{{ form_row(form.instagramId) }}</li>
+        <li>{{ form_row(form.MyRollerDerbyId) }}</li>
+    </ul>
+</section>
+
+{{ form_end(form) }}

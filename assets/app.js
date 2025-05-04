@@ -1,18 +1,15 @@
 import './bootstrap.js'
-import './styles/app.css'
-import './styles/filters.css'
-import './styles/infobox.css'
 import './styles/team/game_list.css'
-import './styles/page/main.css'
-import './styles/header.css'
-import './styles/widget/search_bar.css'
 import './styles/page/flattrack_ranking.css'
+import 'js-datepicker/dist/datepicker.min.css'
 import datepicker from 'js-datepicker'
 import ClubListWatcherPage from './js/club/list.js'
+import ClubEditWatcherPage from './js/club/edit.js'
 import TeamListWatcherPage from './js/team/list.js'
 
 const pages = [
     new ClubListWatcherPage(),
+    new ClubEditWatcherPage(),
     new TeamListWatcherPage(),
 ]
 
@@ -28,6 +25,7 @@ const initSearchBar = function () {
             timer = setTimeout(function () {document.getElementById("search_bar_submit").click()}, 300)
         }
 
+        console.log('input memory '+event.target.value)
         inputMemory = event.target.value
     })
 }
@@ -50,8 +48,15 @@ function addFormToCollection(e) {
     collectionHolder.dataset.index++;
 }
 
-document.addEventListener("turbo:load", function (event) {
-    console.log("turbo-load")
+document.addEventListener('turbo:load', function (event) {
+    console.log('turbo-load')
+
+    for (const themeButton of document.getElementsByClassName('rda-theme')) {
+        themeButton.addEventListener('click', function (event) {
+            console.log("themeName="+event.target.getAttribute('value'))
+            document.cookie = "themeName="+event.target.getAttribute('value')
+        })
+    }
 
     if (0 !== document.getElementsByClassName('js-datepicker').length) {
         datepicker('.js-datepicker', {
@@ -64,7 +69,7 @@ document.addEventListener("turbo:load", function (event) {
     document
         .querySelectorAll('.add_item_link')
         .forEach(btn => {
-            btn.addEventListener("click", addFormToCollection)
+            btn.addEventListener('click', addFormToCollection)
         })
     ;
 

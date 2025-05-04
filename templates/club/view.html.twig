@@ -1,23 +1,26 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'clud_view' %}
 
-{% block body %}
-    <main id="club_view" class="rda-page rda-layout rda-grid">
-        <header class="rda-title-bar">
-            <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
-        </header>
-        <div class="rda-club-view-content rda-content">
-            {{ include('club/_info_box.html.twig', {club: club}) }}
-            <section class="rda-club-view-history">
-                <h2>Présentation</h2>
-                {{ club.overview }}
-           </section>
-            <section>
-                <h2>Histoire</h2>
-                {{ club.history }}
-            </section>
-        </div>
-        <aside class="rda-right-side-bar">
-            {{ include('_menu_side_bar.html.twig', {disable: null}) }}
-        </aside>
-    </main>
+{% block titleBar %}
+    <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>
+{% endblock %}
+
+{% block toolBar %}
+    <a href="{{ path(routes.club.edit, {id: club.id}) }}">Éditer</a>
+{% endblock %}
+
+{% block content %}
+    {{ include('club/_info_box.html.twig', {club: club}) }}
+    <section>
+        <h2>Présentation</h2>
+        {{ club.overview }}
+    </section>
+    <section>
+        <h2>Histoire</h2>
+        {{ club.history }}
+    </section>
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig', {disable: 'null'}) }}
 {% endblock %}

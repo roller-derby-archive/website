@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Action;
+namespace App\Action\Page;
 
-use App\Flattrack\Gender;
 use App\Repository\FlattrackRankingRepository;
+use App\Scraper\Flattrack\Gender;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
-final class FlattrackFrenchRankingAction extends AbstractController
+final class FlattrackRankingAction extends AbstractController
 {
     const ROUTE_NAME = 'flattrack_french_ranking';
 

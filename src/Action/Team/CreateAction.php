@@ -29,7 +29,7 @@ final class CreateAction extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $team->setId(Uuid::v4()->toString());
-            $team->setUpdatedAt((new \DateTimeImmutable())->setTime(0, 0));
+            $team->setUpdatedAt((new \DateTimeImmutable()));
             $team->setCountryCode(Country::FRANCE->value);
             $this->entityManager->persist($team);
             $this->entityManager->flush();

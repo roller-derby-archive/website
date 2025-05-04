@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main id="{{ mainId }}" class="{{ styles.common.main }} {{ styles.common.layout }}">
+        <aside class="{{ styles.common.leftSideBar }}">
+            {% block leftSideBar %}{% endblock %}
+        </aside>
+        <header class="{{ styles.common.titleBar }}">
+            {% block titleBar %}{% endblock %}
+            {% block toolBar %}{% endblock %}
+        </header>
+        <section class="{{ styles.common.content }}">
+            {% block content %}{% endblock %}
+        </section>
+        <aside class="{{ styles.common.rightSideBar }}">
+            {% block rightSideBar %}{% endblock %}
+        </aside>
+    </main>
+{% endblock %}

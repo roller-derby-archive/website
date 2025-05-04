@@ -1,46 +1,51 @@
-{% extends 'base.html.twig' %}
+{% extends 'content.html.twig' %}
+{% set mainId = 'team_list' %}
 
-{% block body %}
-        <main id="team_list" class="rda-page rda-layout rda-grid">
-            <aside class="rda-left-side-bar">
-                {{ include('team/_filter.html.twig') }}
-            </aside>
-            <header class="rda-title-bar">
-                <h1>Les équipes ({{ total }})</h1>
-            </header>
-            <section class="rda-content">
-                {% if total == 0 %}
-                 <p>Aucune équipe trouvée avec ces filtres.</p>
-                {% else %}
-                    <ul class="region-list">{% for name, teams in sortedTeams %}
-                        <li>
-                            <h2>{{ name }}</h2>
-                            <ul class="club-list">{% for team in teams %}
-                                    <li>
-                                    <a href="{{ path(constant('App\\Action\\Team\\ViewAction::ROUTE_NAME'), {id: team.id}) }}">
-                                        <div class="rda-logo-box">
+{% block leftSideBar %}
+    {{ include('team/_filter.html.twig') }}
+{% endblock %}
+
+{% block titleBar %}
+    <h1>Les équipes ({{ total }})</h1>
+{% endblock %}
+
+{% block content %}
+    {% if total == 0 %}
+        <p>Aucune équipe trouvée avec ces filtres.</p>
+    {% else %}
+        <ul class="{{ styles.template.listWrapper }}">{% for name, teams in sortedTeams %}
+                <li>
+                    <ul class="{{ styles.template.list }}">
+                        <li><h2>{{ name }}</h2></li>
+                        {% for team in teams %}
+                            <li>
+                                <a href="{{ path(routes.team.view, {id: team.id}) }}">
+                                    <div class="{{ styles.common.logoBox }}">
                                         {% if team.logo.name != null %}
-                                            {{ include('widget/_logo.twig', {hasLogoEntity: team}) }}
+                                            {{ include('template/_logo.twig', {hasLogoEntity: team}) }}
                                         {% else %}
                                             <img alt="logo-team" src=" https://placehold.co/36x36">
                                         {% endif %}
-                                        </div>
-                                        <div>
-                                            <p class="wiki-link">
-                                                {{ teamName(team.name, team.pronoun) }}
-                                                {% if team.disbandAt != null %} ☠️{% endif %}
-                                            </p>
-                                            {{ include('team/_tag.html.twig', {team: team}) }}
-                                        </div>
-                                    </a>
-                                </li>
-                            {% endfor %}</ul>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            {{ teamName(team.name, team.pronoun) }}
+                                            {% if team.disbandAt != null %} <span>☠️</span>{% endif %}
+                                            {% if team.type == 'N' %}
+                                                {{ include('template/_flag.html.twig', {countryCode: team.countryCode}) }}
+                                            {% endif %}
+                                        </p>
+                                        {{ include('team/_tag.html.twig', {team: team}) }}
+                                    </div>
+                                </a>
                             </li>
-                    {% endfor %}</ul>
-                {% endif %}
-            </section>
-            <aside class="rda-right-side-bar">
-                {{ include('_menu_side_bar.html.twig', {disable: 'teams'}) }}
-            </aside>
-        </main>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}</ul>
+    {% endif %}
+{% endblock %}
+
+{% block rightSideBar %}
+    {{ include('template/_menu_side_bar.html.twig', {disable: 'teams'}) }}
 {% endblock %}

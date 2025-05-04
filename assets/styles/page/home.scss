@@ -1,0 +1,138 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+@use '../theme';
+
+/************** home **************/
+
+#page_home .rda-content h2 {
+    margin-bottom: 30px;
+}
+
+#page_home .rda-content ul, #page_home .rda-content menu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.rda-page-home-cell {
+    margin: 0 3% 3% 0;
+    width: 31%;
+}
+/* size smartphone */
+@media (width <= 600px ) {
+    .rda-page-home-cell {
+        margin: 0 0 2% 2%;
+        width: 96%;
+    }
+}
+
+/*** Sections ***/
+
+#page_home .rda-content {
+    display: grid;
+    grid-template-areas:
+        'section1'
+        'section2'
+        'section3'
+        'section4'
+        'section5'
+}
+
+#page_home_section_db{
+    grid-area: section1;
+}
+#page_home_section_since{
+    grid-area: section2;
+}
+#page_home_history{
+    grid-area: section3;
+}
+#page_home_section_contrib{
+    grid-area: section4;
+}
+#page_home_stats_and_graph{
+    grid-area: section5;
+}
+
+/* size smartphone */
+@media (width <= 600px ) {
+    #page_home_section_db{
+        grid-area: section1;
+    }
+    #page_home_section_since{
+        grid-area: section5;
+    }
+    #page_home_history{
+        grid-area: section2;
+    }
+    #page_home_section_contrib{
+        grid-area: section3;
+    }
+    #page_home_stats_and_graph{
+        grid-area: section4;
+    }
+}
+
+/*** Cells ***/
+
+.rda-page-home-cell:nth-child(3), .rda-page-home-cell:nth-child(6), .rda-page-home-cell:nth-child(9) {
+    margin-right: 0;
+}
+
+.rda-page-home-cell a {
+    padding: 29px;
+    border: theme.$border-medium;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+}
+
+.rda-page-home-cell p {
+    padding: 16px;
+    border-radius: 10px;
+    display: block;
+    text-align: center;
+}
+
+.rda-page-home-cell span {
+    font-weight: bold;
+}
+
+.rda-page-home-cell a:hover {
+    @include theme.pointer-hover();
+}
+
+/*** remove useless left sidebar ***/
+
+
+/* size small screen */
+@media (1050px <= width <= 1600px ) {
+    .rda-home {
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas:
+        '.          titlebar'
+        '.          toolbar'
+        'leftSidebar content';
+    }
+}
+/* size tablet */
+@media (600px <= width <= 1050px ) {
+    .rda-home {
+        grid-template-columns: 2fr 3fr;
+        grid-template-areas:
+        '.          titlebar'
+        '.          toolbar'
+        'leftSidebar content';
+    }
+}
+/* size smartphone */
+@media (width <= 600px ) {
+    .rda-home {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        ' titlebar'
+        'toolbar'
+        'leftSidebar'
+        'content';
+    }
+}
