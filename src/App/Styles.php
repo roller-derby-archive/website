@@ -50,12 +50,12 @@ final readonly class Styles
             'infobox' => [
                 'main' => 'rda-infobox',
             ],
-            'ftfr' => [
-                'table' => 'rda-ftfr-table',
-                'rankCell' => 'rda-ftfr-rank-cell',
-                'logoCell' => 'rda-ftfr-logo-cell',
-                'nameCell' => 'rda-ftfr-name-cell',
-                'otherCell' => 'rda-ftfr-other-cell',
+            'flattrack' => [
+                'table' => 'rda-flattrack-table',
+                'rankCell' => 'rda-flattrack-rank-cell',
+                'logoCell' => 'rda-flattrack-logo-cell',
+                'nameCell' => 'rda-flattrack-name-cell',
+                'otherCell' => 'rda-flattrack-other-cell',
             ],
             'wiki' => [
                 'link' => 'rda-wiki-link',
