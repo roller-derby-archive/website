@@ -1,0 +1,38 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
+#rda_main_footer {
+    height: 50px;
+    border-top: gray solid 1px;
+    padding: 20px;
+
+    li {
+        display: block;
+        float: left;
+        margin-right: 20px;
+        font-size: 14px;
+
+        &:last-child {
+            display: block;
+            float: left;
+            margin-right: 0;
+
+            a {
+                padding-right: 0;
+            }
+        }
+
+        &:last-child:after {
+            content: none;
+        }
+
+        &:after {
+            content: "|";
+        }
+
+
+        a {
+            padding-right: 20px;
+        }
+
+    }
+}

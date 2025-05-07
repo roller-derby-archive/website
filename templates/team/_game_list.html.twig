@@ -23,7 +23,7 @@
                 {% else %}
                     <a class="rda-wiki-link" target="_blank" href="{{ flattrackTeamPath(game.teamGames[oponent].team.flattrackId) }}">
                         {{ teamName(game.teamGames[oponent].team.name, game.teamGames[oponent].team.pronoun) }}
-                        {{ include('/widget/_flag.html.twig', {noFrench: true, countryCode: game.teamGames[oponent].team.countryCode}) }}
+                        {{ include('/template/_flag.html.twig', {noFrench: true, countryCode: game.teamGames[oponent].team.countryCode}) }}
                     </a>
                 {% endif %}
             </td>

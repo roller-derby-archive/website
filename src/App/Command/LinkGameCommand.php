@@ -2,13 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\App\Command;
 
-use App\Dto\ClubIoDto;
 use App\Dto\GameIoDto;
-use App\Entity\Club;
-use App\Entity\Game;
-use App\Entity\Team;
 use App\Entity\TeamGame;
 use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;

@@ -54,7 +54,7 @@
 }
 
 /* size smartphone */
-@media (width <= 600px ) {
+@media (width <= theme.$screen-device-mobile) {
     #page_home_section_db{
         grid-area: section1;
     }
@@ -80,7 +80,7 @@
 
 .rda-page-home-cell a {
     padding: 29px;
-    border: theme.$border-medium;
+    border: theme.$border-primary;
     border-radius: 10px;
     display: block;
     text-align: center;
@@ -99,7 +99,7 @@
 }
 
 .rda-page-home-cell a:hover {
-    @include theme.pointer-hover();
+    @include theme.pointer-hover-primary();
 }
 
 /*** remove useless left sidebar ***/

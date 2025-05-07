@@ -11,7 +11,7 @@
     }
 
     legend {
-        border-bottom: theme.$border-medium;
+        border-bottom: theme.$border-primary;
         display: block;
         width: 100%;
         height: 20px;
@@ -27,7 +27,7 @@
 
 .rda-submit {
     border-radius: 0;
-    background-color: theme.$background-primary;
+    background-color: theme.$color-background-primary;
     border: none;
     height: 37px;
     margin: 15px 0 5px 0;
@@ -37,7 +37,7 @@
 }
 
 .rda-submit:hover {
-    @include theme.pointer-hover
+    @include theme.pointer-hover-primary
 }
 
 .rda-filters .rda-apply-input {

@@ -1,0 +1,20 @@
+@use 'theme' with (
+    // lighter
+    $color-text-input-background: #FDECD8,
+    $color-background-primary: #FFE4E1,
+    $color-background-secondary: #77a0a9,
+    // medium
+    $color-background-table-row: #FFB1AD,
+    $color-background-hover-primary: #FFB1AD,
+    $color-background-hover-secondary: #FFB1AD,
+    $color-label-category: #CFBDA0,
+    $color-label-level: #B8D6AE,
+    $color-label-type: #D996C8,
+    // darker
+    $color-text-primary: #000000,
+    $color-text-secondary: #210f04,
+    $color-border-primary: #000000,
+    $color-border-secondary: #210f04,
+    $color-link: #690500,
+);
+@use 'main';

@@ -1,3 +1,5 @@
+/* Remember, i'm not a frontend developer (@atom) */
+
 @use '../theme';
 
 /**** Bar ****/
@@ -5,7 +7,7 @@
 #search_bar {
     search {
         position: relative; /* Root for result box */
-        border: theme.$border-medium;
+        border: theme.$border-primary;
         margin: 10px auto;
 
         form {
@@ -38,13 +40,13 @@
     border-bottom: none;
     border-top: none;
     border-right: none;
-    border-left: theme.$border-medium;
+    border-left: theme.$border-primary;
     padding: 0 5px;
     flex: 1;
 }
 
 #search_bar_submit:hover {
-    @include theme.pointer-hover
+    @include theme.pointer-hover-primary
 }
 
 #search_bar_submit img {
@@ -52,7 +54,7 @@
 }
 
 /* size smartphone */
-@media (width <= 600px ) {
+@media (width <= theme.$screen-device-mobile ) {
     #search_bar_submit  {
         span {
             display: none;
@@ -77,22 +79,22 @@
         top: 30px;
         left: 0;
         z-index: 100;
-        box-shadow: 0 0 6px theme.$secondary-color-heavy;
+        box-shadow: 0 0 6px theme.$color-text-primary;
     }
 
     li {
         width: 400px;
 
         a:hover {
-            @include theme.pointer-hover
+            @include theme.pointer-hover-primary
         }
     }
 
     li:nth-child(even) {
-        background-color: theme.$secondary-color-light;
+        background-color: theme.$color-background-secondary;
     }
 
     li:nth-child(odd) {
-        background-color: theme.$primary-color-light-table-row;
+        background-color: theme.$color-background-table-row;
     }
 }

@@ -11,19 +11,19 @@
       margin: 0;
       font-size: 16px;
       border-radius: 0 0 10px 10px;
-      background: theme.$secondary-color-light;
-      background: linear-gradient(0deg, theme.$secondary-color-light 0%, theme.$background-primary 100%);
+      background: theme.$color-background-secondary;
+      background: linear-gradient(0deg, theme.$color-background-secondary 0%, theme.$color-background-primary 100%);
     }
 
     &:first-child button {
-      background: theme.$primary-color-medium;
-      background: linear-gradient(0deg, theme.$primary-color-medium 0%, theme.$background-primary 100%);
+      background: theme.$color-background-hover-primary;
+      background: linear-gradient(0deg, theme.$color-background-hover-primary 0%, theme.$color-background-primary 100%);
     }
 
     &:hover button {
       cursor: pointer;
-      background: theme.$primary-color-medium;
-      background: linear-gradient(0deg, theme.$primary-color-medium 0%, theme.$background-primary 100%);
+      background: theme.$color-background-hover-primary;
+      background: linear-gradient(0deg, theme.$color-background-hover-primary 0%, theme.$color-background-primary 100%);
     }
   }
 }
@@ -39,7 +39,7 @@
         }
 
         &:nth-child(odd) {
-          background-color: theme.$background-table-row;
+          background-color: theme.$color-background-table-row;
         }
 
         label {
@@ -55,14 +55,14 @@
   }
   label {
     display: block;
-    border: theme.$border-medium;
+    border: theme.$border-primary;
     padding: 1em;
     margin: 10px 0;
     width: 80%;
     cursor: pointer;
 
     &:hover {
-      @include theme.pointer-hover;
+      @include theme.pointer-hover-primary;
 
       &:after {
         content: "X";

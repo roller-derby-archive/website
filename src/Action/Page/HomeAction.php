@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Action\Page;
 
+use App\Repository\ChampionshipRepository;
 use App\Repository\ClubRepository;
+use App\Repository\EventRepository;
 use App\Repository\GameRepository;
 use App\Repository\TeamGameRepository;
 use App\Repository\TeamRepository;
@@ -16,13 +18,15 @@ use Symfony\Component\Routing\Attribute\Route;
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 final class HomeAction extends AbstractController
 {
-    const ROUTE_NAME = 'main';
+    const ROUTE_NAME = 'home';
 
     public function __construct(
         private readonly ClubRepository     $clubRepository,
         private readonly TeamRepository     $teamRepository,
         private readonly GameRepository     $gameRepository,
         private readonly TeamGameRepository $teamGameRepository,
+        private readonly ChampionshipRepository $championshipRepository,
+        private readonly EventRepository $eventRepository,
     ) {}
 
     #[Route('/', name: self::ROUTE_NAME)]
@@ -35,6 +39,8 @@ final class HomeAction extends AbstractController
             'totalActiveTeams' => $this->teamRepository->countActive(),
             'totalGames' => $this->gameRepository->countAll(),
             'totalHipsPassed' => $this->teamGameRepository->totalHipsPassed(),
+            'totalEvents' => $this->eventRepository->countAll(),
+            'totalChampionships' => $this->championshipRepository->countAll(),
         ]);
     }
 }

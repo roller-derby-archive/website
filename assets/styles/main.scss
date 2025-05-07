@@ -1,8 +1,10 @@
 /* Remember, i'm not a frontend developer (@atom) */
 
+// One file css is justify by usage of Hotwire Turbo because <head> css changes need full page reload.
 @use 'theme';
 @use 'reset';
 @use 'header';
+@use 'footer';
 @use 'template/infobox';
 @use 'template/filters';
 @use 'template/edit';
@@ -10,16 +12,72 @@
 @use 'widget/search_bar';
 @use 'page/home';
 
-/************** Generic Class **************/
+/************** Base **************/
+
+body {
+    background-color: theme.$color-background-hover-primary;
+    color:  theme.$color-text-primary;
+
+    @media (width <= theme.$screen-device-mobile) {
+        body {
+            font-size: 14px;
+        }
+    }
+}
+
+a {
+    color: theme.$color-link;
+}
+
+// Titles
+
+h1, h2, h3, h4, h5 {
+    font-family: theme.$font-title
+}
+
+h1 {
+    margin-bottom: 20px;
+    border-bottom: theme.$border-primary;
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+// Inputs
+
+input, button, select {
+    @include theme.text-input-primary
+}
+
+input[type="text"], select, input[type="email"], {
+    padding: 0.3em 0.7em;
+}
+
+textarea {
+    height: 100px;
+    width: 100%;
+    resize: none;
+    display: block;
+    @include theme.text-input-primary
+}
+
+input[type="number"] {
+    padding: 0.3em 0.7em;
+}
+
+input:focus  {
+    outline: theme.$border-secondary;
+}
 
 input[type="checkbox"], input[type="radio"] {
     appearance: none;
-    background-color: theme.$background-primary;
+    background-color: theme.$color-background-primary;
     margin: 0;
     width: 1em;
     height: 1em;
-    border: theme.$border-medium;
-
+    border: theme.$border-secondary;
 }
 
 input[type="text"], select, input[type="email"], {
@@ -35,35 +93,39 @@ input[type="number"] {
 input[type="checkbox"] {
     border-radius: 0.15em;
 }
+
 input[type="radio"] {
     border-radius: 1em;
 }
 
 .required {
     position: relative;
-}
 
-.required:after {
-    content: "*";
-    color: theme.$link-color;
-    position: absolute;
-    top: -4px;
+    &:after {
+        content: "*";
+        color: theme.$color-link;
+        position: absolute;
+        top: -4px;
+    }
 }
 
 input[type="checkbox"]:checked, input[type="radio"]:checked {
-    background-color: theme.$primary-color-medium;
-    border: theme.$secondary-color-heavy solid 2px;
+    background-color: theme.$color-background-primary;
+    border: theme.$color-border-primary solid 2px;
 }
 
+input:focus  {
+    outline: theme.$border-primary;
+}
+
+/************** Generic Class **************/
 
 .rda-logo-box {
     display: block;
     width: 36px;
     height: 36px;
-}
-/* size smartphone */
-@media (width <= 600px ) {
-    .rda-logo-box {
+
+    @media (width <= theme.$screen-device-mobile) {
         width: 30px;
         height: 30px;
     }
@@ -74,25 +136,17 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     margin: 0 auto;
     max-width: 36px;
     max-height: 36px;
-}
-/* size smartphone */
-@media (width <= 600px ) {
-    .rda-logo-box img {
+
+    @media (width <= theme.$screen-device-mobile) {
         max-width: 30px;
         max-height: 30px;
     }
 }
 
-
-/* >>> .rda-main >>> */
 .rda-main{
     display: grid;
 
-}
-
-/* size full screen */
-@media (1600px <= width) {
-    .rda-main {
+    @media (theme.$screen-device-normal <= width) {
         grid-template-columns: 1fr 3fr 1fr;
         grid-template-areas:
             '.          titlebar .           '
@@ -100,30 +154,24 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
             'leftSidebar content rightSidebar';
         min-height: 800px;
     }
-}
-/* size small screen */
-@media (1050px <= width <= 1600px ) {
-    .rda-main {
+
+    @media (theme.$screen-device-laptop <= width <= theme.$screen-device-normal) {
         grid-template-columns: 1fr 3fr;
         grid-template-areas:
         '.          titlebar'
         '.          toolbar'
         'leftSidebar content';
     }
-}
-/* size tablet */
-@media (600px <= width <= 1050px ) {
-    .rda-main {
+
+    @media (theme.$screen-device-mobile <= width <= theme.$screen-device-laptop) {
         grid-template-columns: 2fr 3fr;
         grid-template-areas:
         '.          titlebar'
         '.          toolbar'
         'leftSidebar content';
     }
-}
-/* size smartphone */
-@media (width <= 600px ) {
-    .rda-main {
+
+    @media (width <= theme.$screen-device-mobile) {
         grid-template-columns: 1fr;
         grid-template-areas:
         ' titlebar'
@@ -132,51 +180,37 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
         'content';
     }
 }
-/* <<< .rda-main <<< */
 
-/* >>> .rda-layout >>> */
+// TODO rem to px
 .rda-layout {
     min-width: auto;
-    background-color: theme.$background-primary;
+    background-color: theme.$color-background-primary;
     padding-bottom: 20px;
     max-width: 99.75rem;
     margin: 0 auto;
     position: relative;
     justify-content: center;
     box-sizing: border-box;
-}
 
-/* size full screen */
-@media (1600px <= width) {
-    .rda-layout {
+    @media (theme.$screen-device-normal <= width) {
         padding-left: 3.25rem;
         padding-right: 3.25rem;
     }
-}
-/* size small screen */
-@media (1050px <= width <= 1600px ) {
-    .rda-layout {
+
+    @media (theme.$screen-device-laptop <= width <= theme.$screen-device-normal) {
         padding-left: 2.25rem;
         padding-right: 2.25rem;
     }
-}
-/* size tablet */
-@media (600px <= width <= 1050px ) {
-    .rda-layout {
+
+    @media (theme.$screen-device-mobile <= width <= theme.$screen-device-laptop) {
         padding-left: 1rem;
         padding-right: 1rem;
     }
-}
-/* size smartphone */
-@media (width <= 600px ) {
-    .rda-layout {
+
+    @media (width <= theme.$screen-device-mobile) {
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
-}
-/* <<< .rda-layout <<< */
-
-.rda-header {
 }
 
 .rda-left-side-bar {
@@ -196,28 +230,25 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
 .rda-right-side-bar {
     grid-area: rightSidebar;
     margin-left: 10%;
-}
 
-@media (max-width: 1600px) {
-    .rda-right-side-bar {
-        display: none;
+    @media (theme.$screen-device-normal <= width) {
+        .rda-right-side-bar {
+            display: none;
+        }
     }
-}
-
-.rda-footer {
 }
 
 .rda-team-category {
     margin-top: 1px;
     display: block;
     background-color: #cfbda0;
-    color: theme.$secondary-color-heavy;
+    color: theme.$color-text-secondary;
     width: max-content;
     font-size: 13px;
     padding: 0 4px;
     border-radius: 25px;
     float: left;
-    font-family: Comic Sans MS;
+    font-family: theme.$font-label
 }
 
 .rda-team-type {
@@ -225,13 +256,13 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     margin-top: 1px;
     display: block;
     background-color: #B8D6AE;
-    color: theme.$secondary-color-heavy;
+    color: theme.$color-text-secondary;
     width: max-content;
     font-size: 13px;
     padding: 0 4px;
     border-radius: 25px;
     float: left;
-    font-family: Comic Sans MS;
+    font-family: theme.$font-label
 }
 
 .rda-team-level {
@@ -239,13 +270,13 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     margin-top: 1px;
     display: block;
     background-color: #D996C8;
-    color: theme.$secondary-color-heavy;
+    color: theme.$color-text-secondary;
     width: max-content;
     font-size: 13px;
     padding: 0 4px;
     border-radius: 25px;
     float: left;
-    font-family: Comic Sans MS;
+    font-family: theme.$font-label
 }
 
 .rda-flag {

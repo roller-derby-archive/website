@@ -7,8 +7,8 @@
 .rda-infobox {
     padding: 5px;
     width: 25em;
-    background-color: theme.$secondary-color-light;
-    border: theme.$border-heavy;
+    background-color: theme.$color-background-secondary;
+    border: theme.$border-secondary;
     clear: right;
     float: right;
     font-size: 0.9em;
@@ -27,8 +27,8 @@
         font-size: 1.4em;
         line-height: 1.1;
         margin-bottom: 10px;
-        background-color: theme.$secondary-color-medium;
-        color: theme.$background-primary;
+        background-color: theme.$color-background-secondary;
+        color: theme.$color-text-secondary;
         margin-top: 0;
     }
 
@@ -43,8 +43,8 @@
         line-height: 1.1;
         margin: 0 0 5px 0;
         padding: 4px;
-        background-color: theme.$secondary-color-medium;
-        color: theme.$background-primary;
+        background-color: theme.$color-background-secondary;
+        color: theme.$color-text-secondary;
     }
 
     table {

@@ -1,9 +1,24 @@
-#main_header {
+@use 'theme';
+
+#rda_main_header {
     display: grid;
     grid-template-columns: 0.4fr 2fr 3fr 2fr;
     grid-template-areas:
             'menuButton title searchBar .'
+    ;
 
+    & > aside {
+        display: none;
+    }
+
+    & > a  {
+        grid-area: title;
+
+        @media (width <= theme.$screen-device-mobile) {
+            max-width: 180px;
+            margin-top: 8px;
+        }
+    }
 }
 /* size smartphone */
 @media (width <= 600px) {
@@ -12,9 +27,9 @@
         grid-template-areas:
             'menuButton title'
             'searchBar searchBar'
+        ;
     }
 }
-
 
 #main_menu_button {
     grid-area: menuButton;
@@ -23,29 +38,7 @@
     margin: 5px;
 }
 
-#main_header > aside {
-    display: none;
-}
-
-/* Logo */
-#main_header > a {
-    grid-area: title;
-}
-/* size smartphone */
-@media (width <= 600px) {
-    #main_header > a img {
-        max-width: 180px;
-        margin-top: 8px;
-    }
-}
-
-
 /* Search bar */
 #search_bar {
     grid-area: searchBar;
 }
-
-/* Options (blank for evol) */
-#main_header > div {
-}
-

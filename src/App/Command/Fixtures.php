@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\App\Command;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 final readonly class Fixtures
