@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <body id="{{ pageId }}" {% block bodyclass %}class="rda-std-body" {% endblock %}>
+        {% block header %}{% endblock %}
+        {% block asidebefore %}{% endblock %}
+        {% block content %}{% endblock %}
+        {% block asideafter %}{% endblock %}
+    </body>
+{% endblock %}

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\App;
 
+use App\Action\Api\SearchAction;
 use App\Action\Club;
 use App\Action\Page\AboutAction;
 use App\Action\Page\CguAction;
@@ -13,7 +14,6 @@ use App\Action\Page\HomeAction;
 use App\Action\Page\LegalAction;
 use App\Action\Page\UpgradeLogsAction;
 use App\Action\Team;
-use App\Action\Widget\SearchAction;
 
 /** @author Alexandre Tomatis <alexandre.tomatis@gmail.com> */
 final readonly class Routes

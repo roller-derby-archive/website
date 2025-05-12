@@ -1,6 +1,0 @@
-symfonycasts_sass:
-  root_sass:
-    - 'assets/styles/theme_pink_city.scss'
-    - 'assets/styles/theme_blue_paname.scss'
-    - 'assets/styles/theme_green_duchess.scss'
-    - 'assets/styles/theme_red_delivrance.scss'

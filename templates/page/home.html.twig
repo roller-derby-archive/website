@@ -1,49 +1,73 @@
-{% extends 'content.html.twig' %}
-{% set mainId = 'page_home' %}
+{% extends 'body.html.twig' %}
+{% set pageId = 'rda_page_home' %}
 
-{% block titleBar %}
-    <h1>Les archives</h1>
+{% block bodyclass %}{% endblock %}
+
+{% block header %}
+    <header id="rda_main_header">
+        <h1>ROLLER DERBY ARCHIVE</h1>
+        <span>BETA TEST</span>
+    </header>
+{% endblock %}
+
+{% block asidebefore %}
+    <aside id="rda_page_home_secondary_menu">
+        <menu>
+            <li>
+                <a href="{{ path(routes.page.about) }}">
+                    <img alt="{{ texts.about.title }}" src="{{ asset('images/information-icon.svg') }}">
+                    <p>{{ texts.about.title }}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path(routes.page.contact) }}">
+                    <img alt="{{ texts.contact.title }}" src="{{ asset('images/email.svg') }}">
+                    <p>{{ texts.contact.title }}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path(routes.page.cgu) }}">
+                    <img alt="{{ texts.cgu.title }}" src="{{ asset('images/law-scales.webp') }}">
+                    <p>{{ texts.cgu.title }}</p>
+                </a>
+            </li>
+            <li>
+                <a href="{{ path(routes.page.upgradeLogs) }}">
+                    <img alt="{{ texts.upgradeLogs.title }}" src="{{ asset('images/update.svg') }}">
+                    <p>{{ texts.upgradeLogs.title }}</p>
+                </a>
+            </li>
+        </menu>
+    </aside>
 {% endblock %}
 
 {% block content %}
-    <section id="page_home_section_db">
-        <h2>Bases de donnée</h2>
+    <main id="rda_page_home_content">
+        <search data-club-svg-path="{{ asset('images/club.svg') }}" data-team-svg-path="{{ asset('images/team.svg') }}">
+            <form action="/widget/search">
+                <label for="rda_search_bar_text_input"><img alt="search button" src="{{ asset('images/search.svg') }}"></label>
+                <input type="search" id="rda_search_bar_text_input" placeholder="Asso, équipe, ville,..." autocomplete="off" name="needle" value="{{ needle|default('') }}"/>
+                <button type="submit" hidden="hidden" id="rda_search_bar_submit"></button>
+            </form>
+        </search>
+    </main>
+{% endblock %}
+
+{% block asideafter %}
+    <aside id="rda_page_home_main_menu">
         <menu>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">{{ texts.summary.clubs }}</a></li>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">{{ texts.summary.teams }}</a></li>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">{{ texts.summary.events }}</a></li>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.team.list) }}">{{ texts.summary.championships }}</a></li>
+            <li>
+                <a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">Les archives</a>
+            </li>
+            <li>
+                <a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">Histoire</a>
+            </li>
+            <li>
+                <a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">Aides & contributions</a>
+            </li>
+            <li>
+                <a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'women'}) }}">Classements</a>
+            </li>
         </menu>
-    </section>
-    <section id="page_home_section_since">
-        <h2>Le roller derby FR depuis 2009</h2>
-        <ul>
-            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalClubs }}</span> associations dont <span>{{ totalActiveClubs }}</span> actives</p></li>
-            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalTeams }}</span> équipes dont <span>{{ totalActiveTeams }}</span> actives</p></li>
-            <li class="{{ styles.page.home.cell }}"><p>Plus de <span>{{ totalGames }}</span> match joués</p></li>
-            <li class="{{ styles.page.home.cell }}"><p>Au moins <span>{{ totalEvents }}</span> événements organisés</p></li>
-            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalChampionships }}</span> championats disputés</p></li>
-            <li class="{{ styles.page.home.cell }}"><p><span>{{ totalHipsPassed }}</span> paires de hanche dépassées</p></li>
-        </ul>
-    </section>
-    <section id="page_home_history">
-        <h2>Histoire.s et articles</h2>
-        <menu>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.club.list) }}">{{ texts.summary.rules }}</a></li>
-        </menu>
-    </section>
-    <section id="page_home_section_contrib">
-        <h2>Aides & contributions</h2>
-        <menu>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(constant('App\\Action\\Team\\ListAction::ROUTE_NAME')) }}">{{ texts.summary.newClub }}</a></li>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(constant('App\\Action\\TestAction::ROUTE_NAME')) }}"> Test</a></li>
-        </menu>
-    </section>
-    <section id="page_home_stats_and_graph">
-        <h2>Des stats et des graphs</h2>
-        <menu>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'women'}) }}">{{ texts.summary.rankingFPlus }}</a></li>
-            <li class="{{ styles.page.home.cell }}"><a class="{{ styles.common.link }}" href="{{ path(routes.page.flattrackRanking, {gender: 'men'}) }}">{{ texts.summary.rankingMixed }}</a></li>
-        </menu>
-    </section>
+    </aside>
 {% endblock %}

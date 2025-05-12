@@ -5,56 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Roller Derby Archive{% endblock %}</title>
         <link rel="icon" href="{{ asset('images/favicon.png') }}">
-        {% block stylesheets %}
-            <link rel="stylesheet" href="{{ asset('styles/theme_'~themeName ?? 'pink_city'~'.scss') }}">
-        {% endblock %}
+        {% block stylesheets %}{% endblock %}
 
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        <header id="rda_main_header" class="rda-layout">
-            <input type="image" alt="menu" id="main_menu_button" src="{{ asset('images/menu.png') }}"/>
-            <aside>
-                {{ include('template/_menu_side_bar.html.twig') }}
-            </aside>
-{#                <a href="{{ path('main') }}"><img class="rda-site-logo" alt="🛼 Roller Derby Archive" src="{{ asset('images/logo.png') }}"></a>#}
-            <a href="{{ path(routes.page.home) }}"><img id="rda_main_logo" alt="🛼 Roller Derby Archive" src="https://placehold.co/413x52"></a>
-            {{ include('widget/_search_bar.html.twig') }}
-            <aside>
-                <form>
-                    <fieldset>
-                        <legend>Thème</legend>
-                        <div>
-                            <input type="radio" id="rda_theme_pink_city" name="theme" value="pink_city"/>
-                            <label for="rda_theme_pink_city">Pink city</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rda_theme_blue_paname" name="theme" value="blue_paname"/>
-                            <label for="rda_theme_blue_paname">Blue paname</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rda_theme_green_duchess" name="theme" value="green_duchess"/>
-                            <label for="rda_theme_green_duchess">Green paname</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="rda_theme_red_delivrance" name="theme" value="red_delivrance"/>
-                            <label for="rda_theme_red_delivrance">Red délivrance</label>
-                        </div>
-                    </fieldset>
-                    <input type="submit">
-                </form>
-            </aside>
-        </header>
-        {% block body %}{% endblock %}
-        <footer id="rda_main_footer" class="rda-layout">
-            <ul>
-                <li><a href="{{ path(routes.page.about) }}">{{ texts.about.title }}</a></li>
-                <li><a href="{{ path(routes.page.contact) }}">{{ texts.contact.title }}</a></li>
-                <li><a href="{{ path(routes.page.cgu) }}">{{ texts.cgu.title }}</a></li>
-                <li><a href="{{ path(routes.page.upgradeLogs) }}">{{ texts.upgradeLogs.title }}</a></li>
-            </ul>
-        </footer>
-    </body>
+    {% block body %}{% endblock %}
 </html>

@@ -1,62 +1,62 @@
-/* Remember, i'm not a frontend developer (@atom) */
+/************** List **************/
 
-@use '../theme';
+@use '../theme/color_set/a_wiki' as color;
+@use '../theme/screen';
+@use '../theme/border';
+@use '../theme/hover';
 
-/***** list *****/
-
-@media (min-width: theme.$screen-device-laptop) {
-  .rda-list-wrapper {
-    column-count: 2;
-  }
+@media (min-width: screen.$laptop) {
+    .rda-list-wrapper {
+        column-count: 2;
+    }
 }
 
 .rda-list {
-  a {
-    border: theme.$border-primary;
-    margin-bottom: 5px;
-    display: flex;
-    border-radius: 3px 10px 3px 10px;
+    a {
+        margin-bottom: 5px;
+        display: flex;
+        border-radius: 3px 10px 3px 10px;
+        border: border.$primary;
 
-    p:first-child {
-      font-weight: bold;
-      margin: 0;
+        p:first-child {
+            font-weight: bold;
+            margin: 0;
 
-      span {
-        line-height: 10px;
-      }
+            span {
+                line-height: 10px;
+            }
+        }
+
+        p:last-child {
+            margin: 3px 0 0 0;
+            font-size: 13px;
+            color: color.$text-secondary;
+        }
+
+        &:hover {
+            @include hover.pointer-hover-primary;
+        }
     }
 
-    p:last-child {
-      margin: 3px 0 0 0;
-      font-size: 13px;
-      color: theme.$color-text-secondary;
+    div:first-child {
+        flex: 1;
     }
-  }
 
-  a:hover {
-    @include theme.pointer-hover-primary;
-  }
+    div {
+        display: block;
+        padding: 5px;
+        flex: 10;
+    }
 
-  div:first-child  {
-    flex: 1;
-  }
-
-  div  {
-    display: block;
-    padding: 5px;
-    flex: 10;
-  }
-
-  li:first-child {
-    height: 38px;
-    margin-bottom: 5px;
-    padding-top: 11px;
-  }
-
-  h2 {
-    margin: 0;
-    text-align: center;
-    background: theme.$color-background-secondary;
-    background: linear-gradient(90deg, theme.$color-background-primary 0%, theme.$color-background-secondary 50%, theme.$color-background-primary 100%);
-  }
+    h2 {
+        text-align: center;
+        background: color.$background-secondary;
+        background: linear-gradient(0deg, transparent, color.$background-secondary, transparent);
+        display: block;
+        height: 38px;
+        margin-bottom: 5px;
+        padding-top: 8px;
+        padding-bottom: 3px;
+        border-radius: 15px;
+    }
 }

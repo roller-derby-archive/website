@@ -1,8 +1,8 @@
-/* Remember, i'm not a frontend developer (@atom) */
-
-@use '../theme';
-
 /************** Filters **************/
+
+@use '../theme/color_set/a_wiki' as color;
+@use '../theme/border';
+@use '../theme/hover';
 
 .rda-filters {
     fieldset {
@@ -11,40 +11,25 @@
     }
 
     legend {
-        border-bottom: theme.$border-primary;
         display: block;
         width: 100%;
         height: 20px;
         margin-bottom: 5px;
         margin-top: 15px;
         font-weight: bold;
+        border-bottom: border.$primary;
     }
 
     fieldset:first-child legend {
         margin-top: 0;
     }
-}
 
-.rda-submit {
-    border-radius: 0;
-    background-color: theme.$color-background-primary;
-    border: none;
-    height: 37px;
-    margin: 15px 0 5px 0;
-    padding: 0;
-    font-weight: bold;
-    cursor: pointer;
-}
+    .rda-apply-input {
+        margin-right: 4%;
+        width: 45%;
+    }
 
-.rda-submit:hover {
-    @include theme.pointer-hover-primary
-}
-
-.rda-filters .rda-apply-input {
-    margin-right: 4%;
-    width: 45%;
-}
-
-.rda-filters .rda-reset-input {
-    width: 45%;
+    .rda-reset-input {
+        width: 45%;
+    }
 }

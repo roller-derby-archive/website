@@ -1,4 +1,5 @@
 import './bootstrap.js'
+import './styles/app.scss'
 import './styles/team/game_list.css'
 import './styles/page/flattrack_ranking.css'
 import 'js-datepicker/dist/datepicker.min.css'
@@ -6,29 +7,14 @@ import datepicker from 'js-datepicker'
 import ClubListWatcherPage from './js/club/list.js'
 import ClubEditWatcherPage from './js/club/edit.js'
 import TeamListWatcherPage from './js/team/list.js'
+import HomeWatcherPage from './js/page/home.js'
 
 const pages = [
     new ClubListWatcherPage(),
     new ClubEditWatcherPage(),
     new TeamListWatcherPage(),
+    new HomeWatcherPage(),
 ]
-
-let inputMemory = '';
-
-const initSearchBar = function () {
-    let timer = null
-    document.getElementById("search_bar_text_input").addEventListener("input", function (event){
-        if (timer != null) {
-            window.clearTimeout(timer);
-        }
-        if (2 < event.target.value.length) {
-            timer = setTimeout(function () {document.getElementById("search_bar_submit").click()}, 300)
-        }
-
-        console.log('input memory '+event.target.value)
-        inputMemory = event.target.value
-    })
-}
 
 function addFormToCollection(e) {
     const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
@@ -41,7 +27,7 @@ function addFormToCollection(e) {
         .replace(
             /__name__/g,
             collectionHolder.dataset.index
-        );
+    );
 
     collectionHolder.appendChild(item);
 
@@ -78,29 +64,4 @@ document.addEventListener('turbo:load', function (event) {
            page.execute(event)
        }
     }
-
-    initSearchBar()
-
-    document.getElementsByTagName("body")[0].addEventListener('click', function (event) {
-        if (event.target.closest('#search_results') !== null) {
-            return
-        }
-
-        if (document.getElementById("search_bar").getElementsByTagName('ul').length > 0) {
-            document.getElementById("search_bar").getElementsByTagName('ul')[0].setAttribute('style', 'display:none;')
-        }
-    })
-})
-
-document.addEventListener("turbo:submit-end", function (event) {
-    // history.pushState(history.state, null, event.detail.formSubmission.location.href)
-})
-
-document.addEventListener("turbo:frame-render", function (event) {
-    console.log("turbo:frame-render")
-    console.log(event.target)
-    initSearchBar()
-    document.getElementById("search_bar_text_input").value = inputMemory
-    document.getElementById("search_bar_text_input").focus()
-    document.getElementById("search_bar_text_input").selectionStart = document.getElementById("search_bar_text_input").selectionEnd = document.getElementById("search_bar_text_input").value.length;
 })

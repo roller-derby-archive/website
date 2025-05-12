@@ -1,0 +1,15 @@
+/******** Hover ********/
+
+@use 'color_set/a_wiki' as color;
+
+@mixin pointer-hover-primary() {
+    background-color: color.$background-hover-primary;
+    color: color.$text-primary;
+    cursor: pointer;
+}
+
+@mixin pointer-hover-secondary() {
+    background-color: color.$background-hover-secondary;
+    color: color.$text-secondary;
+    cursor: pointer;
+}

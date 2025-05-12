@@ -1,138 +1,307 @@
-/* Remember, i'm not a frontend developer (@atom) */
+/*****************************  Home  *****************************/
 
-@use '../theme';
+@use '../theme/color_set/a_wiki' as color;
+@use '../theme/screen';
+@use '../theme/border';
+@use '../theme/hover';
+@use '../theme/font';
 
-/************** home **************/
+/******************************************************************/
+/*****************************  Grid  *****************************/
+/******************************************************************/
 
-#page_home .rda-content h2 {
-    margin-bottom: 30px;
-}
-
-#page_home .rda-content ul, #page_home .rda-content menu {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.rda-page-home-cell {
-    margin: 0 3% 3% 0;
-    width: 31%;
-}
-/* size smartphone */
-@media (width <= 600px ) {
-    .rda-page-home-cell {
-        margin: 0 0 2% 2%;
-        width: 96%;
-    }
-}
-
-/*** Sections ***/
-
-#page_home .rda-content {
-    display: grid;
+#rda_page_home {
+    background-color: color.$background-primary;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, #0B343C7F 3px, #0B343C7F 6px);
+    grid-template-columns: 2fr 5fr 2fr;
+    grid-template-rows: 2fr 3fr 3fr;
     grid-template-areas:
-        'section1'
-        'section2'
-        'section3'
-        'section4'
-        'section5'
-}
+        'main-header  main-header  main-header'
+        'aside-before main-content .'
+        'aside-before aside-after aside-after';
 
-#page_home_section_db{
-    grid-area: section1;
-}
-#page_home_section_since{
-    grid-area: section2;
-}
-#page_home_history{
-    grid-area: section3;
-}
-#page_home_section_contrib{
-    grid-area: section4;
-}
-#page_home_stats_and_graph{
-    grid-area: section5;
-}
-
-/* size smartphone */
-@media (width <= theme.$screen-device-mobile) {
-    #page_home_section_db{
-        grid-area: section1;
-    }
-    #page_home_section_since{
-        grid-area: section5;
-    }
-    #page_home_history{
-        grid-area: section2;
-    }
-    #page_home_section_contrib{
-        grid-area: section3;
-    }
-    #page_home_stats_and_graph{
-        grid-area: section4;
-    }
-}
-
-/*** Cells ***/
-
-.rda-page-home-cell:nth-child(3), .rda-page-home-cell:nth-child(6), .rda-page-home-cell:nth-child(9) {
-    margin-right: 0;
-}
-
-.rda-page-home-cell a {
-    padding: 29px;
-    border: theme.$border-primary;
-    border-radius: 10px;
-    display: block;
-    text-align: center;
-    font-weight: bold;
-}
-
-.rda-page-home-cell p {
-    padding: 16px;
-    border-radius: 10px;
-    display: block;
-    text-align: center;
-}
-
-.rda-page-home-cell span {
-    font-weight: bold;
-}
-
-.rda-page-home-cell a:hover {
-    @include theme.pointer-hover-primary();
-}
-
-/*** remove useless left sidebar ***/
-
-
-/* size small screen */
-@media (1050px <= width <= 1600px ) {
-    .rda-home {
-        grid-template-columns: 1fr 3fr;
-        grid-template-areas:
-        '.          titlebar'
-        '.          toolbar'
-        'leftSidebar content';
-    }
-}
-/* size tablet */
-@media (600px <= width <= 1050px ) {
-    .rda-home {
-        grid-template-columns: 2fr 3fr;
-        grid-template-areas:
-        '.          titlebar'
-        '.          toolbar'
-        'leftSidebar content';
-    }
-}
-/* size smartphone */
-@media (width <= 600px ) {
-    .rda-home {
+    @media (width <= screen.$tablet) {
         grid-template-columns: 1fr;
+        grid-template-rows: auto;
         grid-template-areas:
-        ' titlebar'
-        'toolbar'
-        'leftSidebar'
-        'content';
+        'main-header'
+        'main-content'
+        'aside-after'
+        'aside-before';
+    }
+}
+
+#rda_main_header {
+    grid-area: main-header;
+}
+
+#rda_page_home_secondary_menu {
+    grid-area: aside-before;
+}
+
+#rda_page_home_content {
+    grid-area: main-content;
+}
+
+#rda_page_home_main_menu {
+    grid-area: aside-after;
+}
+
+/******************************************************************/
+/***************************** Header *****************************/
+/******************************************************************/
+
+#rda_main_header {
+    position: relative;
+
+    h1 {
+        text-align: center;
+        font-family: font.$default;
+        font-size: 65px;
+        margin-top: 120px;
+
+        @media (screen.$mobile <= width <= screen.$tablet) {
+            font-size: 40px;
+            margin-top: 40px;
+        }
+    }
+
+    span {
+        position: absolute;
+        color: red;
+        font-family: font.$label;
+        left: 53%;
+        top: 79px;
+        border: red solid 4px;
+        rotate: -18deg;
+        font-size: 25px;
+        font-weight: bold;
+        padding: 3px;
+        border-radius: 10px;
+
+        @media (screen.$mobile <= width <= screen.$tablet) {
+            left: 55%;
+            top: 26px;
+            border: red solid 3px;
+            font-size: 14px;
+        }
+    }
+}
+
+/******************************************************************/
+/*************************** Search Bar ***************************/
+/******************************************************************/
+
+#rda_page_home_content {
+    search {
+        margin: auto;
+        position: relative;
+
+        form {
+            margin: 0 auto;
+            display: block;
+            width: 600px;
+            position: relative;
+        }
+
+        label {
+            position: absolute;
+            top: 7px;
+            left: 10px;
+
+            img {
+                width: 23px;
+                filter: color.$icon;
+            }
+        }
+
+        // Résults
+
+        ul {
+            position: absolute;
+            border: color.$border solid 2px;
+            background-color: color.$input-background;
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
+            width: 596px;
+            top: 40px;
+            z-index: 1;
+
+            li {
+                a {
+                    display: block;
+                    padding: 8px 5px 8px 40px;
+                    margin: 0 6px;
+                    background-size: 24px;
+                    background-repeat: no-repeat;
+                    background-position-x: 6px;
+                    background-position-y: 5px;
+
+                    &.rda-club-icon {
+                        background-image: url('../images/club.svg');
+                    }
+
+                    &.rda-team-icon {
+                        background-image: url('../images/team.svg');
+                    }
+
+                    &:hover {
+                        background-color: color.$input-background-hover;
+                    }
+                }
+            }
+        }
+
+        &:hover input {
+            background-color: color.$input-background-hover;
+        }
+    }
+}
+
+// Text input
+
+#rda_search_bar_text_input {
+    padding: 8px 5px 8px 40px;
+    border: color.$border solid 2px;
+    background-color: color.$input-background;
+    width: 100%;
+
+    &:hover {
+        background-color: color.$input-background-hover;
+        border-color: color.$border-hover;
+    }
+}
+
+// Submit button
+
+#rda_search_bar_submit {
+    height: 30px;
+    position: relative;
+    margin: 0;
+    font-size: 16px;
+    border-bottom: none;
+    border-top: none;
+    border-right: none;
+    border-left: color.$border-primary;
+    padding: 0 5px;
+
+    &:hover {
+        @include hover.pointer-hover-primary;
+    }
+
+}
+
+/******************************************************************/
+/*************************** Main menu ****************************/
+/******************************************************************/
+
+#rda_page_home_main_menu li {
+    height: 56px;
+    margin: 20px auto;
+    display: block;
+
+    a {
+        transition: width 0.3s, margin-right 0.3s;
+        margin: 0 80px 0 auto;
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        border-color: color.$border;
+        background-color: color.$input-background;
+        border-style: solid;
+        border-width: 2px 10px;
+        padding: 10px 0;
+        font-size: 30px;
+        position: relative;
+        width: 375px;
+        font-family: font.$default;
+
+        &:hover {
+            border-color: color.$border-hover;
+            color: color.$link-hover;
+            width: 395px;
+            margin-right: 70px;
+            background-color: color.$input-background-hover;
+
+            @media (width <= screen.$tablet) {
+                margin-right: auto;
+            }
+        }
+
+        @media (width <= screen.$tablet) {
+            margin: 0 auto;
+        }
+
+        &:before {
+            content: "";
+            background-image: url('../images/wheel.svg');
+            background-color: color.$background-primary;
+            width: 30px;
+            height: 30px;
+            display: block;
+            position: absolute;
+            left: -18px;
+            top: 13px;
+            border-radius: 15px;
+            transition: rotate ease 0.5s;
+        }
+
+        &:hover:before {
+            rotate: 45deg
+        }
+    }
+
+    p {
+        padding: 16px;
+        border-radius: 10px;
+        display: block;
+        text-align: center;
+    }
+
+    span {
+        font-weight: bold;
+    }
+}
+
+/******************************************************************/
+/************************ Secondary menu **************************/
+/******************************************************************/
+
+#rda_page_home_secondary_menu {
+    menu {
+        padding-top: 180px;
+    }
+
+    img {
+        width: 55px;
+        font-family: font.$default;
+        display: block;
+        filter: color.$icon;
+        margin: 0 auto;
+    }
+
+    p {
+        margin-top: 10px;
+        font-family: font.$default;
+        text-align: center;
+    }
+
+    a {
+        display: block;
+        height: 90px;
+        width: 90px;
+        margin: 20px auto 20px 19%;
+
+        &:hover {
+            img {
+                filter: color.$icon-hover;
+            }
+
+            p {
+                color: color.$link-hover;
+            }
+        }
     }
 }

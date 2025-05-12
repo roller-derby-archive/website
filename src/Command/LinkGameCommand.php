@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\App\Command;
+namespace App\Command;
 
 use App\Dto\GameIoDto;
 use App\Entity\TeamGame;

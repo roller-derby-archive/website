@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class ViewAction extends AbstractController
 {
     const ROUTE_NAME = 'club_view';
-    #[Route('/club/{id}', name: self::ROUTE_NAME)]
+    #[Route('/clubs/{id}', name: self::ROUTE_NAME)]
     public function view(Club $club): Response
     {
         return $this->render('club/view.html.twig', [

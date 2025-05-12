@@ -22,7 +22,7 @@ final class ViewAction extends AbstractController
         private readonly CacheInterface $cache,
         private readonly EuropeanRankScraper $europeanRankScraper,
     ){}
-    #[Route('/team/{id}', name: self::ROUTE_NAME)]
+    #[Route('/teams/{id}', name: self::ROUTE_NAME)]
     public function view(Team $team): Response
     {
         $flattrackRank = [];

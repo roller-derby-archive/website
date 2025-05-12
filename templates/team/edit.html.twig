@@ -1,5 +1,5 @@
-{% extends 'content.html.twig' %}
-{% set mainId = 'team_edit' %}
+{% extends 'body.html.twig' %}
+{% set pageId = 'team_edit' %}
 
 {% block titleBar %}
     <h1>{{ team.name }}{% if team.disbandAt != null %} ☠️{% endif %}</h1>

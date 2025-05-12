@@ -1,5 +1,5 @@
-{% extends 'content.html.twig' %}
-{% set mainId = 'club_edit' %}
+{% extends 'body.html.twig' %}
+{% set pageId = 'club_edit' %}
 
 {% block titleBar %}
     <h1>{{ club.name }}{% if club.closedAt != null %} ☠️{% endif %}</h1>

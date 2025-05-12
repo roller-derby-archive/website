@@ -24,16 +24,13 @@ final readonly class Texts
                 'title' => 'Contact',
             ],
             'cgu' => [
-                'title' => 'Conditions générales d\'utilisation',
+                'title' => 'CGU',
             ],
             'about' => [
                 'title' => 'A propos',
             ],
             'upgradeLogs' => [
-                'title' => 'Journal d\'évolutions',
-            ],
-            'legal' => [
-                'title' => 'Mentions légales',
+                'title' => 'Journal des mises à jour',
             ],
         ];
     }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\App\Command;
+namespace App\Command;
 
 use App\App;
 use App\Entity\FlattrackRanking;

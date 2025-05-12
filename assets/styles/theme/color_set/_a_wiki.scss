@@ -1,0 +1,43 @@
+// ****** Color set A - Wiki ******
+
+// lighter
+$text-primary: #EBFFFA;
+$border: #EBFFFA;
+$border-hover: #C2FFF0;
+$background-highlight: #ffb2fa;
+$link-hover: #00FFBF;
+
+// medium
+$input-background-hover: #9B6F9A;
+$input-background: #845C83;
+
+// darker
+$background-primary: #60435F;
+$background-secondary: #4832477F;
+
+// Black icon filter
+// See https://isotropic.co/tool/hex-color-to-css-filter/
+
+$icon: invert(100%) sepia(14%) saturate(6168%) hue-rotate(163deg) brightness(110%) contrast(107%);
+$icon-hover: invert(98%) sepia(34%) saturate(7499%) hue-rotate(83deg) brightness(100%) contrast(105%);
+
+// TODO
+
+$text-input-background: #FFFFFF;
+$background-table-row: #D6D6D6;
+$background-hover-primary: #D6D6D6;
+$background-hover-secondary: #D6D6D6;
+$label-category: #CFBDA0;
+$label-level: #B8D6AE;
+$label-type: #D996C8;
+$text-secondary: #000000;
+$border-primary: #a1e9ef;
+$border-secondary: #4E4B4B;
+$link: #efcd8a;
+
+// gradian
+
+$gradian-primary: linear-gradient(90deg, $background-primary 0%, $background-secondary 50%, $background-primary 100%);
+
+
+// NEW

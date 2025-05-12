@@ -1,0 +1,42 @@
+// ****** Color set B - Pink City ******
+
+// lighter
+$text-primary: #E3F9FA;
+$border: #E3F9FA;
+$border-hover: #F8FAE4;
+$link-hover: #E7F35E;
+
+// medium
+$input-background-hover: #0AABB1;
+$input-background: #088E93;
+
+// darker
+$background-primary: #265E63;
+$background-secondary: #0B343C7F;
+
+// Black icon filter
+// See https://isotropic.co/tool/hex-color-to-css-filter/
+
+$icon: invert(100%) sepia(89%) saturate(799%) hue-rotate(169deg) brightness(105%) contrast(96%);
+$icon-hover: invert(89%) sepia(54%) saturate(467%) hue-rotate(5deg) brightness(92%) contrast(108%);
+
+
+$text-input-background: #FFF0F5;
+$background-table-row: #FFD6E2;
+$background-hover-primary: #FFD6E2;
+$background-hover-secondary: #FFD6E2;
+$label-category: #CFBDA0;
+$label-level: #B8D6AE;
+$label-type: #D996C8;
+$text-primary: #594157;
+$text-secondary: #594157;
+$border-primary: #726DA8;
+$border-secondary: #594157;
+$link: #F15156;
+
+
+
+// gradian
+
+$gradian-primary: linear-gradient(90deg, $background-primary 0%, $background-secondary 50%, $background-primary 100%);
+

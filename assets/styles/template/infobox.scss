@@ -1,14 +1,11 @@
-/* Remember, i'm not a frontend developer (@atom) */
+/************** Infobox **************/
 
-@use '../theme';
-
-/***** infobox *****/
+@use '../theme/color_set/a_wiki' as color;
+@use '../theme/border';
 
 .rda-infobox {
     padding: 5px;
     width: 25em;
-    background-color: theme.$color-background-secondary;
-    border: theme.$border-secondary;
     clear: right;
     float: right;
     font-size: 0.9em;
@@ -16,6 +13,8 @@
     margin: 0 0 0.5em 1em;
     max-width: 325px;
     word-wrap: break-word;
+    background-color: color.$background-secondary;
+    border: border.$secondary;
 
     h2 {
         display: table;
@@ -27,9 +26,9 @@
         font-size: 1.4em;
         line-height: 1.1;
         margin-bottom: 10px;
-        background-color: theme.$color-background-secondary;
-        color: theme.$color-text-secondary;
         margin-top: 0;
+        background-color: color.$background-secondary;
+        color: color.$text-secondary;
     }
 
     img {
@@ -43,8 +42,8 @@
         line-height: 1.1;
         margin: 0 0 5px 0;
         padding: 4px;
-        background-color: theme.$color-background-secondary;
-        color: theme.$color-text-secondary;
+        background-color: color.$background-secondary;
+        color: color.$text-secondary;
     }
 
     table {

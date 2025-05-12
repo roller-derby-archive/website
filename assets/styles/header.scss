@@ -1,44 +1,31 @@
-@use 'theme';
+@use 'theme/screen';
 
-#rda_main_header {
-    display: grid;
-    grid-template-columns: 0.4fr 2fr 3fr 2fr;
-    grid-template-areas:
-            'menuButton title searchBar .'
-    ;
-
-    & > aside {
-        display: none;
-    }
-
-    & > a  {
-        grid-area: title;
-
-        @media (width <= theme.$screen-device-mobile) {
-            max-width: 180px;
-            margin-top: 8px;
-        }
-    }
-}
-/* size smartphone */
-@media (width <= 600px) {
-    #main_header {
-        grid-template-columns: 0.4fr 2fr;
-        grid-template-areas:
-            'menuButton title'
-            'searchBar searchBar'
-        ;
-    }
-}
-
-#main_menu_button {
-    grid-area: menuButton;
-    height: 30px;
-    width: 30px;
-    margin: 5px;
-}
-
-/* Search bar */
-#search_bar {
-    grid-area: searchBar;
-}
+//#rda_main_header {
+//    display: grid;
+//    grid-template-columns: 0.4fr 2fr 3fr 2fr;
+//    grid-template-areas:
+//        'menuButton title searchBar .'
+//    ;
+//
+//    & > aside {
+//        display: none;
+//    }
+//
+//    & > a  {
+//        grid-area: title;
+//
+//        @media (width <= screen.$mobile) {
+//            max-width: 180px;
+//            margin-top: 8px;
+//        }
+//    }
+//
+//    @media (width <= screen.$mobile) {
+//        grid-template-columns: 0.4fr 2fr;
+//        grid-template-areas:
+//            'menuButton title'
+//            'searchBar searchBar'
+//        ;
+//    }
+//}
+//

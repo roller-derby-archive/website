@@ -1,0 +1,363 @@
+/************** App **************/
+// Entry point of all app css
+// Unique entry point is justify by usage of Hotwire Turbo because <head> css changes need full page reload.
+
+@use 'reset';
+@use 'header';
+@use 'footer';
+@use 'game/view';
+@use 'template/infobox';
+@use 'template/filters';
+@use 'template/edit';
+@use 'template/list';
+@use 'page/home';
+@use 'theme/color_set/a_wiki' as color;
+@use 'theme/screen';
+@use 'theme/font';
+@use 'theme/border';
+@use 'theme/input';
+@use 'theme/hover';
+
+/************** Fonts **************/
+// Here because have an url issue if declared in themes/font.scss file
+
+@font-face {
+    font-family: 'Franklin Gothic Medium';
+    src: url(fonts/FranklinGothic-Medium.otf) format('opentype');
+}
+@font-face {
+    font-family: 'ShareTech Regular';
+    src: url(fonts/ShareTech-Regular.ttf) format('truetype');
+    font-display: fallback;
+}
+
+/************** Base **************/
+
+body {
+    &.rda-std-body {
+        background:
+                radial-gradient(color.$background-highlight 1px, transparent 4px),
+                radial-gradient(color.$background-highlight 1px, transparent 4px),
+                linear-gradient(color.$background-secondary 4px, transparent 0),
+                linear-gradient(45deg, transparent 74px, transparent 75px, color.$background-highlight 75px, color.$background-highlight 76px, transparent 77px, transparent 109px),
+                linear-gradient(-45deg, transparent 75px, transparent 76px, color.$background-highlight 76px, color.$background-highlight 77px, transparent 78px, transparent 109px),
+                color.$background-primary;
+        background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+        background-position: 54px 55px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    }
+
+    color: color.$text-primary;
+    display: grid;
+
+    @media (width <= screen.$mobile) {
+        
+        body {
+            font-size: 14px;
+        }
+    }
+}
+
+ a {
+    color: color.$text-primary;
+}
+
+// Titles
+
+h1, h2, h3, h4, h5 {
+    font-family: font.$title
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 30px;
+    border-bottom: color.$border-primary;
+}
+
+h2 {
+    font-size: 21px;
+}
+
+// Inputs
+
+input, button, select {
+    @include input.text-primary;
+}
+
+input[type="text"], select, input[type="email"], {
+    padding: 0.3em 0.7em;
+    width: 92%;
+    max-width: 350px;
+}
+
+textarea {
+    @include input.text-primary;
+    height: 100px;
+    width: 100%;
+    resize: none;
+    display: block;
+}
+
+input[type="number"] {
+    padding: 0.3em 0.7em;
+    width: 92%;
+    max-width: 50px;
+}
+
+input:focus {
+    outline: color.$border-primary;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    appearance: none;
+    margin: 0;
+    width: 1em;
+    height: 1em;
+    background-color: color.$background-primary;
+    border: border.$secondary;
+}
+
+input[type="checkbox"] {
+    border-radius: 0.15em;
+}
+
+input[type="radio"] {
+    border-radius: 1em;
+}
+
+.required {
+    position: relative;
+
+    &:after {
+        content: "*";
+        position: absolute;
+        top: -4px;
+        color: color.$link;
+    }
+}
+
+// TODO to main input?
+.rda-submit {
+    border-radius: 0;
+    border: none;
+    height: 37px;
+    margin: 15px 0 5px 0;
+    padding: 0;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: color.$background-primary 50%;
+
+    &:hover {
+        @include hover.pointer-hover-primary;
+    }
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: color.$background-primary;
+    border: border.$primary solid 2px;
+}
+
+
+/************** Generic Class **************/
+
+.rda-logo-box {
+    display: block;
+    width: 36px;
+    height: 36px;
+
+    @media (width <= screen.$mobile) {
+        width: 30px;
+        height: 30px;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        max-width: 36px;
+        max-height: 36px;
+
+        @media (width <= screen.$mobile) {
+            max-width: 30px;
+            max-height: 30px;
+        }
+    }
+}
+
+.rda-main{
+    display: grid;
+
+    @media (screen.$normal <= width) {
+        grid-template-columns: 1fr 3fr 1fr;
+        grid-template-areas:
+            '.          titlebar .           '
+            '.          toolbar   .          '
+            'leftSidebar content rightSidebar';
+        min-height: 800px;
+    }
+
+    @media (screen.$laptop <= width <= screen.$normal) {
+        grid-template-columns: 1fr 3fr;
+        grid-template-areas:
+        '.          titlebar'
+        '.          toolbar'
+        'leftSidebar content';
+    }
+
+    @media (screen.$mobile <= width <= screen.$laptop) {
+        grid-template-columns: 2fr 3fr;
+        grid-template-areas:
+        '.          titlebar'
+        '.          toolbar'
+        'leftSidebar content';
+    }
+
+    @media (width <= screen.$mobile) {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+        ' titlebar'
+        'toolbar'
+        'leftSidebar'
+        'content';
+    }
+}
+
+// TODO rem to px
+.rda-layout {
+    min-width: auto;
+    padding-bottom: 20px;
+    max-width: 99.75rem;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    box-sizing: border-box;
+
+    @media (screen.$normal <= width) {
+        padding-left: 3.25rem;
+        padding-right: 3.25rem;
+    }
+
+    @media (screen.$laptop <= width <= screen.$normal) {
+        padding-left: 2.25rem;
+        padding-right: 2.25rem;
+    }
+
+    @media (screen.$mobile <= width <= screen.$laptop) {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    @media (width <= screen.$mobile) {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+.rda-left-side-bar {
+    grid-area: leftSidebar;
+    margin-right: 10%;
+}
+
+.rda-title-bar {
+    grid-area: titlebar;
+}
+
+.rda-content {
+    grid-area: content;
+    min-height: 700px;
+}
+
+.rda-right-side-bar {
+    grid-area: rightSidebar;
+    margin-left: 10%;
+
+    @media (screen.$normal <= width) {
+        .rda-right-side-bar {
+            display: none;
+        }
+    }
+}
+
+.rda-flag {
+    max-height: 11px;
+    max-width: 18px;
+}
+
+.rda-display-none {
+    display: none !important;
+}
+
+// Tag >>>
+
+.rda-tag {
+    margin-left: 2px;
+    margin-top: 1px;
+    display: block;
+    width: max-content;
+    font-size: 13px;
+    padding: 0 4px;
+    border-radius: 25px;
+    float: left;
+    font-family: font.$label;
+
+    &:first-child {
+        margin-left: 0;
+    }
+}
+
+.rda-tag-category {
+    background-color: color.$label-category;
+    color: color.$text-primary;
+}
+
+.rda-tag-type {
+    background-color: color.$label-type;
+    color: color.$text-secondary;
+}
+
+.rda-tag-level {
+    background-color: color.$label-level;
+    color: color.$text-secondary;
+}
+
+// Tag <<<
+
+/************** TODO **************/
+
+/**** TEST ****/
+
+#drop_zone {
+    border: 5px solid blue;
+    width: 200px;
+    height: 100px;
+}
+
+body {
+    &:after {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 10px;
+        content: "";
+
+        @media (screen.$normal <= width) {
+            background-color: green;
+        }
+
+        @media (screen.$laptop <= width <= screen.$normal) {
+            background-color: yellow;
+        }
+
+        @media (screen.$tablet <= width <= screen.$laptop) {
+            background-color: orangered;
+        }
+
+        @media (screen.$mobile <= width <= screen.$tablet) {
+            background-color: darkred;
+        }
+
+        @media (width <= screen.$mobile) {
+            background-color: black;
+        }
+    }
+}
