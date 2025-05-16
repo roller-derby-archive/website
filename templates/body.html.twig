@@ -2,9 +2,26 @@
 
 {% block body %}
     <body id="{{ pageId }}" {% block bodyclass %}class="rda-std-body" {% endblock %}>
-        {% block header %}{% endblock %}
+        {% block header %}
+            <header id="{{pageId}}_header" class="rda-main-header">
+                <span class="rda-main-header-bar"></span>
+                <a href="{{ backPath }}">retour</a>
+                <span class="rda-main-header-bar"></span>
+                <h1>{{ mainTitle }}</h1>
+                <span class="rda-main-header-bar"></span>
+                <a href="{{ path(routes.page.home) }}">home</a>
+                <span class="rda-main-header-bar"></span>
+            </header>
+        {% endblock %}
         {% block asidebefore %}{% endblock %}
         {% block content %}{% endblock %}
         {% block asideafter %}{% endblock %}
+        {% block footer %}
+            <footer class="rda-main-footer">
+                <span class="rda-main-header-bar"></span>
+                <a href="{{ backPath }}">retour</a>
+                <span class="rda-main-header-bar"></span>
+            </footer>
+        {% endblock %}
     </body>
 {% endblock %}

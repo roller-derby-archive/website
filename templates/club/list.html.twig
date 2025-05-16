@@ -1,12 +1,10 @@
 {% extends 'body.html.twig' %}
 {% set pageId = 'club_list' %}
+{% set mainTitle = 'Associations ('~total~')' %}
+{% set backPath = path(routes.page.home) %}
 
 {% block leftSideBar %}
     {{ include('club/_filter.html.twig') }}
-{% endblock %}
-
-{% block titleBar %}
-    <h1>Les associations ({{ total }})</h1>
 {% endblock %}
 
 {% block toolBar %}
@@ -18,6 +16,16 @@
         <p>Aucune association trouvées avec ces filtres.</p>
     {% else %}
         <ul class="{{ styles.template.listWrapper }}">{% for name, clubs in sortedClubs %}
+                {% if voidIndex == name %}
+                    <li class="rda-void-list">
+                        <ul>
+                            {% for i in 0..voidSpaces %}
+                                <li>VOID</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endif %}
+
                 <li>
                     <ul class="{{ styles.template.list }}">
                         <li><h2>{{ name }} ({{ clubs|length }})</h2></li>

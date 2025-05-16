@@ -1,49 +1,49 @@
 {% extends 'body.html.twig' %}
 {% set pageId = 'team_list' %}
+{% set mainTitle = 'Équipes ('~total~')' %}
+{% set backPath = path(routes.page.home) %}
 
-{% block leftSideBar %}
+{% block asidebefore %}
     {{ include('team/_filter.html.twig') }}
 {% endblock %}
 
-{% block titleBar %}
-    <h1>Les équipes ({{ total }})</h1>
-{% endblock %}
-
 {% block content %}
-    {% if total == 0 %}
-        <p>Aucune équipe trouvée avec ces filtres.</p>
-    {% else %}
-        <ul class="{{ styles.template.listWrapper }}">{% for name, teams in sortedTeams %}
-                <li>
-                    <ul class="{{ styles.template.list }}">
-                        <li><h2>{{ name }}</h2></li>
-                        {% for team in teams %}
-                            <li>
-                                <a href="{{ path(routes.team.view, {id: team.id}) }}">
-                                    <div class="{{ styles.common.logoBox }}">
-                                        {% if team.logo.name != null %}
-                                            {{ include('template/_logo.twig', {hasLogoEntity: team}) }}
-                                        {% else %}
-                                            <img alt="logo-team" src=" https://placehold.co/36x36">
-                                        {% endif %}
-                                    </div>
-                                    <div>
-                                        <p>
-                                            {{ teamName(team.name, team.pronoun) }}
-                                            {% if team.disbandAt != null %} <span>☠️</span>{% endif %}
-                                            {% if team.type == 'N' %}
-                                                {{ include('template/_flag.html.twig', {countryCode: team.countryCode}) }}
+    <main class="rda-content">
+        {% if total == 0 %}
+            <p>Aucune équipe trouvée avec ces filtres.</p>
+        {% else %}
+            <ul class="{{ styles.template.listWrapper }}">{% for name, teams in sortedTeams %}
+                    <li>
+                        <ul class="{{ styles.template.list }}">
+                            <li><h2>{{ name }}</h2></li>
+                            {% for team in teams %}
+                                <li>
+                                    <a href="{{ path(routes.team.view, {id: team.id}) }}">
+                                        <div class="{{ styles.common.logoBox }}">
+                                            {% if team.logo.name != null %}
+                                                {{ include('template/_logo.twig', {hasLogoEntity: team}) }}
+                                            {% else %}
+                                                <img alt="logo-team" src=" https://placehold.co/36x36">
                                             {% endif %}
-                                        </p>
-                                        {{ include('team/_tag.html.twig', {team: team}) }}
-                                    </div>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </li>
-            {% endfor %}</ul>
-    {% endif %}
+                                        </div>
+                                        <div>
+                                            <p>
+                                                {{ teamName(team.name, team.pronoun) }}
+                                                {% if team.disbandAt != null %} <span>☠️</span>{% endif %}
+                                                {% if team.type == 'N' %}
+                                                    {{ include('template/_flag.html.twig', {countryCode: team.countryCode}) }}
+                                                {% endif %}
+                                            </p>
+                                            {{ include('team/_tag.html.twig', {team: team}) }}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                {% endfor %}</ul>
+        {% endif %}
+    </main>
 {% endblock %}
 
 {% block rightSideBar %}

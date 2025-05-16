@@ -11,12 +11,50 @@
     }
 }
 
-.rda-list {
+.rda-void-list {
+    visibility: hidden;
+
+    li {
+        height: 46px;
+    }
+}
+
+.rda-list-wrapper > li {
+    border: solid 2px color.$background-highlight;
+    background-color: color.$background-primary;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, #3E283E7F 3px, #3E283E7F 6px);
+    margin-bottom: 20px;
+
+    li {
+        &:first-child {
+            color: color.$background-highlight;
+            background: color.$background-primary;
+            background:  linear-gradient(0deg, #60435F 0%, #3E283E 100%);
+            border-bottom: solid 2px color.$background-highlight;
+            margin-bottom: 5px;
+
+            h2 {
+                font-family: "ShareTech Regular", Arial, sans-serif;
+                font-size: 23px;
+                text-align: center;
+                display: block;
+                height: 26px;
+                margin-bottom: 5px;
+                padding-top: 8px;
+                padding-bottom: 3px;
+            }
+        }
+    }
+}
+
+.rda-list li {
+    padding: 0 5px;
+    min-width: 400px;
+
     a {
         margin-bottom: 5px;
         display: flex;
-        border-radius: 3px 10px 3px 10px;
-        border: border.$primary;
+        background-color: #C2FFF019;
 
         p:first-child {
             font-weight: bold;
@@ -30,33 +68,21 @@
         p:last-child {
             margin: 3px 0 0 0;
             font-size: 13px;
-            color: color.$text-secondary;
         }
 
         &:hover {
-            @include hover.pointer-hover-primary;
+            background-color: #00FFBF4D;
         }
     }
 
     div:first-child {
         flex: 1;
+        padding: 1px;
     }
 
     div {
         display: block;
-        padding: 5px;
         flex: 10;
-    }
-
-    h2 {
-        text-align: center;
-        background: color.$background-secondary;
-        background: linear-gradient(0deg, transparent, color.$background-secondary, transparent);
-        display: block;
-        height: 38px;
-        margin-bottom: 5px;
-        padding-top: 8px;
-        padding-bottom: 3px;
-        border-radius: 15px;
+        padding: 5px;
     }
 }

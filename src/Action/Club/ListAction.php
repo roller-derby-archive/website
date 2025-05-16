@@ -49,9 +49,43 @@ class ListAction extends AbstractController
             }
         }
 
+        // Club + titles
+        $totalListRows = count($clubs) + count($sortedClubs);
+        $columnLimit = round($totalListRows / 2);
+        $interlineCounter = 0;
+        $interline = 0;
+        $firstColumnRows = 0;
+        $lastFirstColumnRows = 0;
+        $voidIndex = 0;
+        $voidSpaces = 0;
+        $lastIndex = '';
+
+        foreach ($sortedClubs as $index => $sortedClub) {
+            if ($columnLimit < $firstColumnRows) {
+                $voidIndex = $lastIndex;
+                $voidSpaces = $columnLimit - $lastFirstColumnRows + $interline;
+
+                break;
+            }
+
+            $interlineCounter ++;
+            if ($interlineCounter > 2) {
+                $interlineCounter = 0;
+                $interline ++;
+            }
+
+            $lastFirstColumnRows = $firstColumnRows;
+            $firstColumnRows += 1 + count($sortedClub);
+            $lastIndex = $index;
+        }
+
+        // dd('totalListRows', $totalListRows, 'columnLimit', $columnLimit, 'firstColumnRows', $firstColumnRows, 'voidIndex', $voidIndex, 'voidSpaces', $voidSpaces);
+
         return $this->render('club/list.html.twig', [
             'sortedClubs' => $sortedClubs,
             'total' => count($clubs),
+            'voidIndex' => $voidIndex,
+            'voidSpaces' => $voidSpaces,
         ]);
     }
 

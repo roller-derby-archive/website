@@ -1,0 +1,29 @@
+/************** Fonts **************/
+// Here because have an url issue if declared in themes/font.scss file
+
+@font-face {
+    font-family: 'Franklin Gothic Medium';
+    src: url(../fonts/FranklinGothic-Medium.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'ShareTech Regular';
+    src: url(../fonts/ShareTech-Regular.ttf) format('truetype');
+    font-display: fallback;
+}
+
+#rda_page_home_content li {
+    &.rda-club-icon {
+        background-image: url('../images/club.svg');
+    }
+
+    &.rda-team-icon {
+        background-image: url('../images/team.svg');
+    }
+}
+
+#rda_page_home_main_menu li a {
+    &:before {
+        background-image: url('../images/wheel.svg');
+    }
+}
