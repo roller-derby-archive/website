@@ -13,14 +13,14 @@
 @use 'template/list';
 @use 'page/home';
 @use 'theme/color_set/a_wiki' as color;
+@use 'theme/base';
 @use 'theme/screen';
 @use 'theme/font';
 @use 'theme/border';
 @use 'theme/input';
 @use 'theme/hover';
 
-
-/************** Base **************/
+/************** Layout **************/
 
 body {
     &.rda-std-body {
@@ -39,112 +39,12 @@ body {
     display: grid;
 
     @media (width <= screen.$mobile) {
-        
+
         body {
             font-size: 14px;
         }
     }
 }
-
- a {
-    color: color.$text-primary;
-}
-
-// Titles
-
-h1, h2, h3, h4, h5 {
-    font-family: font.$title
-}
-
-h1 {
-    margin-bottom: 20px;
-    font-size: 30px;
-    border-bottom: color.$border-primary;
-}
-
-h2 {
-    font-size: 21px;
-}
-
-// Inputs
-
-input, button, select {
-    @include input.text-primary;
-}
-
-input[type="text"], select, input[type="email"], {
-    padding: 0.3em 0.7em;
-    width: 92%;
-    max-width: 350px;
-}
-
-textarea {
-    @include input.text-primary;
-    height: 100px;
-    width: 100%;
-    resize: none;
-    display: block;
-}
-
-input[type="number"] {
-    padding: 0.3em 0.7em;
-    width: 92%;
-    max-width: 50px;
-}
-
-input:focus {
-    outline: color.$border-primary;
-}
-
-input[type="checkbox"], input[type="radio"] {
-    appearance: none;
-    margin: 0;
-    width: 1em;
-    height: 1em;
-    background-color: color.$background-primary;
-    border: border.$secondary;
-}
-
-input[type="checkbox"] {
-    border-radius: 0.15em;
-}
-
-input[type="radio"] {
-    border-radius: 1em;
-}
-
-.required {
-    position: relative;
-
-    &:after {
-        content: "*";
-        position: absolute;
-        top: -4px;
-        color: color.$link;
-    }
-}
-
-// TODO to main input?
-.rda-submit {
-    border-radius: 0;
-    border: none;
-    height: 37px;
-    margin: 15px 0 5px 0;
-    padding: 0;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: color.$background-primary 50%;
-
-    &:hover {
-        @include hover.pointer-hover-primary;
-    }
-}
-
-input[type="checkbox"]:checked, input[type="radio"]:checked {
-    background-color: color.$background-primary;
-    border: border.$primary solid 2px;
-}
-
 
 /************** Generic Class **************/
 

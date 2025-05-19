@@ -1,0 +1,91 @@
+
+@use '../theme/color';
+@use '../theme/screen';
+
+
+@mixin normal(
+    $background: color.$input-background,
+    $border: color.$border-primary,
+    $font: color.$text-primary,
+    $background-hover: color.$input-background-hover,
+    $border-hover: color.$border-hover,
+    $font-hover: color.$link-hover,
+    $shadow: color.$background-primary,
+) {
+    background-color: $background;
+    border: $border solid;
+    color: $font;
+    text-shadow: $background 2px 2px 1px;
+    border-width: 1px 6px;
+    padding: 6px 20px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+        border-color: $border-hover;
+        color: $font-hover;
+        background-color: $background-hover;
+    }
+}
+
+@mixin big(
+    $background: color.$input-background,
+    $border: color.$border-primary,
+    $font: color.$text-primary,
+    $background-hover: color.$input-background-hover,
+    $border-hover: color.$border-hover,
+    $font-hover: color.$link-hover,
+    $shadow: color.$background-primary,
+) {
+    background-color: $background;
+    border: $border solid;
+    border-width: 2px 10px;
+    text-shadow: $shadow 2px 2px 1px;
+    font-size: 30px;
+    padding: 10px 0;
+    transition: width 0.3s, margin-right 0.3s;
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    position: relative;
+    cursor: pointer;
+
+    @media (width <= screen.$tablet) {
+        padding: 5px 0;
+        transition: none;
+        margin: 0 auto;
+    }
+
+    @media (width <= screen.$mobile) {
+        font-size: 17px;
+        border-width: 1px 6px;
+    }
+
+    &:hover {
+        border-color: $border-hover;
+        color: $font-hover;
+        background-color: $background-hover;
+    }
+
+    &:before {
+        content: "";
+        background-color: $background;
+        width: 30px;
+        height: 30px;
+        display: block;
+        position: absolute;
+        left: -18px;
+        top: 13px;
+        border-radius: 15px;
+        transition: rotate ease 0.5s;
+
+        @media (width <= screen.$tablet) {
+            display: none;
+        }
+    }
+
+    &:hover:before {
+        rotate: 45deg
+    }
+}

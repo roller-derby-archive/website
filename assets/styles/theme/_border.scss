@@ -1,6 +1,11 @@
 /******** Border ********/
 
-@use 'color_set/a_wiki' as color;
+@use 'color';
 
-$primary: color.$border-primary solid 1px;
+
+$primary: color.$border-primary solid 2px;
+
+
+
+
 $secondary: color.$border-secondary solid 1px;

@@ -1,0 +1,44 @@
+@use '../theme/color';
+
+@mixin arrow($color: color.$background-highlight) {
+    position: absolute;
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-top:  solid 5px;
+    border-left: $color solid 5px;
+    rotate: -45deg;
+    top: 11px;
+}
+
+@mixin skewedBar($color: color.$background-highlight) {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 3px;
+    background-color: $color;
+    transform: skew(35deg);
+}
+
+@mixin back($color: color.$background-highlight, $shadow: color.$background-secondary) {
+    font-weight: bold;
+    margin: 23px 0;
+    font-size: 28px;
+    text-shadow: $shadow 2px 2px 1px;
+    color: $color;
+
+    &:nth-child(2) {
+        position: relative;
+        padding-left: 28px;
+
+        &:before {
+            @include arrow($color);
+            left: -12px;
+        }
+
+        &:after {
+            @include arrow($color);
+            left: -1px;
+        }
+    }
+}

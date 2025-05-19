@@ -1,44 +1,11 @@
-@use 'theme/color_set/a_wiki' as color;
-@use 'theme/screen';
-@use 'theme/border';
-@use 'theme/font';
-
-@mixin arrow() {
-    position: absolute;
-    content: "";
-    width: 8px;
-    height: 8px;
-    border-top: color.$background-highlight solid 5px;
-    border-left: color.$background-highlight solid 5px;
-    rotate: -45deg;
-    top: 11px;
-}
+@use 'theme/color';
+@use 'module/bar';
 
 .rda-main-footer {
     display: grid;
     grid-template-columns: 1fr auto 10fr;
 
     a {
-        font-weight: bold;
-        margin: 23px 0;
-        font-size: 28px;
-        font-family: "ShareTech Regular", Arial, sans-serif;
-        text-shadow: color.$background-secondary 2px 2px 1px;
-        color: color.$background-highlight;
-
-        &:nth-child(2) {
-            position: relative;
-            padding-left: 28px;
-
-            &:before {
-                @include arrow;
-                left: -12px;
-            }
-
-            &:after {
-                @include arrow;
-                left: -1px;
-            }
-        }
+        @include bar.back();
     }
 }

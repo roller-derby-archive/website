@@ -1,0 +1,129 @@
+/************** Base **************/
+
+@use 'color';
+@use 'screen';
+@use 'font';
+@use 'border';
+@use 'hover';
+@use '../module/button';
+
+@mixin text-primary() {
+    background-color: color.$text-input-background;
+    color: color.$text-primary;
+    border: border.$primary;
+}
+
+@mixin text-secondary() {
+    background-color: color.$text-input-background;
+    color: color.$text-secondary;
+    border: border.$secondary;
+}
+
+body {
+    font-family: font.$default;
+    color: color.$text-primary;
+
+    body {
+        font-size: 14px;
+    }
+}
+
+a {
+    color: color.$text-primary;
+}
+
+// Titles
+
+h1 {
+    font-weight: bold;
+    margin: 18px 0;
+    font-size: 35px;
+    text-shadow: color.$background-secondary 2px 2px 1px;
+    color: color.$background-highlight;
+}
+
+h2 {
+    font-size: 21px;
+    text-shadow: color.$background-secondary 2px 2px 1px;
+    color: color.$background-highlight;
+}
+
+// Inputs
+
+input[type="submit"], input[type="reset"], button {
+    @include button.normal()
+}
+
+input[type="text"], select, input[type="email"], {
+    padding: 0.3em 0.7em;
+    width: 92%;
+    max-width: 350px;
+}
+
+textarea {
+    @include text-primary;
+    height: 100px;
+    width: 100%;
+    resize: none;
+    display: block;
+}
+
+input[type="number"] {
+    padding: 0.3em 0.7em;
+    width: 92%;
+    max-width: 50px;
+}
+
+input:focus {
+    outline: color.$border-primary;
+}
+
+input[type="checkbox"], input[type="radio"] {
+    appearance: none;
+    margin: 0;
+    width: 1em;
+    height: 1em;
+    background-color: color.$background-primary;
+    border: border.$secondary;
+}
+
+input[type="checkbox"] {
+    border-radius: 0.15em;
+}
+
+input[type="radio"] {
+    border-radius: 1em;
+}
+
+.required {
+    position: relative;
+
+    &:after {
+        content: "*";
+        position: absolute;
+        top: -4px;
+        color: color.$link;
+    }
+}
+
+// TODO to main input?
+.rda-submit {
+    border-radius: 0;
+    border: none;
+    height: 37px;
+    margin: 15px 0 5px 0;
+    padding: 0;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: color.$background-primary 50%;
+
+    &:hover {
+        @include hover.pointer-hover-primary;
+    }
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: color.$background-primary;
+    border: border.$primary solid 2px;
+}
+

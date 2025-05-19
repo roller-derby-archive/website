@@ -1,0 +1,24 @@
+/************** Background **************/
+
+@mixin striped($lightColor, $darkColor) {
+    background-color: $lightColor;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, $darkColor 3px, $darkColor 6px);
+}
+
+@mixin diamonds($highlight, $lightColor, $mediumColor, $darkColor) {
+    background:
+            radial-gradient($highlight 1px, transparent 4px) 54px 55px,
+            radial-gradient($highlight 1px, transparent 4px) 0 0,
+            linear-gradient($darkColor 4px, transparent 0) 0 0,
+            linear-gradient(45deg, transparent 74px, transparent 75px, $lightColor 75px, $lightColor 76px, transparent 77px, transparent 109px) 0 0,
+            linear-gradient(-45deg, transparent 75px, transparent 76px, $lightColor 76px, $lightColor 77px, transparent 78px, transparent 109px) 0 0,
+            $mediumColor
+    ;
+    background-size: 109px 109px, 109px 109px,100% 6px, 109px 109px, 109px 109px;
+}
+
+@mixin dotted($lightColor, $darkColor) {
+    background-color: $lightColor;
+    background-image: radial-gradient($darkColor 1.1px, $lightColor 1.1px);
+    background-size: 22px 22px;
+}

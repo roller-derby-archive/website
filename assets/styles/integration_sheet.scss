@@ -1,0 +1,52 @@
+@use 'reset';
+@use 'url_issues';
+@use 'theme/base';
+@use 'theme/color';
+@use 'theme/background';
+
+body {
+    background-color: #3E283E;
+}
+
+#integration {
+    & > thead {
+        color: #81EDE8;
+    }
+
+    & > tbody > tr > td {
+        padding: 10px;
+        border: solid 1px #569e9a;
+
+        &:first-child {
+            color: #81EDE8;
+        }
+
+        &:last-child {
+            width: 100%;
+        }
+    }
+}
+
+#integration_background_1 {
+    display: block;
+    width: 100%;
+    height: 100px;
+
+    @include background.striped(color.$background-primary, #3E283E7F)
+}
+
+#integration_background_2 {
+    display: block;
+    width: 100%;
+    height: 100px;
+
+    @include background.diamonds(#00CC99, #00664D, #3E283E, #312031)
+}
+
+#integration_background_3 {
+    display: block;
+    width: 100%;
+    height: 100px;
+
+    @include background.dotted(#452449, #F105B5)
+}

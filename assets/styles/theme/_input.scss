@@ -1,16 +1,5 @@
 /******** Input ********/
 
-@use 'color_set/a_wiki' as color;
+
 @use 'border';
 
-@mixin text-primary() {
-    background-color: color.$text-input-background;
-    color: color.$text-primary;
-    border: border.$primary;
-}
-
-@mixin text-secondary() {
-    background-color: color.$text-input-background;
-    color: color.$text-secondary;
-    border: border.$secondary;
-}
