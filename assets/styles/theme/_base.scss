@@ -7,18 +7,6 @@
 @use 'hover';
 @use '../module/button';
 
-@mixin text-primary() {
-    background-color: color.$text-input-background;
-    color: color.$text-primary;
-    border: border.$primary;
-}
-
-@mixin text-secondary() {
-    background-color: color.$text-input-background;
-    color: color.$text-secondary;
-    border: border.$secondary;
-}
-
 body {
     font-family: font.$default;
     color: color.$text-primary;
@@ -50,6 +38,17 @@ h2 {
 
 // Inputs
 
+input, textarea, select {
+    background-color: color.$background-primary;
+    color: color.$text-primary;
+    font-family: font.$default;
+    border: border.$primary;
+}
+
+option {
+    font-family: font.$default;
+}
+
 input[type="submit"], input[type="reset"], button {
     @include button.normal()
 }
@@ -61,7 +60,6 @@ input[type="text"], select, input[type="email"], {
 }
 
 textarea {
-    @include text-primary;
     height: 100px;
     width: 100%;
     resize: none;
@@ -95,6 +93,13 @@ input[type="radio"] {
     border-radius: 1em;
 }
 
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+    background-color: color.$background-highlight;
+    border: border.$primary solid 2px;
+}
+
+
+
 .required {
     position: relative;
 
@@ -122,8 +127,4 @@ input[type="radio"] {
     }
 }
 
-input[type="checkbox"]:checked, input[type="radio"]:checked {
-    background-color: color.$background-primary;
-    border: border.$primary solid 2px;
-}
 

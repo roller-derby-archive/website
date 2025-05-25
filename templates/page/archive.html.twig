@@ -1,0 +1,15 @@
+{% extends 'body.html.twig' %}
+{% set pageId = 'rda_archive' %}
+{% set backPath = path(routes.page.home) %}
+{% set mainTitle = 'Archives' %}
+
+{% block content %}
+    <main id="rda_archive_content">
+        <menu>
+            <li><a href="{{ path(routes.club.list) }}">Associations</a></li>
+            <li><a href="{{ path(routes.team.list) }}">Équipes</a></li>
+            <li><a href="{{ path(routes.event.list) }}">Évenements</a></li>
+            <li><a href="{{ path(routes.championship.list) }}">Championats</a></li>
+        </menu>
+    </main>
+{% endblock %}

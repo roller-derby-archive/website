@@ -5,7 +5,7 @@
 
 .rda-main-header {
     display: grid;
-    grid-template-columns: 1fr auto 5fr auto 2fr auto 1fr;
+    grid-template-columns: 1fr auto 2fr auto 5fr auto 1fr;
 
     a {
         @include bar.back();

@@ -6,6 +6,7 @@ namespace App\App;
 
 use App\Action\Api\SearchAction;
 use App\Action\Club;
+use App\Action\Event;
 use App\Action\Page\AboutAction;
 use App\Action\Page\CguAction;
 use App\Action\Page\ContactAction;
@@ -35,9 +36,12 @@ final readonly class Routes
             ],
             'game' => [ // TODO
                 'view' => Team\ViewAction::ROUTE_NAME,
-                'list' => Team\ListAction::ROUTE_NAME,
-                'edit' => Team\EditAction::ROUTE_NAME,
-                'create' => Team\CreateAction::ROUTE_NAME,
+            ],
+            'event' => [ // TODO
+                'view' => Event\ViewAction::ROUTE_NAME,
+                'list' => Event\ListAction::ROUTE_NAME,
+                'edit' => Event\EditAction::ROUTE_NAME,
+                'create' => Event\CreateAction::ROUTE_NAME,
             ],
             'championship' => [ // TODO
                 'view' => Team\ViewAction::ROUTE_NAME,
